@@ -1,0 +1,38 @@
+services:
+  postgres:
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+
+  backend:
+    build:
+      target: development
+    command: >-
+      sh -c "uv run --no-sync python manage.py migrate &&
+      uv run --no-sync python manage.py runserver 0.0.0.0:8000"
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.development
+      DJANGO_DEBUG: "true"
+      DJANGO_SECURE_SSL_REDIRECT: "false"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - backend_venv:/app/.venv
+      - media_data:/app/media
+      - static_data:/app/staticfiles
+
+  frontend:
+    build:
+      target: development
+    environment:
+      API_INTERNAL_URL: http://backend:8000
+      PUBLIC_SITE_URL: http://localhost:4321
+    ports:
+      - "4321:4321"
+    volumes:
+      - ../npca-frontend:/app
+      - frontend_node_modules:/app/node_modules
+
+volumes:
+  backend_venv:
+  frontend_node_modules:

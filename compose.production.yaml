@@ -1,0 +1,86 @@
+services:
+  postgres:
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+    restart: unless-stopped
+
+  volume-init:
+    image: busybox:1.37
+    command: ["sh", "-c", "chown -R 10001:10001 /app/media /app/staticfiles"]
+    user: "0:0"
+    volumes:
+      - media_data:/app/media
+      - static_data:/app/staticfiles
+    restart: "no"
+
+  setup:
+    build:
+      context: .
+      target: production
+    command: >-
+      sh -c "uv run --no-sync python manage.py migrate --noinput &&
+      uv run --no-sync python manage.py collectstatic --noinput"
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.production
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:?DJANGO_SECRET_KEY is required}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:?DJANGO_ALLOWED_HOSTS is required}
+      DJANGO_CSRF_TRUSTED_ORIGINS: ${DJANGO_CSRF_TRUSTED_ORIGINS:?DJANGO_CSRF_TRUSTED_ORIGINS is required}
+      DJANGO_SECURE_SSL_REDIRECT: "true"
+      DATABASE_URL: postgresql://${POSTGRES_USER:-npca}:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}@postgres:5432/${POSTGRES_DB:-npca}
+      MEDIA_ROOT: /app/media
+      STATIC_ROOT: /app/staticfiles
+    depends_on:
+      postgres:
+        condition: service_healthy
+      volume-init:
+        condition: service_completed_successfully
+    volumes:
+      - media_data:/app/media
+      - static_data:/app/staticfiles
+    networks: [npca]
+    restart: "no"
+
+  backend:
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.production
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:?DJANGO_SECRET_KEY is required}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:?DJANGO_ALLOWED_HOSTS is required}
+      DJANGO_CSRF_TRUSTED_ORIGINS: ${DJANGO_CSRF_TRUSTED_ORIGINS:?DJANGO_CSRF_TRUSTED_ORIGINS is required}
+      DJANGO_SECURE_SSL_REDIRECT: "true"
+      DATABASE_URL: postgresql://${POSTGRES_USER:-npca}:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}@postgres:5432/${POSTGRES_DB:-npca}
+    depends_on:
+      setup:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  frontend:
+    build:
+      args:
+        PUBLIC_SITE_URL: https://${SITE_ADDRESS:?SITE_ADDRESS is required}
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2.10-alpine
+    environment:
+      SITE_ADDRESS: ${SITE_ADDRESS:?SITE_ADDRESS is required}
+    depends_on:
+      backend:
+        condition: service_healthy
+      frontend:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./infra/Caddyfile:/etc/caddy/Caddyfile:ro
+      - media_data:/srv/media:ro
+      - static_data:/srv/static:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [npca]
+    restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:

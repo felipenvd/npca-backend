@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: npca_test
+          POSTGRES_USER: npca
+          POSTGRES_PASSWORD: npca
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U npca -d npca_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DJANGO_SETTINGS_MODULE: config.settings.development
+      DJANGO_SECRET_KEY: ci-only-secret-key
+      DATABASE_URL: postgresql://npca:npca@localhost:5432/npca_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.14"
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run poe check
+      - if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: docker build --target production -t npca-backend:test .

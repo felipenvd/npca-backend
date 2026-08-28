@@ -1,0 +1,60 @@
+name: npca
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-npca}
+      POSTGRES_USER: ${POSTGRES_USER:-npca}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-npca}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks: [npca]
+
+  backend:
+    build:
+      context: .
+      target: production
+    environment:
+      DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE:-config.settings.production}
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-unsafe-development-key}
+      DJANGO_DEBUG: ${DJANGO_DEBUG:-false}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1,backend}
+      DJANGO_CSRF_TRUSTED_ORIGINS: ${DJANGO_CSRF_TRUSTED_ORIGINS:-http://localhost}
+      DJANGO_SECURE_SSL_REDIRECT: ${DJANGO_SECURE_SSL_REDIRECT:-false}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-npca}:${POSTGRES_PASSWORD:-npca}@postgres:5432/${POSTGRES_DB:-npca}
+      MEDIA_ROOT: /app/media
+      STATIC_ROOT: /app/staticfiles
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - media_data:/app/media
+      - static_data:/app/staticfiles
+    networks: [npca]
+
+  frontend:
+    build:
+      context: ../npca-frontend
+      target: production
+    environment:
+      API_INTERNAL_URL: http://backend:8000
+      PUBLIC_API_BASE_URL: /api/v1
+      PUBLIC_DEFAULT_LOCALE: pt-br
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks: [npca]
+
+networks:
+  npca:
+
+volumes:
+  postgres_data:
+  media_data:
+  static_data:

@@ -1,0 +1,32 @@
+{$SITE_ADDRESS} {
+  encode zstd gzip
+
+  header {
+    -Server
+    Referrer-Policy "strict-origin-when-cross-origin"
+    X-Content-Type-Options "nosniff"
+    X-Frame-Options "DENY"
+  }
+
+  handle_path /media/* {
+    root * /srv/media
+    file_server
+  }
+
+  handle_path /static/* {
+    root * /srv/static
+    file_server
+  }
+
+  handle /api/v1/* {
+    reverse_proxy backend:8000
+  }
+
+  handle /admin* {
+    reverse_proxy backend:8000
+  }
+
+  handle {
+    reverse_proxy frontend:4321
+  }
+}

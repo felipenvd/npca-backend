@@ -1,0 +1,117 @@
+[project]
+name = "npca-backend"
+version = "0.1.0"
+description = "API e administração do site do NPCA"
+readme = "README.md"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+  "django>=5.2,<5.3",
+  "django-unfold>=0.102,<0.103",
+  "django-environ>=0.12,<1",
+  "django-ninja>=1.4,<2",
+  "pillow>=11,<13",
+  "psycopg[binary]>=3.2,<4",
+  "uvicorn[standard]>=0.35,<1",
+]
+
+[dependency-groups]
+dev = [
+  "poethepoet>=0.48,<1",
+  "pytest>=8.4,<10",
+  "pytest-django>=4.11,<5",
+  "ruff>=0.12,<1",
+]
+
+[tool.uv]
+package = false
+
+[tool.poe.tasks.dev]
+help = "Inicia o servidor de desenvolvimento do Django"
+cmd = "python manage.py runserver"
+
+[tool.poe.tasks.migrate]
+help = "Aplica as migrations pendentes"
+cmd = "python manage.py migrate"
+
+[tool.poe.tasks.migrations]
+help = "Cria migrations a partir das alterações nos modelos"
+cmd = "python manage.py makemigrations"
+
+[tool.poe.tasks.superuser]
+help = "Cria um superusuário autenticado por e-mail"
+cmd = "python manage.py createsuperuser"
+
+[tool.poe.tasks.test]
+help = "Executa os testes do backend"
+cmd = "pytest"
+
+[tool.poe.tasks.lint]
+help = "Verifica o código com Ruff"
+cmd = "ruff check ."
+
+[tool.poe.tasks.format]
+help = "Formata o código com Ruff"
+cmd = "ruff format ."
+
+[tool.poe.tasks.format-check]
+help = "Verifica a formatação sem alterar arquivos"
+cmd = "ruff format --check ."
+
+[tool.poe.tasks.migrations-check]
+help = "Verifica se existem migrations não criadas"
+cmd = "python manage.py makemigrations --check --dry-run"
+
+[tool.poe.tasks.django-check]
+help = "Executa as verificações do Django"
+cmd = "python manage.py check"
+
+[tool.poe.tasks.check]
+help = "Executa todas as verificações usadas na CI"
+sequence = ["format-check", "lint", "test", "migrations-check", "django-check"]
+
+[tool.poe.tasks.up]
+help = "Constrói e inicia o ambiente Docker de desenvolvimento"
+cmd = "docker compose -f compose.yaml -f compose.dev.yaml up --build"
+executor = "simple"
+
+[tool.poe.tasks.down]
+help = "Encerra o ambiente Docker sem remover os volumes"
+cmd = "docker compose -f compose.yaml -f compose.dev.yaml down"
+executor = "simple"
+
+[tool.poe.tasks.logs]
+help = "Acompanha os logs do ambiente Docker"
+cmd = "docker compose -f compose.yaml -f compose.dev.yaml logs --follow"
+executor = "simple"
+
+[tool.poe.tasks.ps]
+help = "Mostra o estado dos serviços Docker"
+cmd = "docker compose -f compose.yaml -f compose.dev.yaml ps"
+executor = "simple"
+
+[tool.poe.tasks.docker-config]
+help = "Valida a configuração Docker de desenvolvimento"
+cmd = "docker compose -f compose.yaml -f compose.dev.yaml config --quiet"
+executor = "simple"
+
+[tool.poe.tasks.docker-superuser]
+help = "Cria um superusuário no backend em execução no Docker"
+cmd = "docker compose -f compose.yaml -f compose.dev.yaml exec backend uv run --no-sync python manage.py createsuperuser"
+executor = "simple"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.development"
+python_files = ["test_*.py", "*_test.py"]
+addopts = "-ra --strict-markers"
+
+[tool.ruff]
+target-version = "py314"
+line-length = 100
+extend-exclude = ["*/migrations/*"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "DJ"]
+ignore = ["DJ001"]
+
+[tool.ruff.format]
+quote-style = "double"
