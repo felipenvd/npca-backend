@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "apps.core.apps.CoreConfig",
     "apps.news.apps.NewsConfig",
     "apps.researchers.apps.ResearchersConfig",
+    "apps.projects.apps.ProjectsConfig",
 ]
 
 MIDDLEWARE = [
