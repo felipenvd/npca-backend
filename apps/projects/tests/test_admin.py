@@ -63,6 +63,8 @@ def test_admin_add_page_exposes_editorial_fields_and_two_languages(client) -> No
     assert "Descrição *" in content
     assert "Coordenador *" in content
     assert "Data de início *" in content
+    assert content.count('type="date"') == 2
+    assert "vDateField" not in content
     assert "Gerado automaticamente a partir do título" in content
     assert "Texto alternativo" not in content
     assert "Site do projeto" in content

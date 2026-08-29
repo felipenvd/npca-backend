@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.forms.models import BaseInlineFormSet
 from django.utils.text import slugify
 from unfold.contrib.forms.widgets import WysiwygWidget
-from unfold.widgets import UnfoldAdminURLInputWidget
+from unfold.widgets import UnfoldAdminTextInputWidget, UnfoldAdminURLInputWidget
 
 from apps.core.sanitizers import sanitize_rich_text
 
@@ -11,6 +11,26 @@ from .models import Project, ProjectTeamMember, ProjectTranslation, publication_
 
 
 class ProjectForm(forms.ModelForm):
+    start_date = forms.DateField(
+        label="Data de início *",
+        required=False,
+        input_formats=["%Y-%m-%d"],
+        widget=UnfoldAdminTextInputWidget(attrs={"type": "date"}),
+        help_text=(
+            "Obrigatória para publicar. Use o seletor ou informe a data no formato "
+            "exibido pelo navegador."
+        ),
+    )
+    end_date = forms.DateField(
+        label="Data de término",
+        required=False,
+        input_formats=["%Y-%m-%d"],
+        widget=UnfoldAdminTextInputWidget(attrs={"type": "date"}),
+        help_text=(
+            "Obrigatória para publicar projetos concluídos. Use o seletor ou informe "
+            "a data no formato exibido pelo navegador."
+        ),
+    )
     website_url = forms.URLField(
         label="Site do projeto",
         required=False,
@@ -41,14 +61,9 @@ class ProjectForm(forms.ModelForm):
             "is_featured",
             "display_order",
         )
-        labels = {
-            "coordinator": "Coordenador *",
-            "start_date": "Data de início *",
-        }
+        labels = {"coordinator": "Coordenador *"}
         help_texts = {
             "coordinator": "Obrigatório para publicar.",
-            "start_date": "Obrigatória para publicar.",
-            "end_date": "Obrigatória para publicar projetos concluídos.",
             "display_order": "Define a posição entre projetos da mesma situação.",
             "is_featured": "Projetos destacados podem aparecer na página inicial.",
         }
