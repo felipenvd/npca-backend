@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "apps.researchers.apps.ResearchersConfig",
     "apps.projects.apps.ProjectsConfig",
     "apps.publications.apps.PublicationsConfig",
+    "apps.events.apps.EventsConfig",
 ]
 
 MIDDLEWARE = [

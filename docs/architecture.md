@@ -406,16 +406,16 @@ Campos editoriais traduzíveis não serão duplicados diretamente no modelo prin
 
 #### Evento
 
-- título;
-- slug;
-- descrição;
-- imagem;
-- tipo;
-- data e hora inicial;
-- data e hora final;
-- local ou URL;
-- situação;
-- inscrição externa.
+- status editorial (`draft`, `published` ou `archived`);
+- situação manual (`scheduled`, `postponed` ou `canceled`);
+- estado temporal calculado (`upcoming`, `ongoing` ou `past`);
+- tipo fixo: palestra, seminário, workshop, curso, defesa, conferência, encontro ou outro;
+- modalidade (`in_person`, `online` ou `hybrid`);
+- datas inicial e final, opção de dia inteiro e horários opcionais;
+- imagem opcional, crédito e texto alternativo localizado;
+- URL de acesso online e inscrição externa opcionais;
+- ordem de exibição, publicação e auditoria;
+- traduções com título, slug, resumo, descrição HTML, local, endereço e SEO.
 
 #### Laboratório
 
@@ -517,6 +517,24 @@ com nome UUID. O crédito será global e o texto alternativo localizado poderá 
 quando a imagem for apenas decorativa. Cards e detalhes usarão um fallback visual próprio
 quando não houver imagem.
 
+Eventos serão a quinta implementação do padrão bilíngue. Rascunhos poderão permanecer
+incompletos; a publicação exigirá tipo, modalidade, período válido e traduções PT-BR e EN
+com título, slug, resumo e descrição. Eventos presenciais exigirão local e endereço;
+eventos online exigirão URL de acesso; híbridos exigirão ambos. A primeira publicação
+definirá `published_at`, preservado em arquivamentos, retornos a rascunho e republicações.
+
+O calendário aceitará eventos de dia inteiro ou com horário, sempre interpretados e
+exibidos em `America/Belem`. A situação de agendado, adiado ou cancelado será editorial,
+enquanto o estado de próximo, em andamento ou passado será calculado automaticamente a
+partir dos limites inicial e final. Eventos cancelados e adiados permanecerão públicos
+com avisos; adiados somente aparecerão na home quando tiverem nova data futura.
+
+A imagem seguirá a validação compartilhada, receberá nome UUID e será opcional, com
+crédito global e texto alternativo localizado. A inscrição será apenas um link externo e
+o frontend só exibirá seu CTA para eventos agendados que ainda não terminaram. Não haverá
+recorrência, palestrantes relacionados, inscrição interna, capacidade, cobrança ou
+notificações nesta versão.
+
 ## 9. API
 
 A API pública será versionada a partir de `/api/v1/`.
@@ -583,6 +601,23 @@ A listagem priorizará o ano mais recente, seguido da ordem manual, título e ID
 publicações com status publicado serão retornadas. O detalhe incluirá autoria ordenada,
 imagem de divulgação, DOI, URL externa, PDF, projeto público relacionado, SEO e idiomas
 equivalentes. Arquivos continuarão usando caminhos relativos a `/media/`.
+
+Eventos exporá as consultas abaixo:
+
+```text
+GET /api/v1/events?lang=pt-br&page=1&page_size=12&period=upcoming
+GET /api/v1/events?lang=pt-br&page=1&page_size=12&period=past
+GET /api/v1/events?lang=pt-br&page=1&page_size=12&period=all
+GET /api/v1/events?lang=pt-br&period=upcoming&include_canceled=false&page_size=3
+GET /api/v1/events/{slug}?lang=pt-br
+```
+
+A listagem também aceitará filtro por tipo. Próximos colocarão eventos em andamento
+antes dos futuros e, depois, usarão início crescente, ordem manual, título e ID. Passados
+usarão término decrescente. Cancelados continuarão nas listagens e detalhes, mas serão
+omitidos da consulta da home. O detalhe incluirá agenda, tipo, modalidade, situação,
+estado temporal, imagem, localização, acesso online, inscrição aplicável, SEO e slugs
+equivalentes. Mídia continuará usando caminhos relativos a `/media/`.
 
 Erros da API usarão Problem Details conforme o RFC 9457, com
 `Content-Type: application/problem+json` e os campos `type`, `title`, `status`,

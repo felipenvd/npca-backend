@@ -7,6 +7,7 @@ from ninja import NinjaAPI
 
 from apps.core.api import router as core_router
 from apps.core.problems import register_problem_handlers
+from apps.events.api import router as events_router
 from apps.news.api import router as news_router
 from apps.projects.api import router as projects_router
 from apps.publications.api import router as publications_router
@@ -27,6 +28,7 @@ api.add_router("/news", news_router)
 api.add_router("/researchers", researchers_router)
 api.add_router("/projects", projects_router)
 api.add_router("/publications", publications_router)
+api.add_router("/events", events_router)
 
 urlpatterns = [
     path("admin/", admin.site.urls),

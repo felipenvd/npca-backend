@@ -1,4 +1,4 @@
-# Save game — Notícias, Pesquisadores, Projetos e Publicações concluídos
+# Save game — Notícias, Pesquisadores, Projetos, Publicações e Eventos concluídos
 
 Última atualização: 29 de agosto de 2026.
 
@@ -8,11 +8,11 @@ Este documento registra o ponto de retomada dos dois repositórios do novo site 
 
 | Repositório | Branch atual | Último marco funcional |
 | --- | --- | --- |
-| `npca-backend` | `develop` | `4fb6133` |
-| `npca-frontend` | `develop` | `5fd4822` |
+| `npca-backend` | `develop` | `59613a4` |
+| `npca-frontend` | `develop` | `82bbf59` |
 | `site-npca` | somente referência | `f348889` |
 
-Os commits coordenados das três fatias concluídas são:
+Os commits coordenados das quatro primeiras fatias são:
 
 ```text
 Notícias backend:       d1d602e feat(news): implementa gerenciamento e API bilíngue
@@ -21,10 +21,14 @@ Pesquisadores backend:  f1c4e08 feat(researchers): implementa gerenciamento e AP
 Pesquisadores frontend: 275a37e feat(researchers): integra perfis bilíngues ao site
 Projetos backend:        4fb6133 feat(projects): implementa gerenciamento e API bilíngue
 Projetos frontend:       5fd4822 feat(projects): integra projetos bilíngues ao site
+Publicações backend:     2d27acc feat(publications): implementa gerenciamento e API bilíngue
+Publicações frontend:    d9599ea feat(publications): integra publicações bilíngues ao site
+Imagens backend:         59613a4 feat(publications): adiciona imagem de divulgação
+Imagens frontend:        82bbf59 feat(publications): exibe imagens nos cards e detalhes
 ```
 
-A quarta fatia, Publicações, está implementada e validada no working tree dos dois
-repositórios, ainda sem commit coordenado registrado neste documento.
+A quinta fatia, Eventos, está implementada e validada no working tree dos dois
+repositórios, ainda sem commit coordenado.
 
 Não modificar nem importar código, cards ou registros fictícios do `site-npca`.
 
@@ -193,6 +197,56 @@ Rotas:
 /en/publications/[id]/
 ```
 
+## Eventos
+
+A quinta fatia vertical está implementada e validada na branch `develop`.
+
+### Backend
+
+- app `apps.events` com Admin Unfold, formulários, schemas, API, validações e testes;
+- status editorial independente da situação agendada, adiada ou cancelada;
+- estado temporal próximo, em andamento ou passado calculado em `America/Belem`;
+- tipos fixos e modalidades presencial, online e híbrida;
+- datas inicial e final, eventos de dia inteiro ou com horários opcionais;
+- regras de local físico e URL de acesso de acordo com a modalidade;
+- rascunhos incompletos e publicação bilíngue validada;
+- título, slug estável, resumo, descrição sanitizada, localização, texto alternativo e SEO
+  localizados em PT-BR e EN;
+- imagem opcional com nome UUID, validação compartilhada, crédito e fallback no frontend;
+- inscrição somente por link externo;
+- cancelados e adiados permanecem públicos com sua situação explícita;
+- `published_at` preservado após arquivamento, rascunho ou republicação;
+- migration `events.0001_initial` criada e aplicada no PostgreSQL de desenvolvimento;
+- endpoints públicos adicionados:
+
+```text
+GET /api/v1/events?lang=pt-br&page=1&page_size=12&period=upcoming
+GET /api/v1/events?lang=pt-br&page=1&page_size=12&period=past
+GET /api/v1/events?lang=pt-br&page=1&page_size=12&period=all
+GET /api/v1/events?lang=pt-br&period=upcoming&include_canceled=false&page_size=3
+GET /api/v1/events/{slug}?lang=pt-br
+```
+
+### Frontend
+
+- OpenAPI regenerado e cliente SSR tipado;
+- até três próximos eventos na home, imediatamente após Projetos e antes de Publicações;
+- listagem SSR com filtros por período e tipo preservados na URL e paginação;
+- detalhe bilíngue com agenda, localização, acesso online e inscrição quando aplicável;
+- cards com imagem ou fallback, data, tipo, modalidade e avisos editoriais;
+- cancelamento e adiamento destacados sem retirar o detalhe do ar;
+- navegação desktop e mobile atualizada, com breakpoint ampliado para evitar sobreposição;
+- canonical e `hreflang` preservando filtros, Open Graph e JSON-LD `Event`.
+
+Rotas:
+
+```text
+/pt-br/eventos/
+/pt-br/eventos/[slug]/
+/en/events/
+/en/events/[slug]/
+```
+
 ## Acabamento global do frontend
 
 - logos vetoriais específicos para os temas claro e escuro;
@@ -202,17 +256,19 @@ Rotas:
   escolha explícita;
 - menu mobile bilíngue com diálogo nativo, fechamento por `Esc`, controle de foco,
   idioma e tema;
-- indicação visual e semântica da rota ativa em Notícias, Pesquisadores, Projetos e
-  Publicações.
+- indicação visual e semântica da rota ativa em Notícias, Pesquisadores, Projetos,
+  Eventos e Publicações.
 
 ## Verificações realizadas nesta fatia
 
-- suíte completa do backend: 99 testes passaram com PostgreSQL;
+- suíte completa do backend: 114 testes passaram com PostgreSQL;
 - Ruff, formatação, Django Check e migrations check passaram;
-- migrations de Projetos e Publicações aplicadas no PostgreSQL de desenvolvimento;
+- migrations de Projetos, Publicações e Eventos aplicadas no PostgreSQL de desenvolvimento;
 - OpenAPI regenerado a partir do backend em execução;
 - Prettier, ESLint, Astro Check e build passaram;
 - Compose de desenvolvimento e produção passou na validação;
+- smoke HTTP integrado confirmou home, listagens e detalhe de Eventos em PT-BR/EN;
+- o HTML de Eventos confirmou navegação ativa, canonical, `hreflang` e JSON-LD `Event`;
 - smoke HTTP integrado com registro temporário isolado confirmou listagem e detalhe de
   Publicações em PT-BR/EN com `200`;
 - o HTML servido confirmou título localizado, `aria-current="page"`, `hreflang`, projeto
@@ -233,11 +289,11 @@ manualmente.
 
 ## Próximos passos
 
-1. Criar uma publicação real completa no Admin e executar o smoke editorial.
-2. Conferir visualmente listagem e detalhe em desktop e mobile.
-3. Validar autoria, PDF, links, teclado, alternância de idioma e metadados do detalhe.
-4. Criar os commits coordenados de Publicações nos dois repositórios.
-5. Enviar a branch `develop`, fazer code review e publicar em homologação.
+1. Criar um evento real completo no Admin e executar o smoke editorial.
+2. Conferir visualmente home, listagem e detalhe em desktop e mobile.
+3. Validar calendário, modalidades, estados editoriais, links, idioma e metadados.
+4. Criar os commits coordenados de Eventos nos dois repositórios.
+5. Enviar a branch `develop`, fazer code review e seguir para Laboratórios.
 
 Comandos principais:
 
