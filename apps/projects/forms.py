@@ -3,9 +3,10 @@ from django.core.exceptions import ValidationError
 from django.forms.models import BaseInlineFormSet
 from django.utils.text import slugify
 from unfold.contrib.forms.widgets import WysiwygWidget
-from unfold.widgets import UnfoldAdminTextInputWidget, UnfoldAdminURLInputWidget
+from unfold.widgets import UnfoldAdminURLInputWidget
 
 from apps.core.sanitizers import sanitize_rich_text
+from apps.core.widgets import EnhancedAdminDateWidget
 
 from .models import Project, ProjectTeamMember, ProjectTranslation, publication_errors
 
@@ -14,21 +15,16 @@ class ProjectForm(forms.ModelForm):
     start_date = forms.DateField(
         label="Data de início *",
         required=False,
-        input_formats=["%Y-%m-%d"],
-        widget=UnfoldAdminTextInputWidget(attrs={"type": "date"}),
-        help_text=(
-            "Obrigatória para publicar. Use o seletor ou informe a data no formato "
-            "exibido pelo navegador."
-        ),
+        widget=EnhancedAdminDateWidget(),
+        help_text=("Obrigatória para publicar. Use o calendário ou informe no formato dd/mm/aaaa."),
     )
     end_date = forms.DateField(
         label="Data de término",
         required=False,
-        input_formats=["%Y-%m-%d"],
-        widget=UnfoldAdminTextInputWidget(attrs={"type": "date"}),
+        widget=EnhancedAdminDateWidget(),
         help_text=(
-            "Obrigatória para publicar projetos concluídos. Use o seletor ou informe "
-            "a data no formato exibido pelo navegador."
+            "Obrigatória para publicar projetos concluídos. Use o calendário ou "
+            "informe no formato dd/mm/aaaa."
         ),
     )
     website_url = forms.URLField(

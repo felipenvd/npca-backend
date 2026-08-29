@@ -1,3 +1,5 @@
+from datetime import date
+
 import pytest
 from django.urls import reverse
 
@@ -63,8 +65,10 @@ def test_admin_add_page_exposes_editorial_fields_and_two_languages(client) -> No
     assert "Descrição *" in content
     assert "Coordenador *" in content
     assert "Data de início *" in content
-    assert content.count('type="date"') == 2
-    assert "vDateField" not in content
+    assert content.count("npca-enhanced-date-field") == 2
+    assert "core/admin/enhanced_date_picker.js" in content
+    assert "core/admin/enhanced_date_picker.css" in content
+    assert "dd/mm/aaaa" in content
     assert "Gerado automaticamente a partir do título" in content
     assert "Texto alternativo" not in content
     assert "Site do projeto" in content
@@ -106,7 +110,7 @@ def test_admin_blocks_incomplete_publication_and_accepts_complete_project(client
     data.update(
         {
             "coordinator": str(coordinator.pk),
-            "start_date": "2026-01-01",
+            "start_date": "01/01/2026",
             "translations-1-title": "Amazon Project",
             "translations-1-summary": "Summary",
             "translations-1-body_html": "<p>Description</p>",
@@ -117,6 +121,7 @@ def test_admin_blocks_incomplete_publication_and_accepts_complete_project(client
     assert valid_response.status_code == 302
     project = Project.objects.get()
     assert project.status == Project.Status.PUBLISHED
+    assert project.start_date == date(2026, 1, 1)
     assert project.published_at is not None
 
 
