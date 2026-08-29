@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.forms.models import BaseInlineFormSet
 from django.utils.text import slugify
 from unfold.contrib.forms.widgets import WysiwygWidget
+from unfold.widgets import UnfoldAdminURLInputWidget
 
 from apps.core.sanitizers import sanitize_rich_text
 
@@ -14,9 +15,20 @@ class ResearcherForm(forms.ModelForm):
         label="Currículo Lattes",
         required=False,
         assume_scheme="https",
+        widget=UnfoldAdminURLInputWidget(),
     )
-    orcid_url = forms.URLField(label="ORCID", required=False, assume_scheme="https")
-    linkedin_url = forms.URLField(label="LinkedIn", required=False, assume_scheme="https")
+    orcid_url = forms.URLField(
+        label="ORCID",
+        required=False,
+        assume_scheme="https",
+        widget=UnfoldAdminURLInputWidget(),
+    )
+    linkedin_url = forms.URLField(
+        label="LinkedIn",
+        required=False,
+        assume_scheme="https",
+        widget=UnfoldAdminURLInputWidget(),
+    )
 
     class Meta:
         model = Researcher

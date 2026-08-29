@@ -1,7 +1,9 @@
 import pytest
 from django.forms import inlineformset_factory
+from unfold.widgets import UnfoldAdminURLInputWidget
 
 from apps.researchers.forms import (
+    ResearcherForm,
     ResearcherTranslationForm,
     ResearcherTranslationInlineFormSet,
 )
@@ -140,3 +142,13 @@ def test_translation_form_explains_activation_requirements() -> None:
     assert "quando houver foto" in form.fields["photo_alt_text"].help_text
     assert form.fields["seo_title"].help_text.startswith("Opcional.")
     assert form.fields["seo_description"].help_text.startswith("Opcional.")
+
+
+def test_researcher_url_fields_use_unfold_widgets() -> None:
+    form = ResearcherForm()
+
+    for field_name in ("lattes_url", "orcid_url", "linkedin_url"):
+        widget = form.fields[field_name].widget
+        assert isinstance(widget, UnfoldAdminURLInputWidget)
+        assert "border" in widget.attrs["class"].split()
+        assert "w-full" in widget.attrs["class"].split()
