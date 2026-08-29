@@ -100,6 +100,7 @@ O shadcn/ui utiliza componentes React. Componentes estruturais e sem interativid
 - Django;
 - Django Unfold para a interface do painel administrativo;
 - Django Ninja;
+- nh3 para sanitização do HTML editorial;
 - PostgreSQL;
 - uv para gerenciamento de dependências e lockfile;
 - Poe the Poet para comandos locais, Docker de desenvolvimento e CI;
@@ -303,16 +304,12 @@ autenticação, sessões e permissões nativas do Django. A primeira versão nã
 painel administrativo duplicado no Astro nem um dashboard customizado; indicadores
 serão avaliados quando os módulos editoriais existirem.
 
-O usuário administrativo continuará autenticando somente por e-mail e senha. Todos
-os `ModelAdmin`, inclusive usuários e grupos, deverão herdar das classes do Unfold
-para que formulários e widgets mantenham estilização consistente.
-
-Grupos iniciais:
-
-- **Editor:** cria e altera conteúdo, sem publicar ou excluir;
-- **Publicador:** revisa e publica conteúdo;
-- **Administrador:** gerencia conteúdo e usuários permitidos;
-- **Superusuário:** acesso técnico completo, restrito aos mantenedores.
+O usuário administrativo continuará autenticando somente por e-mail e senha. A
+primeira versão será operada por uma única conta administrativa individual, sem
+workflow de Editor e Publicador. Novos grupos e permissões somente serão criados se
+mais pessoas passarem a participar da operação editorial. Todos os `ModelAdmin`,
+inclusive usuários e grupos, deverão herdar das classes do Unfold para que
+formulários e widgets mantenham estilização consistente.
 
 Os `ModelAdmin` deverão configurar, conforme o modelo:
 
@@ -335,16 +332,12 @@ Caso no futuro os editores precisem montar páginas livremente, usar preview edi
 Os modelos publicáveis deverão compartilhar, quando aplicável:
 
 - identificador interno;
-- título ou nome;
-- slug único;
 - status (`draft`, `published`, `archived`);
 - data de publicação;
 - data de criação;
 - data de atualização;
 - usuário que criou;
 - usuário que atualizou;
-- título para SEO;
-- descrição para SEO.
 
 Campos editoriais traduzíveis não serão duplicados diretamente no modelo principal. Cada tipo de conteúdo terá uma entidade de tradução relacionada contendo idioma, slug, título, resumo, corpo e metadados de SEO quando aplicável.
 
@@ -451,11 +444,19 @@ Dados localizados ficarão em registros de tradução, por exemplo:
 - conteúdo ou biografia;
 - texto alternativo de imagem;
 - título e descrição de SEO;
-- situação da tradução.
+- título e descrição para SEO.
 
 Deverá existir no máximo uma tradução por idioma para cada conteúdo. Slugs serão únicos dentro de cada idioma. O Django Admin exibirá as traduções de português e inglês de forma agrupada ou inline, sem obrigar o editor a duplicar os dados não traduzíveis.
 
-Uma tradução poderá permanecer como rascunho mesmo quando a outra estiver publicada. A API pública retornará somente a versão publicada do idioma solicitado e poderá informar quais idiomas estão disponíveis para permitir que o seletor de idioma encontre a página equivalente.
+Na primeira versão, a publicação será conjunta: português brasileiro e inglês
+deverão estar completos antes que o conteúdo assuma o status `published`. O status e
+a data de publicação ficarão no modelo principal. A API informará os slugs dos dois
+idiomas para que o seletor encontre a página equivalente.
+
+Notícias serão a primeira implementação desse padrão. Seu corpo utilizará o editor
+visual simples do Unfold, sem imagens internas. O HTML será sanitizado no backend
+com uma lista restrita de elementos de formatação antes de ser persistido e exposto
+pela API.
 
 ## 9. API
 
@@ -479,7 +480,9 @@ GET /api/v1/publications/{id}
 GET /api/v1/health
 ```
 
-Endpoints de conteúdo aceitarão explicitamente `lang=pt-br` ou `lang=en`. O idioma explícito torna o comportamento previsível e permite cache por URL. O parâmetro deverá ser validado e terá `pt-br` como padrão apenas quando for omitido por um consumidor interno.
+Endpoints de conteúdo exigirão explicitamente `lang=pt-br` ou `lang=en`. O idioma
+explícito torna o comportamento previsível e permite cache por URL. Valores ausentes
+ou inválidos serão tratados como erros de validação.
 
 Somente conteúdo publicado poderá ser retornado pela API pública. Criação, edição e exclusão serão feitas pelo Django Admin, não por endpoints públicos de CRUD na primeira versão.
 

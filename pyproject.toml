@@ -9,6 +9,7 @@ dependencies = [
   "django-unfold>=0.102,<0.103",
   "django-environ>=0.12,<1",
   "django-ninja>=1.4,<2",
+  "nh3>=0.3,<0.4",
   "pillow>=11,<13",
   "psycopg[binary]>=3.2,<4",
   "uvicorn[standard]>=0.35,<1",
