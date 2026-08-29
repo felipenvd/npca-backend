@@ -17,7 +17,6 @@ class NewsTranslationForm(forms.ModelForm):
             "slug",
             "summary",
             "body_html",
-            "cover_alt_text",
             "seo_title",
             "seo_description",
         )
@@ -35,7 +34,6 @@ class NewsTranslationForm(forms.ModelForm):
             ),
             "summary": "Obrigatório para publicar.",
             "body_html": "Obrigatório para publicar.",
-            "cover_alt_text": "Obrigatório para publicar quando houver imagem de capa.",
             "seo_title": "Opcional. Quando vazio, o título da notícia será usado.",
             "seo_description": "Opcional. Quando vazia, o resumo será usado.",
         }
@@ -87,6 +85,6 @@ class NewsTranslationInlineFormSet(BaseInlineFormSet):
             translations[language] = translation
 
         if self.instance.status == News.Status.PUBLISHED:
-            errors = publication_errors(self.instance, translations)
+            errors = publication_errors(translations)
             if errors:
                 raise ValidationError(errors)

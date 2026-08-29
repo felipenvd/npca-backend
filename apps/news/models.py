@@ -82,7 +82,7 @@ class News(models.Model):
 
     def validate_for_publication(self) -> None:
         translations = {item.language: item for item in self.translations.all()}
-        errors = publication_errors(self, translations)
+        errors = publication_errors(translations)
         if errors:
             raise ValidationError(errors)
 
@@ -98,7 +98,6 @@ class NewsTranslation(models.Model):
     slug = models.SlugField(max_length=220, null=True, blank=True)
     summary = models.TextField("resumo", max_length=400, blank=True)
     body_html = models.TextField("conteúdo", blank=True)
-    cover_alt_text = models.CharField("texto alternativo da capa", max_length=200, blank=True)
     seo_title = models.CharField("título para SEO", max_length=70, blank=True)
     seo_description = models.CharField("descrição para SEO", max_length=160, blank=True)
 
@@ -132,10 +131,7 @@ class NewsTranslation(models.Model):
         self.slug = self.slug or (slugify(self.title) if self.title else None)
 
 
-def publication_errors(
-    news: News,
-    translations: dict[str, NewsTranslation],
-) -> list[str]:
+def publication_errors(translations: dict[str, NewsTranslation]) -> list[str]:
     errors: list[str] = []
     required_fields = {
         "title": "título",
@@ -153,8 +149,5 @@ def publication_errors(
         for field, field_label in required_fields.items():
             if not (getattr(translation, field, None) or "").strip():
                 errors.append(f"Preencha {field_label} na tradução em {label}.")
-
-        if news.cover and not translation.cover_alt_text.strip():
-            errors.append(f"Preencha o texto alternativo da capa em {label}.")
 
     return errors

@@ -29,7 +29,9 @@ A primeira fatia vertical está concluída:
 - rascunho, publicação conjunta e arquivamento;
 - slugs automáticos e estáveis;
 - WYSIWYG sanitizado;
-- capa segura com mídia relativa;
+- capa segura com mídia relativa, crédito opcional e tratamento decorativo no frontend;
+- migration `news.0002_remove_newstranslation_cover_alt_text` remove o campo manual
+  de texto alternativo da capa;
 - API paginada e tipada;
 - home, listagem e detalhe SSR em PT-BR e EN;
 - SEO, canonical, `hreflang` e `NewsArticle`.

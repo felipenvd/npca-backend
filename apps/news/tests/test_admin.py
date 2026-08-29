@@ -22,7 +22,7 @@ def test_admin_add_page_uses_wysiwyg_and_two_locales(client) -> None:
     assert "Resumo *" in content
     assert "Conteúdo *" in content
     assert "Gerado automaticamente a partir do título" in content
-    assert "Obrigatório para publicar quando houver imagem de capa" in content
+    assert "Texto alternativo da capa" not in content
 
 
 @pytest.mark.django_db
@@ -41,7 +41,6 @@ def test_admin_records_creation_and_update_users(client) -> None:
         "translations-0-slug": "",
         "translations-0-summary": "",
         "translations-0-body_html": "",
-        "translations-0-cover_alt_text": "",
         "translations-0-seo_title": "",
         "translations-0-seo_description": "",
         "translations-1-language": "en",
@@ -49,7 +48,6 @@ def test_admin_records_creation_and_update_users(client) -> None:
         "translations-1-slug": "",
         "translations-1-summary": "",
         "translations-1-body_html": "",
-        "translations-1-cover_alt_text": "",
         "translations-1-seo_title": "",
         "translations-1-seo_description": "",
         "_save": "Salvar",
@@ -80,7 +78,6 @@ def test_admin_blocks_incomplete_publication_and_accepts_complete_bilingual_news
         "translations-0-slug": "noticia-publicada",
         "translations-0-summary": "Resumo",
         "translations-0-body_html": "<p>Conteúdo</p>",
-        "translations-0-cover_alt_text": "",
         "translations-0-seo_title": "",
         "translations-0-seo_description": "",
         "translations-1-language": "en",
@@ -88,7 +85,6 @@ def test_admin_blocks_incomplete_publication_and_accepts_complete_bilingual_news
         "translations-1-slug": "",
         "translations-1-summary": "",
         "translations-1-body_html": "",
-        "translations-1-cover_alt_text": "",
         "translations-1-seo_title": "",
         "translations-1-seo_description": "",
         "_save": "Salvar",

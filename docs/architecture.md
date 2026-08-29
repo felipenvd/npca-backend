@@ -350,7 +350,7 @@ Campos editoriais traduzíveis não serão duplicados diretamente no modelo prin
 - resumo;
 - conteúdo;
 - imagem de capa;
-- crédito e texto alternativo da imagem;
+- crédito da imagem;
 - status e data de publicação;
 
 #### Pesquisador
@@ -440,7 +440,7 @@ Dados localizados ficarão em registros de tradução, por exemplo:
 - slug;
 - resumo;
 - conteúdo ou biografia;
-- texto alternativo de imagem;
+- texto alternativo de imagem, quando ela transmitir informação não descrita no conteúdo;
 - título e descrição de SEO;
 - título e descrição para SEO.
 
@@ -454,7 +454,8 @@ idiomas para que o seletor encontre a página equivalente.
 Notícias serão a primeira implementação desse padrão. Seu corpo utilizará o editor
 visual simples do Unfold, sem imagens internas. O HTML será sanitizado no backend
 com uma lista restrita de elementos de formatação antes de ser persistido e exposto
-pela API.
+pela API. Como a capa é ilustrativa e sempre acompanha o título, ela será renderizada
+com texto alternativo vazio e não exigirá preenchimento duplicado no Admin.
 
 Pesquisadores serão a segunda implementação. Nome, categoria acadêmica, foto, e-mail,
 links e ordem de exibição serão globais; área de pesquisa, slug, biografia e SEO serão
@@ -552,7 +553,7 @@ Os uploads deverão ter:
 - lista de formatos aceitos;
 - nomes gerados pelo sistema;
 - validação no backend;
-- texto alternativo obrigatório para imagens de conteúdo;
+- texto alternativo para imagens informativas e vazio para imagens decorativas;
 - processamento opcional de dimensões e qualidade;
 - proteção contra execução de arquivos enviados.
 

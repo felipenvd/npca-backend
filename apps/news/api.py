@@ -14,13 +14,11 @@ from .schemas import (
 router = Router(tags=["news"])
 
 
-def serialize_cover(translation: NewsTranslation) -> NewsImage | None:
-    news = translation.news
+def serialize_cover(news: News) -> NewsImage | None:
     if not news.cover:
         return None
     return NewsImage(
         url=news.cover.url,
-        alt=translation.cover_alt_text,
         credit=news.cover_credit,
     )
 
@@ -31,7 +29,7 @@ def serialize_summary(translation: NewsTranslation) -> NewsSummary:
         title=translation.title,
         summary=translation.summary,
         published_at=translation.news.published_at,
-        cover=serialize_cover(translation),
+        cover=serialize_cover(translation.news),
     )
 
 

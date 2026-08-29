@@ -24,7 +24,6 @@ class NewsTranslationInline(StackedInline):
                     "slug",
                     "summary",
                     "body_html",
-                    "cover_alt_text",
                     "seo_title",
                     "seo_description",
                 ),

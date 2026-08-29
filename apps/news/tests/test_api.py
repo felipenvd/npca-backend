@@ -22,7 +22,6 @@ def create_published_news(
         slug=pt_slug,
         summary=f"Resumo de {title}",
         body_html=f"<p>Conteúdo de {title}</p>",
-        cover_alt_text="Capa da notícia" if cover else "",
     )
     NewsTranslation.objects.create(
         news=news,
@@ -31,7 +30,6 @@ def create_published_news(
         slug=en_slug,
         summary=f"Summary of {title}",
         body_html=f"<p>Content of {title}</p>",
-        cover_alt_text="News cover" if cover else "",
     )
     news.status = News.Status.PUBLISHED
     news.save()
@@ -139,6 +137,5 @@ def test_cover_uses_relative_media_url(client, settings, tmp_path) -> None:
     assert response.status_code == 200
     assert response.json()["cover"] == {
         "url": f"/media/{news.cover.name}",
-        "alt": "Capa da notícia",
         "credit": "Arquivo NPCA",
     }

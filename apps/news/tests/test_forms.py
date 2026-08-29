@@ -86,7 +86,7 @@ def test_complete_bilingual_news_can_be_published() -> None:
 
 
 @pytest.mark.django_db
-def test_published_news_with_cover_requires_alt_text_in_both_languages() -> None:
+def test_published_news_with_cover_does_not_require_manual_alt_text() -> None:
     news = News(status=News.Status.PUBLISHED)
     news.cover.name = "news/covers/example.webp"
     data = {
@@ -95,7 +95,6 @@ def test_published_news_with_cover_requires_alt_text_in_both_languages() -> None
         "translations-0-title": "Título",
         "translations-0-summary": "Resumo",
         "translations-0-body_html": "<p>Conteúdo</p>",
-        "translations-0-cover_alt_text": "Descrição",
         "translations-1-language": "en",
         "translations-1-title": "Title",
         "translations-1-summary": "Summary",
@@ -104,8 +103,7 @@ def test_published_news_with_cover_requires_alt_text_in_both_languages() -> None
 
     formset = translation_formset(data, news)
 
-    assert not formset.is_valid()
-    assert "texto alternativo da capa em English" in str(formset.non_form_errors())
+    assert formset.is_valid(), (formset.errors, formset.non_form_errors())
 
 
 def test_translation_form_explains_publication_requirements() -> None:
@@ -118,6 +116,6 @@ def test_translation_form_explains_publication_requirements() -> None:
         assert field.required is False
 
     assert "Gerado automaticamente" in form.fields["slug"].help_text
-    assert "quando houver imagem de capa" in form.fields["cover_alt_text"].help_text
+    assert "cover_alt_text" not in form.fields
     assert form.fields["seo_title"].help_text.startswith("Opcional.")
     assert form.fields["seo_description"].help_text.startswith("Opcional.")

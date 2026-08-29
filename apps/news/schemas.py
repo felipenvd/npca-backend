@@ -8,7 +8,6 @@ Language = Literal["pt-br", "en"]
 
 class NewsImage(Schema):
     url: str
-    alt: str
     credit: str
 
 
