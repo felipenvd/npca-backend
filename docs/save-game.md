@@ -1,4 +1,4 @@
-# Save game — Notícias, Pesquisadores e Projetos concluídos
+# Save game — Notícias, Pesquisadores, Projetos e Publicações concluídos
 
 Última atualização: 29 de agosto de 2026.
 
@@ -22,6 +22,9 @@ Pesquisadores frontend: 275a37e feat(researchers): integra perfis bilíngues ao 
 Projetos backend:        4fb6133 feat(projects): implementa gerenciamento e API bilíngue
 Projetos frontend:       5fd4822 feat(projects): integra projetos bilíngues ao site
 ```
+
+A quarta fatia, Publicações, está implementada e validada no working tree dos dois
+repositórios, ainda sem commit coordenado registrado neste documento.
 
 Não modificar nem importar código, cards ou registros fictícios do `site-npca`.
 
@@ -139,6 +142,53 @@ Rotas:
 /en/projects/[slug]/
 ```
 
+## Publicações
+
+A quarta fatia vertical está implementada e validada na branch `develop`.
+
+### Backend
+
+- app `apps.publications` com Admin, formulários, schemas, API, validações e testes;
+- rascunhos incompletos e publicação bilíngue validada;
+- ano, periódico ou evento e pelo menos um autor obrigatórios para publicar;
+- autoria ordenada, aceitando Pesquisadores relacionados ou nomes externos;
+- cada autoria usa exatamente uma identidade e Pesquisadores relacionados são protegidos
+  contra exclusão;
+- título, resumo e SEO localizados em PT-BR e EN;
+- DOI opcional normalizado e único sem diferenciar maiúsculas de minúsculas;
+- URL externa, PDF e projeto relacionado opcionais;
+- PDF limitado a 20 MiB, validado por extensão, MIME e assinatura, com nome UUID;
+- projeto só é exposto quando estiver publicado e traduzido no idioma solicitado;
+- `published_at` preservado após arquivamento, rascunho ou republicação;
+- migration `publications.0001_initial` criada e aplicada no PostgreSQL de desenvolvimento;
+- endpoints públicos adicionados:
+
+```text
+GET /api/v1/publications?lang=pt-br&page=1&page_size=12
+GET /api/v1/publications?lang=pt-br&page=1&page_size=12&year=2026
+GET /api/v1/publications/{id}?lang=pt-br
+```
+
+### Frontend
+
+- OpenAPI regenerado e cliente SSR tipado;
+- três publicações recentes na home, imediatamente após Projetos;
+- listagem paginada e detalhe por ID em PT-BR e EN;
+- autoria com links somente para perfis públicos ativos;
+- acesso seguro por DOI, URL externa e PDF quando informados;
+- vínculo opcional com projeto público no idioma atual;
+- navegação desktop e mobile atualizada;
+- canonical, `hreflang` e JSON-LD `ScholarlyArticle`.
+
+Rotas:
+
+```text
+/pt-br/publicacoes/
+/pt-br/publicacoes/[id]/
+/en/publications/
+/en/publications/[id]/
+```
+
 ## Acabamento global do frontend
 
 - logos vetoriais específicos para os temas claro e escuro;
@@ -148,16 +198,21 @@ Rotas:
   escolha explícita;
 - menu mobile bilíngue com diálogo nativo, fechamento por `Esc`, controle de foco,
   idioma e tema;
-- indicação visual e semântica da rota ativa em Notícias, Pesquisadores e Projetos.
+- indicação visual e semântica da rota ativa em Notícias, Pesquisadores, Projetos e
+  Publicações.
 
 ## Verificações realizadas nesta fatia
 
-- suíte completa do backend: 80 testes passaram com PostgreSQL;
+- suíte completa do backend: 98 testes passaram com PostgreSQL;
 - Ruff, formatação, Django Check e migrations check passaram;
-- migration de Projetos aplicada no PostgreSQL de desenvolvimento;
+- migrations de Projetos e Publicações aplicadas no PostgreSQL de desenvolvimento;
 - OpenAPI regenerado a partir do backend em execução;
 - Prettier, ESLint, Astro Check e build passaram;
 - Compose de desenvolvimento e produção passou na validação;
+- smoke HTTP integrado com registro temporário isolado confirmou listagem e detalhe de
+  Publicações em PT-BR/EN com `200`;
+- o HTML servido confirmou título localizado, `aria-current="page"`, `hreflang`, projeto
+  relacionado e JSON-LD `ScholarlyArticle` nos dois idiomas;
 - smoke integrado confirmou API e listagens vazias de Projetos em PT-BR/EN com `200`;
 - perfil inexistente e perfil desativado retornaram `404`;
 - desativação removeu imediatamente o perfil da API pública;
@@ -174,11 +229,11 @@ manualmente.
 
 ## Próximos passos
 
-1. Criar um projeto real completo no Admin e executar o smoke editorial de Projetos.
-2. Conferir visualmente home, listagem e detalhe em desktop e mobile.
-3. Validar temas, teclado, alternância de idioma e metadados do detalhe.
-4. Enviar a branch `develop` dos dois repositórios.
-5. Fazer code review e publicar em homologação.
+1. Criar uma publicação real completa no Admin e executar o smoke editorial.
+2. Conferir visualmente listagem e detalhe em desktop e mobile.
+3. Validar autoria, PDF, links, teclado, alternância de idioma e metadados do detalhe.
+4. Criar os commits coordenados de Publicações nos dois repositórios.
+5. Enviar a branch `develop`, fazer code review e publicar em homologação.
 
 Comandos principais:
 

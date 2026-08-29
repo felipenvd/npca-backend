@@ -392,16 +392,16 @@ Campos editoriais traduzíveis não serão duplicados diretamente no modelo prin
 
 #### Publicação
 
-- título;
-- autores relacionados;
-- autores externos;
-- resumo;
+- status editorial (`draft`, `published` ou `archived`);
+- traduções com título, resumo e SEO;
+- autores ordenados, relacionados a Pesquisadores ou registrados como externos;
 - ano;
 - periódico ou evento;
-- DOI;
+- DOI normalizado e único;
 - URL externa;
-- arquivo, quando sua distribuição for permitida;
-- projeto relacionado.
+- arquivo PDF, quando sua distribuição for permitida;
+- projeto relacionado opcional;
+- ordem de exibição, publicação e auditoria.
 
 #### Evento
 
@@ -497,6 +497,20 @@ de imagens. A descrição usará o editor visual limitado e a sanitização já 
 outros módulos. Financiamento e parceiros serão textos globais simples; não haverá
 taxonomias, participantes externos, anexos ou mudança automática de situação nesta fase.
 
+Publicações serão a quarta implementação do padrão bilíngue. Rascunhos poderão ficar
+incompletos; a publicação exigirá ano, periódico ou evento, ao menos um autor e traduções
+PT-BR e EN com título e resumo. O detalhe público usará o identificador numérico estável,
+sem slug. Autores terão ordem explícita e poderão apontar para um Pesquisador cadastrado
+ou conter um nome externo, nunca ambos. Pesquisadores relacionados serão protegidos
+contra exclusão e somente perfis ativos e traduzidos receberão link na API pública.
+
+O DOI será opcional, normalizado sem o prefixo `doi:` ou a URL `doi.org` e único sem
+diferenciar maiúsculas de minúsculas. URL externa e PDF também serão opcionais. O upload
+aceitará somente PDF validado, com nome UUID e limite de 20 MiB. O projeto relacionado
+será opcional e aparecerá publicamente apenas quando ele próprio estiver publicado e
+traduzido no idioma solicitado. A primeira publicação definirá `published_at`, preservado
+em arquivamentos, retornos a rascunho e republicações.
+
 ## 9. API
 
 A API pública será versionada a partir de `/api/v1/`.
@@ -550,6 +564,19 @@ A listagem geral priorizará projetos em andamento, planejados e concluídos, se
 da ordem manual, título e ID. A consulta de destaques priorizará a ordem manual. Apenas
 projetos publicados serão retornados. O detalhe incluirá equipe, apoio, links, SEO e
 slugs equivalentes; mídia continuará usando caminhos relativos a `/media/`.
+
+Publicações exporá as consultas abaixo:
+
+```text
+GET /api/v1/publications?lang=pt-br&page=1&page_size=12
+GET /api/v1/publications?lang=pt-br&page=1&page_size=12&year=2026
+GET /api/v1/publications/{id}?lang=pt-br
+```
+
+A listagem priorizará o ano mais recente, seguido da ordem manual, título e ID. Apenas
+publicações com status publicado serão retornadas. O detalhe incluirá autoria ordenada,
+DOI, URL externa, PDF, projeto público relacionado, SEO e idiomas equivalentes. Arquivos
+continuarão usando caminhos relativos a `/media/`.
 
 Erros da API usarão Problem Details conforme o RFC 9457, com
 `Content-Type: application/problem+json` e os campos `type`, `title`, `status`,
