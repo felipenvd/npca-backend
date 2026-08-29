@@ -379,17 +379,16 @@ Campos editoriais traduzíveis não serão duplicados diretamente no modelo prin
 
 #### Projeto
 
-- título;
-- slug;
-- resumo e descrição;
-- imagem;
-- situação;
-- período;
-- coordenador;
-- equipe;
-- financiadores e parceiros;
-- links relacionados;
-- destaque.
+- status editorial (`draft`, `published` ou `archived`);
+- situação acadêmica manual (`planned`, `ongoing` ou `completed`);
+- capa decorativa e crédito opcionais;
+- datas de início e término;
+- um coordenador relacionado a Pesquisadores;
+- equipe simples relacionada a Pesquisadores;
+- financiamento e parceiros globais opcionais;
+- site e repositório opcionais;
+- destaque, ordem de exibição, publicação e auditoria;
+- traduções com título, slug, resumo, descrição HTML e SEO.
 
 #### Publicação
 
@@ -473,14 +472,30 @@ localizados. O perfil inativo poderá permanecer incompleto, mas sua ativação 
 as duas traduções completas. A foto usará automaticamente o nome completo do
 pesquisador como texto alternativo, sem exigir preenchimento duplicado no Admin. A
 biografia usará o mesmo editor visual limitado e a mesma sanitização de HTML adotada
-em Notícias. Relacionamentos com projetos, publicações e laboratórios serão adicionados
-somente quando esses módulos forem implementados. Lattes, ORCID e LinkedIn serão
-incluídos também na listagem pública para permitir atalhos opcionais nos cards.
+em Notícias. O relacionamento com projetos será mantido pelo app de Projetos;
+publicações e laboratórios adicionarão seus vínculos quando forem implementados.
+Lattes, ORCID e LinkedIn serão incluídos também na listagem pública para permitir
+atalhos opcionais nos cards.
 
 A categoria acadêmica será obrigatória e usará os códigos estáveis `doctor`,
 `doctoral_student`, `master`, `masters_student` e `undergraduate_researcher`. A
 exibição seguirá essa prioridade, depois a ordem configurada dentro da categoria, o
 nome e o ID. Os rótulos serão localizados pelo frontend.
+
+Projetos serão a terceira implementação do padrão bilíngue. O status editorial será
+independente da situação acadêmica, que será alterada manualmente. Rascunhos poderão
+ficar incompletos; a publicação exigirá coordenador, início e traduções PT-BR e EN com
+título, slug, resumo e descrição. Projetos concluídos também exigirão término, sempre
+igual ou posterior ao início. A primeira publicação definirá `published_at`, preservado
+em arquivamentos, retornos a rascunho e republicações.
+
+Coordenador e equipe serão relacionados a Pesquisadores com proteção contra exclusão,
+sem papéis ou ordem individuais. O coordenador não poderá ser repetido na equipe.
+Pesquisadores inativos permanecerão identificados pelo nome na resposta pública, mas
+sem URL de perfil ou foto. A capa será decorativa e validada pelo mecanismo compartilhado
+de imagens. A descrição usará o editor visual limitado e a sanitização já adotada pelos
+outros módulos. Financiamento e parceiros serão textos globais simples; não haverá
+taxonomias, participantes externos, anexos ou mudança automática de situação nesta fase.
 
 ## 9. API
 
@@ -522,6 +537,19 @@ A API deverá oferecer:
 - testes para permissões e visibilidade de rascunhos.
 
 O schema OpenAPI será usado para gerar os tipos e o cliente do frontend. O código gerado deverá ser atualizado de forma controlada quando o contrato da API mudar.
+
+Projetos exporá as consultas abaixo:
+
+```text
+GET /api/v1/projects?lang=pt-br&page=1&page_size=12
+GET /api/v1/projects?lang=pt-br&page=1&page_size=3&featured=true
+GET /api/v1/projects/{slug}?lang=pt-br
+```
+
+A listagem geral priorizará projetos em andamento, planejados e concluídos, seguida
+da ordem manual, título e ID. A consulta de destaques priorizará a ordem manual. Apenas
+projetos publicados serão retornados. O detalhe incluirá equipe, apoio, links, SEO e
+slugs equivalentes; mídia continuará usando caminhos relativos a `/media/`.
 
 Erros da API usarão Problem Details conforme o RFC 9457, com
 `Content-Type: application/problem+json` e os campos `type`, `title`, `status`,

@@ -1,4 +1,4 @@
-# Save game — Notícias e Pesquisadores concluídos
+# Save game — Notícias, Pesquisadores e Projetos concluídos
 
 Última atualização: 29 de agosto de 2026.
 
@@ -8,17 +8,19 @@ Este documento registra o ponto de retomada dos dois repositórios do novo site 
 
 | Repositório | Branch atual | Último marco funcional |
 | --- | --- | --- |
-| `npca-backend` | `develop` | `0e4498b` |
-| `npca-frontend` | `develop` | `4c9a682` |
+| `npca-backend` | `develop` | `4fb6133` |
+| `npca-frontend` | `develop` | `5fd4822` |
 | `site-npca` | somente referência | `f348889` |
 
-Os commits coordenados que iniciaram as duas fatias concluídas são:
+Os commits coordenados das três fatias concluídas são:
 
 ```text
 Notícias backend:       d1d602e feat(news): implementa gerenciamento e API bilíngue
 Notícias frontend:      c6a7861 feat(news): integra páginas bilíngues ao site
 Pesquisadores backend:  f1c4e08 feat(researchers): implementa gerenciamento e API bilíngue
 Pesquisadores frontend: 275a37e feat(researchers): integra perfis bilíngues ao site
+Projetos backend:        4fb6133 feat(projects): implementa gerenciamento e API bilíngue
+Projetos frontend:       5fd4822 feat(projects): integra projetos bilíngues ao site
 ```
 
 Não modificar nem importar código, cards ou registros fictícios do `site-npca`.
@@ -91,6 +93,52 @@ Rotas:
 /en/researchers/[slug]/
 ```
 
+## Projetos
+
+A terceira fatia vertical está implementada e validada na branch `develop`.
+
+### Backend
+
+- app `apps.projects` com Admin, formulários, schemas, API, validações e testes;
+- status editorial independente da situação acadêmica manual;
+- rascunhos incompletos e publicação bilíngue validada;
+- coordenador obrigatório e equipe simples relacionados a Pesquisadores;
+- pesquisadores relacionados protegidos contra exclusão e sem duplicação entre
+  coordenação e equipe;
+- início obrigatório, término validado e obrigatório para projetos concluídos;
+- capa decorativa opcional com nome UUID e validação compartilhada de imagem;
+- descrição em WYSIWYG com sanitização compartilhada;
+- apoio, parceiros, site, repositório, destaque, ordem e auditoria;
+- `published_at` preservado após arquivamento, rascunho ou republicação;
+- migration `projects.0001_initial` criada e aplicada no PostgreSQL de desenvolvimento;
+- endpoints públicos adicionados:
+
+```text
+GET /api/v1/projects?lang=pt-br&page=1&page_size=12
+GET /api/v1/projects?lang=pt-br&page=1&page_size=3&featured=true
+GET /api/v1/projects/{slug}?lang=pt-br
+```
+
+### Frontend
+
+- OpenAPI regenerado e cliente SSR tipado;
+- três projetos destacados na home, imediatamente após Sobre;
+- listagem e detalhe SSR em PT-BR e EN;
+- situação e período localizados, capa decorativa e fallback visual;
+- coordenador e equipe com links somente para perfis públicos ativos;
+- apoio, parceiros e links externos seguros;
+- navegação e CTA do hero apontando para Projetos;
+- canonical, Open Graph, `hreflang` e JSON-LD `ResearchProject`.
+
+Rotas:
+
+```text
+/pt-br/projetos/
+/pt-br/projetos/[slug]/
+/en/projects/
+/en/projects/[slug]/
+```
+
 ## Acabamento global do frontend
 
 - logos vetoriais específicos para os temas claro e escuro;
@@ -100,24 +148,24 @@ Rotas:
   escolha explícita;
 - menu mobile bilíngue com diálogo nativo, fechamento por `Esc`, controle de foco,
   idioma e tema;
-- indicação visual e semântica da rota ativa em Notícias e Pesquisadores.
+- indicação visual e semântica da rota ativa em Notícias, Pesquisadores e Projetos.
 
 ## Verificações realizadas nesta fatia
 
-- suíte completa do backend: 59 testes passaram com PostgreSQL;
+- suíte completa do backend: 80 testes passaram com PostgreSQL;
 - Ruff, formatação, Django Check e migrations check passaram;
-- migration aplicada no PostgreSQL de desenvolvimento;
+- migration de Projetos aplicada no PostgreSQL de desenvolvimento;
 - OpenAPI regenerado a partir do backend em execução;
-- Prettier, ESLint, Astro Check e build passaram.
+- Prettier, ESLint, Astro Check e build passaram;
 - Compose de desenvolvimento e produção passou na validação;
-- smoke integrado confirmou home, listagem e perfis PT-BR/EN com `200`;
+- smoke integrado confirmou API e listagens vazias de Projetos em PT-BR/EN com `200`;
 - perfil inexistente e perfil desativado retornaram `404`;
 - desativação removeu imediatamente o perfil da API pública;
 - canonical, Open Graph, `hreflang` e JSON-LD foram conferidos no HTML;
 - smoke de categorias confirmou prioridade, ordem interna e agrupamentos PT-BR/EN;
-- o registro temporário usado no smoke foi removido do banco.
-- o build servido confirmou `aria-current="page"` nas listagens de Notícias e
-  Pesquisadores em PT-BR e EN;
+- o registro temporário usado no smoke anterior foi removido do banco;
+- o HTML servido confirmou `aria-current="page"`, canonical e `hreflang` nas
+  listagens de Projetos em PT-BR e EN;
 - Prettier, ESLint, Astro Check e build passaram após o acabamento da navegação.
 
 Não havia navegador integrado conectado para inspeção visual automatizada. O drawer,
@@ -126,10 +174,11 @@ manualmente.
 
 ## Próximos passos
 
-1. Conferir visualmente Admin, home, listagem, perfil e drawer em desktop e mobile.
-2. Validar temas claro e escuro, fechamento por `Esc` e navegação por teclado.
-3. Enviar a branch `develop` dos dois repositórios.
-4. Fazer code review e publicar em homologação.
+1. Criar um projeto real completo no Admin e executar o smoke editorial de Projetos.
+2. Conferir visualmente home, listagem e detalhe em desktop e mobile.
+3. Validar temas, teclado, alternância de idioma e metadados do detalhe.
+4. Enviar a branch `develop` dos dois repositórios.
+5. Fazer code review e publicar em homologação.
 
 Comandos principais:
 
