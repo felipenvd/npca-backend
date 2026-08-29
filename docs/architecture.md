@@ -79,7 +79,7 @@ Migrar para armazenamento S3 compatível continuará sendo possível no futuro s
 - Tailwind CSS;
 - shadcn/ui;
 - React somente para componentes interativos;
-- temas claro, escuro e preferência do sistema;
+- temas claro e escuro, usando a preferência do sistema como escolha inicial;
 - roteamento i18n nativo do Astro;
 - português brasileiro e inglês;
 - cliente TypeScript gerado a partir do OpenAPI;
@@ -211,22 +211,20 @@ O frontend usará o adapter Node do Astro. Durante a renderização no servidor,
 
 ### 5.2 Tema claro e escuro
 
-O site oferecerá três preferências de aparência:
-
-- claro;
-- escuro;
-- sistema.
+O site oferecerá uma alternância direta entre os temas claro e escuro. Quando o
+usuário ainda não tiver feito uma escolha, a preferência do sistema operacional será
+usada automaticamente, sem aparecer como uma terceira opção na interface.
 
 Não será adicionada inicialmente uma biblioteca equivalente ao `next-themes`. O Astro e o shadcn/ui permitem implementar o tema com um pequeno script inline no layout principal, executado antes da pintura da página. O script deverá:
 
 - consultar a preferência salva no `localStorage`;
-- usar `prefers-color-scheme` quando a preferência for `system` ou ainda não existir;
+- usar `prefers-color-scheme` enquanto uma preferência explícita ainda não existir;
 - aplicar a classe `.dark` no elemento `<html>` antes da renderização visual;
 - observar mudanças na preferência do sistema;
 - persistir somente a escolha explícita do usuário;
 - evitar flash do tema incorreto durante o carregamento.
 
-As cores serão definidas por tokens CSS semânticos para os dois temas. Componentes não deverão depender somente de cor para comunicar estado. O seletor de tema terá rótulos acessíveis traduzidos nos dois idiomas.
+As cores serão definidas por tokens CSS semânticos para os dois temas. Componentes não deverão depender somente de cor para comunicar estado. O botão de tema terá rótulos acessíveis traduzidos nos dois idiomas.
 
 ### 5.3 Internacionalização
 
@@ -257,6 +255,18 @@ Cada página deverá configurar corretamente:
 - seletor de idioma apontando para a tradução equivalente da página atual.
 
 Não deverá ocorrer tradução automática no navegador. Quando uma tradução editorial não existir, a versão inglesa não deverá misturar silenciosamente conteúdo em português; a interface poderá ocultar o item ou informar que ele ainda não está disponível naquele idioma.
+
+### 5.4 Navegação responsiva
+
+O cabeçalho deverá priorizar a marca, os links principais e os controles de idioma e
+tema. O nome institucional por extenso ficará no rodapé, nas páginas institucionais e
+nos rótulos acessíveis, sem ocupar espaço permanente na barra de navegação.
+
+Em desktop, a rota de conteúdo atual será indicada visualmente e com
+`aria-current="page"`. Em telas menores, os links, a troca de idioma e o botão de tema
+ficarão em um menu lateral acessível. O menu deverá usar semântica de diálogo, manter o
+foco contido enquanto estiver aberto e permitir fechamento pelo botão, pela tecla
+`Esc` e pelo fundo da página.
 
 ## 6. Estrutura do backend
 
@@ -754,7 +764,7 @@ Etapas sugeridas:
 A primeira versão deverá entregar:
 
 - site responsivo e acessível;
-- temas claro, escuro e preferência do sistema;
+- temas claro e escuro, usando a preferência do sistema na primeira visita;
 - interface e conteúdo em português brasileiro e inglês;
 - páginas institucionais;
 - notícias;

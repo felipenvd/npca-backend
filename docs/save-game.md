@@ -1,4 +1,4 @@
-# Save game — Notícias concluídas e Pesquisadores em andamento
+# Save game — Notícias e Pesquisadores concluídos
 
 Última atualização: 29 de agosto de 2026.
 
@@ -6,17 +6,19 @@ Este documento registra o ponto de retomada dos dois repositórios do novo site 
 
 ## Repositórios
 
-| Repositório | Branch atual | Base da fatia |
+| Repositório | Branch atual | Último marco funcional |
 | --- | --- | --- |
-| `npca-backend` | `develop` | `d1d602e` |
-| `npca-frontend` | `develop` | `c6a7861` |
+| `npca-backend` | `develop` | `0e4498b` |
+| `npca-frontend` | `develop` | `4c9a682` |
 | `site-npca` | somente referência | `f348889` |
 
-Os hashes-base são os commits coordenados que entregaram Notícias:
+Os commits coordenados que iniciaram as duas fatias concluídas são:
 
 ```text
-Backend:  d1d602e feat(news): implementa gerenciamento e API bilíngue
-Frontend: c6a7861 feat(news): integra páginas bilíngues ao site
+Notícias backend:       d1d602e feat(news): implementa gerenciamento e API bilíngue
+Notícias frontend:      c6a7861 feat(news): integra páginas bilíngues ao site
+Pesquisadores backend:  f1c4e08 feat(researchers): implementa gerenciamento e API bilíngue
+Pesquisadores frontend: 275a37e feat(researchers): integra perfis bilíngues ao site
 ```
 
 Não modificar nem importar código, cards ou registros fictícios do `site-npca`.
@@ -38,9 +40,7 @@ A primeira fatia vertical está concluída:
 
 ## Pesquisadores
 
-A segunda fatia vertical está implementada e validada na branch `develop`. Os
-hashes dos commits que contêm esta entrega devem ser consultados no Git ou na entrega da
-tarefa.
+A segunda fatia vertical está implementada e validada na branch `develop`.
 
 ### Backend
 
@@ -91,6 +91,17 @@ Rotas:
 /en/researchers/[slug]/
 ```
 
+## Acabamento global do frontend
+
+- logos vetoriais específicos para os temas claro e escuro;
+- símbolo vetorial próprio para o favicon;
+- cabeçalho compacto, sem repetição do nome institucional por extenso;
+- alternância direta entre claro e escuro, usando o sistema somente antes da primeira
+  escolha explícita;
+- menu mobile bilíngue com diálogo nativo, fechamento por `Esc`, controle de foco,
+  idioma e tema;
+- indicação visual e semântica da rota ativa em Notícias e Pesquisadores.
+
 ## Verificações realizadas nesta fatia
 
 - suíte completa do backend: 59 testes passaram com PostgreSQL;
@@ -105,14 +116,18 @@ Rotas:
 - canonical, Open Graph, `hreflang` e JSON-LD foram conferidos no HTML;
 - smoke de categorias confirmou prioridade, ordem interna e agrupamentos PT-BR/EN;
 - o registro temporário usado no smoke foi removido do banco.
+- o build servido confirmou `aria-current="page"` nas listagens de Notícias e
+  Pesquisadores em PT-BR e EN;
+- Prettier, ESLint, Astro Check e build passaram após o acabamento da navegação.
 
-Não havia navegador integrado conectado para inspeção visual automatizada. Layout,
-responsividade, temas e navegação por teclado ainda devem ser conferidos manualmente.
+Não havia navegador integrado conectado para inspeção visual automatizada. O drawer,
+os temas, a responsividade e a navegação por teclado ainda devem ser conferidos
+manualmente.
 
 ## Próximos passos
 
-1. Conferir visualmente Admin, home, listagem e perfil em desktop e mobile.
-2. Validar temas claro e escuro e navegação por teclado.
+1. Conferir visualmente Admin, home, listagem, perfil e drawer em desktop e mobile.
+2. Validar temas claro e escuro, fechamento por `Esc` e navegação por teclado.
 3. Enviar a branch `develop` dos dois repositórios.
 4. Fazer code review e publicar em homologação.
 
