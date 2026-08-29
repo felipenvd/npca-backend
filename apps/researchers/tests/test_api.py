@@ -78,6 +78,11 @@ def test_list_returns_only_active_researchers_in_requested_language(client) -> N
     assert response.status_code == 200
     assert response.json()["total"] == 1
     assert [item["name"] for item in response.json()["items"]] == ["Ana Silva"]
+    assert response.json()["items"][0]["links"] == {
+        "lattes": "http://lattes.cnpq.br/example",
+        "orcid": "https://orcid.org/0000-0000-0000-0000",
+        "linkedin": "https://linkedin.com/in/example",
+    }
 
 
 @pytest.mark.django_db

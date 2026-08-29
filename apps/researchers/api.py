@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from ninja import Query, Router
 
-from .models import ResearcherTranslation, academic_category_ordering
+from .models import Researcher, ResearcherTranslation, academic_category_ordering
 from .schemas import (
     Language,
     ResearcherDetail,
@@ -15,8 +15,15 @@ from .schemas import (
 router = Router(tags=["researchers"])
 
 
-def serialize_photo(translation: ResearcherTranslation) -> ResearcherPhoto | None:
-    researcher = translation.researcher
+def serialize_links(researcher: Researcher) -> ResearcherLinks:
+    return ResearcherLinks(
+        lattes=researcher.lattes_url or None,
+        orcid=researcher.orcid_url or None,
+        linkedin=researcher.linkedin_url or None,
+    )
+
+
+def serialize_photo(researcher: Researcher) -> ResearcherPhoto | None:
     if not researcher.photo:
         return None
     return ResearcherPhoto(url=researcher.photo.url, alt=researcher.full_name)
@@ -29,7 +36,8 @@ def serialize_summary(translation: ResearcherTranslation) -> ResearcherSummary:
         name=researcher.full_name,
         academic_category=researcher.academic_category,
         research_area=translation.research_area,
-        photo=serialize_photo(translation),
+        photo=serialize_photo(researcher),
+        links=serialize_links(researcher),
     )
 
 
@@ -78,11 +86,6 @@ def get_researcher(request, slug: str, lang: Language) -> ResearcherDetail:
         **summary.model_dump(),
         biography_html=translation.biography_html,
         email=researcher.public_email or None,
-        links=ResearcherLinks(
-            lattes=researcher.lattes_url or None,
-            orcid=researcher.orcid_url or None,
-            linkedin=researcher.linkedin_url or None,
-        ),
         seo_title=translation.seo_title or researcher.full_name,
         seo_description=seo_description,
         translations=references,

@@ -17,12 +17,19 @@ class ResearcherPhoto(Schema):
     alt: str
 
 
+class ResearcherLinks(Schema):
+    lattes: str | None
+    orcid: str | None
+    linkedin: str | None
+
+
 class ResearcherSummary(Schema):
     slug: str
     name: str
     academic_category: AcademicCategory
     research_area: str
     photo: ResearcherPhoto | None
+    links: ResearcherLinks
 
 
 class ResearcherListResponse(Schema):
@@ -30,12 +37,6 @@ class ResearcherListResponse(Schema):
     total: int
     page: int
     page_size: int
-
-
-class ResearcherLinks(Schema):
-    lattes: str | None
-    orcid: str | None
-    linkedin: str | None
 
 
 class ResearcherTranslationReference(Schema):
@@ -46,7 +47,6 @@ class ResearcherTranslationReference(Schema):
 class ResearcherDetail(ResearcherSummary):
     biography_html: str
     email: str | None
-    links: ResearcherLinks
     seo_title: str
     seo_description: str
     translations: list[ResearcherTranslationReference]

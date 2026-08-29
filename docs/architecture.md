@@ -464,7 +464,8 @@ as duas traduções completas. A foto usará automaticamente o nome completo do
 pesquisador como texto alternativo, sem exigir preenchimento duplicado no Admin. A
 biografia usará o mesmo editor visual limitado e a mesma sanitização de HTML adotada
 em Notícias. Relacionamentos com projetos, publicações e laboratórios serão adicionados
-somente quando esses módulos forem implementados.
+somente quando esses módulos forem implementados. Lattes, ORCID e LinkedIn serão
+incluídos também na listagem pública para permitir atalhos opcionais nos cards.
 
 A categoria acadêmica será obrigatória e usará os códigos estáveis `doctor`,
 `doctoral_student`, `master`, `masters_student` e `undergraduate_researcher`. A

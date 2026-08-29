@@ -77,6 +77,7 @@ GET /api/v1/researchers/{slug}?lang=pt-br
 - listagem paginada e perfil individual em PT-BR e EN;
 - fallback por iniciais quando não houver foto;
 - categorias localizadas nos cards, perfis e grupos da listagem;
+- atalhos opcionais de Lattes, ORCID e LinkedIn nos cards;
 - e-mail e perfis acadêmicos públicos quando informados;
 - navegação atualizada;
 - canonical, Open Graph `profile`, `hreflang` e JSON-LD `Person`.
