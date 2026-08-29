@@ -45,9 +45,10 @@ tarefa.
 - app `apps.researchers` registrado;
 - `Researcher` com nome, categoria acadêmica, foto, e-mail público opcional, Lattes, ORCID,
   LinkedIn, ativo/inativo, ordem e auditoria;
-- `ResearcherTranslation` com idioma, slug, função, área, biografia, texto alternativo e SEO;
+- `ResearcherTranslation` com idioma, slug, área, biografia e SEO;
 - inativos podem permanecer incompletos;
-- ativação exige PT-BR e EN completos e texto alternativo quando houver foto;
+- ativação exige área e biografia completas em PT-BR e EN;
+- fotos usam automaticamente o nome completo como texto alternativo;
 - slugs são gerados a partir do nome e preservados;
 - biografia usa WYSIWYG e sanitização compartilhada;
 - imagem usa validação compartilhada com wrappers específicos por app;
@@ -56,6 +57,8 @@ tarefa.
   sem classificar silenciosamente registros existentes;
 - migration `researchers.0003_add_master_academic_category` diferencia Mestre(a) de
   Mestrando(a);
+- migration `researchers.0004_remove_translation_role_and_photo_alt_text` remove os
+  campos editoriais redundantes de função e texto alternativo;
 - ordenação pública: categoria, ordem interna, nome e ID;
 - endpoints públicos adicionados:
 

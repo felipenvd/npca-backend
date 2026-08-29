@@ -21,18 +21,14 @@ def researcher_data(*, active: bool) -> dict[str, str | bool]:
         "translations-MAX_NUM_FORMS": "2",
         "translations-0-language": "pt-br",
         "translations-0-slug": "",
-        "translations-0-role": "Professora",
         "translations-0-research_area": "Inteligência Artificial",
         "translations-0-biography_html": "<p>Biografia</p>",
-        "translations-0-photo_alt_text": "",
         "translations-0-seo_title": "",
         "translations-0-seo_description": "",
         "translations-1-language": "en",
         "translations-1-slug": "",
-        "translations-1-role": "",
         "translations-1-research_area": "",
         "translations-1-biography_html": "",
-        "translations-1-photo_alt_text": "",
         "translations-1-seo_title": "",
         "translations-1-seo_description": "",
         "_save": "Salvar",
@@ -52,9 +48,10 @@ def test_admin_add_page_uses_wysiwyg_and_two_locales(client) -> None:
     assert 'value="pt-br" selected' in content
     assert 'value="en" selected' in content
     assert "Os campos marcados com * são obrigatórios para ativar" in content
-    assert "Função *" in content
     assert "Área de pesquisa *" in content
     assert "Biografia *" in content
+    assert "Função *" not in content
+    assert "Texto alternativo da foto" not in content
     assert "Gerado automaticamente a partir do nome" in content
     assert "Categoria acadêmica" in content
     assert content.index("Nome completo") < content.index("Categoria acadêmica")
@@ -92,7 +89,6 @@ def test_admin_blocks_incomplete_activation_and_accepts_complete_bilingual_profi
 
     data.update(
         {
-            "translations-1-role": "Professor",
             "translations-1-research_area": "Artificial Intelligence",
             "translations-1-biography_html": "<p>Biography</p>",
         }

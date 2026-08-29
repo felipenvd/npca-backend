@@ -54,16 +54,13 @@ class ResearcherTranslationForm(forms.ModelForm):
         fields = (
             "language",
             "slug",
-            "role",
             "research_area",
             "biography_html",
-            "photo_alt_text",
             "seo_title",
             "seo_description",
         )
         widgets = {"biography_html": WysiwygWidget()}
         labels = {
-            "role": "Função *",
             "research_area": "Área de pesquisa *",
             "biography_html": "Biografia *",
         }
@@ -72,12 +69,10 @@ class ResearcherTranslationForm(forms.ModelForm):
                 "Gerado automaticamente a partir do nome quando deixado em branco. "
                 "Depois de ativado, altere somente se também for atualizar a URL."
             ),
-            "role": "Obrigatório para ativar.",
             "research_area": "Obrigatório para ativar.",
             "biography_html": "Obrigatório para ativar.",
-            "photo_alt_text": "Obrigatório para ativar quando houver foto.",
             "seo_title": "Opcional. Quando vazio, o nome será usado.",
-            "seo_description": "Opcional. Quando vazia, função e área serão usadas.",
+            "seo_description": "Opcional. Quando vazia, a área de pesquisa será usada.",
         }
 
     def __init__(self, *args, **kwargs) -> None:
@@ -131,6 +126,6 @@ class ResearcherTranslationInlineFormSet(BaseInlineFormSet):
             translations[language] = translation
 
         if self.instance.is_active:
-            errors = activation_errors(self.instance, translations)
+            errors = activation_errors(translations)
             if errors:
                 raise ValidationError(errors)

@@ -42,7 +42,6 @@ def test_inactive_researcher_accepts_incomplete_translations() -> None:
     data = {
         **management_data(),
         "translations-0-language": "pt-br",
-        "translations-0-role": "Professora",
         "translations-1-language": "en",
     }
 
@@ -61,17 +60,16 @@ def test_activation_requires_two_complete_translations() -> None:
     data = {
         **management_data(),
         "translations-0-language": "pt-br",
-        "translations-0-role": "Professora",
         "translations-0-research_area": "Inteligência Artificial",
         "translations-0-biography_html": "<p>Biografia</p>",
         "translations-1-language": "en",
-        "translations-1-role": "",
+        "translations-1-biography_html": "<p>Biography</p>",
     }
 
     formset = translation_formset(data, researcher)
 
     assert not formset.is_valid()
-    assert "Preencha função na tradução em English" in str(formset.non_form_errors())
+    assert "Preencha área de pesquisa na tradução em English" in str(formset.non_form_errors())
 
 
 @pytest.mark.django_db
@@ -85,12 +83,10 @@ def test_complete_bilingual_researcher_generates_slugs() -> None:
         **management_data(),
         "translations-0-language": "pt-br",
         "translations-0-slug": "",
-        "translations-0-role": "Professora",
         "translations-0-research_area": "Inteligência Artificial",
         "translations-0-biography_html": "<p>Biografia</p>",
         "translations-1-language": "en",
         "translations-1-slug": "",
-        "translations-1-role": "Professor",
         "translations-1-research_area": "Artificial Intelligence",
         "translations-1-biography_html": "<p>Biography</p>",
     }
@@ -103,7 +99,7 @@ def test_complete_bilingual_researcher_generates_slugs() -> None:
 
 
 @pytest.mark.django_db
-def test_active_researcher_with_photo_requires_alt_text_in_both_languages() -> None:
+def test_active_researcher_with_photo_does_not_require_manual_alt_text() -> None:
     researcher = Researcher(
         full_name="Ana Silva",
         academic_category=Researcher.AcademicCategory.DOCTOR,
@@ -113,33 +109,30 @@ def test_active_researcher_with_photo_requires_alt_text_in_both_languages() -> N
     data = {
         **management_data(),
         "translations-0-language": "pt-br",
-        "translations-0-role": "Professora",
         "translations-0-research_area": "Inteligência Artificial",
         "translations-0-biography_html": "<p>Biografia</p>",
-        "translations-0-photo_alt_text": "Retrato de Ana Silva",
         "translations-1-language": "en",
-        "translations-1-role": "Professor",
         "translations-1-research_area": "Artificial Intelligence",
         "translations-1-biography_html": "<p>Biography</p>",
     }
 
     formset = translation_formset(data, researcher)
 
-    assert not formset.is_valid()
-    assert "texto alternativo da foto em English" in str(formset.non_form_errors())
+    assert formset.is_valid(), (formset.errors, formset.non_form_errors())
 
 
 def test_translation_form_explains_activation_requirements() -> None:
     form = ResearcherTranslationForm()
 
-    for field_name in ("role", "research_area", "biography_html"):
+    for field_name in ("research_area", "biography_html"):
         field = form.fields[field_name]
         assert field.label.endswith(" *")
         assert field.help_text == "Obrigatório para ativar."
         assert field.required is False
 
     assert "Gerado automaticamente" in form.fields["slug"].help_text
-    assert "quando houver foto" in form.fields["photo_alt_text"].help_text
+    assert "role" not in form.fields
+    assert "photo_alt_text" not in form.fields
     assert form.fields["seo_title"].help_text.startswith("Opcional.")
     assert form.fields["seo_description"].help_text.startswith("Opcional.")
 

@@ -21,7 +21,6 @@ class ResearcherSummary(Schema):
     slug: str
     name: str
     academic_category: AcademicCategory
-    role: str
     research_area: str
     photo: ResearcherPhoto | None
 

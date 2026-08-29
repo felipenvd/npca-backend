@@ -81,7 +81,7 @@ def test_language_and_slug_constraints_are_enforced() -> None:
 
 
 @pytest.mark.django_db
-def test_activation_requires_complete_bilingual_content_and_photo_alt_text() -> None:
+def test_activation_requires_complete_bilingual_content() -> None:
     researcher = Researcher.objects.create(
         full_name="Ana Silva",
         academic_category=Researcher.AcademicCategory.DOCTOR,
@@ -89,7 +89,6 @@ def test_activation_requires_complete_bilingual_content_and_photo_alt_text() -> 
     ResearcherTranslation.objects.create(
         researcher=researcher,
         language="pt-br",
-        role="Professora",
         research_area="Inteligência Artificial",
         biography_html="<p>Biografia</p>",
     )
@@ -100,15 +99,13 @@ def test_activation_requires_complete_bilingual_content_and_photo_alt_text() -> 
     ResearcherTranslation.objects.create(
         researcher=researcher,
         language="en",
-        role="Professor",
         research_area="Artificial Intelligence",
         biography_html="<p>Biography</p>",
     )
     researcher.validate_for_activation()
 
     researcher.photo.name = "researchers/photos/example.webp"
-    with pytest.raises(ValidationError, match="texto alternativo da foto"):
-        researcher.validate_for_activation()
+    researcher.validate_for_activation()
 
 
 @pytest.mark.django_db

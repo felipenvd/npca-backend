@@ -30,19 +30,15 @@ def create_active_researcher(
         researcher=researcher,
         language="pt-br",
         slug=pt_slug,
-        role="Professora",
         research_area="Inteligência Artificial",
         biography_html=f"<p>Biografia de {name}</p>",
-        photo_alt_text=f"Retrato de {name}" if photo else "",
     )
     ResearcherTranslation.objects.create(
         researcher=researcher,
         language="en",
         slug=en_slug,
-        role="Professor",
         research_area="Artificial Intelligence",
         biography_html=f"<p>Biography of {name}</p>",
-        photo_alt_text=f"Portrait of {name}" if photo else "",
     )
     researcher.is_active = True
     researcher.save()
@@ -75,7 +71,6 @@ def test_list_returns_only_active_researchers_in_requested_language(client) -> N
     ResearcherTranslation.objects.create(
         researcher=inactive,
         language="pt-br",
-        role="Pesquisadora",
     )
 
     response = client.get("/api/v1/researchers", {"lang": "pt-br"})
@@ -138,7 +133,8 @@ def test_detail_returns_links_seo_fallback_and_translation_slugs(client) -> None
     assert body["email"] == "person@ufra.edu.br"
     assert body["links"]["lattes"] == "http://lattes.cnpq.br/example"
     assert body["seo_title"] == "Ana Silva"
-    assert body["seo_description"] == "Professora — Inteligência Artificial"
+    assert body["seo_description"] == "Inteligência Artificial"
+    assert "role" not in body
     assert body["translations"] == [
         {"lang": "en", "slug": "ana-silva-en"},
         {"lang": "pt-br", "slug": "ana-silva"},
@@ -173,5 +169,5 @@ def test_photo_uses_relative_media_url(client, settings, tmp_path) -> None:
     assert response.status_code == 200
     assert response.json()["photo"] == {
         "url": f"/media/{researcher.photo.name}",
-        "alt": "Retrato de Ana Silva",
+        "alt": "Ana Silva",
     }

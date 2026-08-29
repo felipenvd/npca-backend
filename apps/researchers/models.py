@@ -110,7 +110,7 @@ class Researcher(models.Model):
 
     def validate_for_activation(self) -> None:
         translations = {item.language: item for item in self.translations.all()}
-        errors = activation_errors(self, translations)
+        errors = activation_errors(translations)
         if errors:
             raise ValidationError(errors)
 
@@ -127,10 +127,8 @@ class ResearcherTranslation(models.Model):
     )
     language = models.CharField("idioma", max_length=5, choices=Language)
     slug = models.SlugField(max_length=220, null=True, blank=True)
-    role = models.CharField("função", max_length=200, blank=True)
     research_area = models.CharField("área de pesquisa", max_length=200, blank=True)
     biography_html = models.TextField("biografia", blank=True)
-    photo_alt_text = models.CharField("texto alternativo da foto", max_length=200, blank=True)
     seo_title = models.CharField("título para SEO", max_length=70, blank=True)
     seo_description = models.CharField("descrição para SEO", max_length=160, blank=True)
 
@@ -171,14 +169,10 @@ class ResearcherTranslation(models.Model):
         return slugify(full_name) if full_name else None
 
 
-def activation_errors(
-    researcher: Researcher,
-    translations: dict[str, ResearcherTranslation],
-) -> list[str]:
+def activation_errors(translations: dict[str, ResearcherTranslation]) -> list[str]:
     errors: list[str] = []
     required_fields = {
         "slug": "slug",
-        "role": "função",
         "research_area": "área de pesquisa",
         "biography_html": "biografia",
     }
@@ -192,8 +186,5 @@ def activation_errors(
         for field, field_label in required_fields.items():
             if not (getattr(translation, field, None) or "").strip():
                 errors.append(f"Preencha {field_label} na tradução em {label}.")
-
-        if researcher.photo and not translation.photo_alt_text.strip():
-            errors.append(f"Preencha o texto alternativo da foto em {label}.")
 
     return errors

@@ -19,7 +19,7 @@ def serialize_photo(translation: ResearcherTranslation) -> ResearcherPhoto | Non
     researcher = translation.researcher
     if not researcher.photo:
         return None
-    return ResearcherPhoto(url=researcher.photo.url, alt=translation.photo_alt_text)
+    return ResearcherPhoto(url=researcher.photo.url, alt=researcher.full_name)
 
 
 def serialize_summary(translation: ResearcherTranslation) -> ResearcherSummary:
@@ -28,7 +28,6 @@ def serialize_summary(translation: ResearcherTranslation) -> ResearcherSummary:
         slug=translation.slug or "",
         name=researcher.full_name,
         academic_category=researcher.academic_category,
-        role=translation.role,
         research_area=translation.research_area,
         photo=serialize_photo(translation),
     )
@@ -74,9 +73,7 @@ def get_researcher(request, slug: str, lang: Language) -> ResearcherDetail:
         for item in researcher.translations.all()
         if item.slug
     ]
-    seo_description = translation.seo_description or (
-        f"{translation.role} — {translation.research_area}"
-    )
+    seo_description = translation.seo_description or translation.research_area
     return ResearcherDetail(
         **summary.model_dump(),
         biography_html=translation.biography_html,

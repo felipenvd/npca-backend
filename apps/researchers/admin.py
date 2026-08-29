@@ -25,10 +25,8 @@ class ResearcherTranslationInline(StackedInline):
                 "fields": (
                     "language",
                     "slug",
-                    "role",
                     "research_area",
                     "biography_html",
-                    "photo_alt_text",
                     "seo_title",
                     "seo_description",
                 ),
@@ -57,7 +55,6 @@ class ResearcherAdmin(ModelAdmin):
     search_fields = (
         "full_name",
         "public_email",
-        "translations__role",
         "translations__research_area",
     )
     readonly_fields = (
