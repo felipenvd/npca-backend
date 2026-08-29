@@ -113,9 +113,14 @@ def test_activation_requires_complete_bilingual_content_and_photo_alt_text() -> 
 
 @pytest.mark.django_db
 def test_academic_category_is_constrained_and_controls_default_ordering() -> None:
-    master = Researcher.objects.create(
+    masters_student = Researcher.objects.create(
         full_name="Ana Mestranda",
         academic_category=Researcher.AcademicCategory.MASTERS_STUDENT,
+        display_order=1,
+    )
+    master = Researcher.objects.create(
+        full_name="Carlos Mestre",
+        academic_category=Researcher.AcademicCategory.MASTER,
         display_order=1,
     )
     second_doctor = Researcher.objects.create(
@@ -129,7 +134,12 @@ def test_academic_category_is_constrained_and_controls_default_ordering() -> Non
         display_order=1,
     )
 
-    assert list(Researcher.objects.all()) == [first_doctor, second_doctor, master]
+    assert list(Researcher.objects.all()) == [
+        first_doctor,
+        second_doctor,
+        master,
+        masters_student,
+    ]
 
     with pytest.raises(IntegrityError), transaction.atomic():
         Researcher.objects.create(

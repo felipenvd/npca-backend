@@ -92,6 +92,11 @@ def test_list_is_paginated_and_ordered_by_category_then_display_order_and_name(c
         category=Researcher.AcademicCategory.MASTERS_STUDENT,
         order=1,
     )
+    create_active_researcher(
+        name="Carlos Mestre",
+        category=Researcher.AcademicCategory.MASTER,
+        order=1,
+    )
     create_active_researcher(name="Bruno Doutor", order=2)
     create_active_researcher(name="Ana Doutora", order=1)
 
@@ -105,13 +110,16 @@ def test_list_is_paginated_and_ordered_by_category_then_display_order_and_name(c
     )
 
     assert first_page.status_code == 200
-    assert first_page.json()["total"] == 3
+    assert first_page.json()["total"] == 4
     assert [item["name"] for item in first_page.json()["items"]] == [
         "Ana Doutora",
         "Bruno Doutor",
     ]
     assert first_page.json()["items"][0]["academic_category"] == "doctor"
-    assert [item["name"] for item in second_page.json()["items"]] == ["Ana Mestranda"]
+    assert [item["name"] for item in second_page.json()["items"]] == [
+        "Carlos Mestre",
+        "Ana Mestranda",
+    ]
 
 
 @pytest.mark.django_db

@@ -6,6 +6,7 @@ Language = Literal["pt-br", "en"]
 AcademicCategory = Literal[
     "doctor",
     "doctoral_student",
+    "master",
     "masters_student",
     "undergraduate_researcher",
 ]

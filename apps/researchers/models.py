@@ -16,6 +16,7 @@ from .validators import validate_researcher_photo
 class AcademicCategory(models.TextChoices):
     DOCTOR = "doctor", "Pesquisador(a) doutor(a)"
     DOCTORAL_STUDENT = "doctoral_student", "Doutorando(a)"
+    MASTER = "master", "Mestre(a)"
     MASTERS_STUDENT = "masters_student", "Mestrando(a)"
     UNDERGRADUATE_RESEARCHER = (
         "undergraduate_researcher",

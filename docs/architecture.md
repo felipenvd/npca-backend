@@ -467,9 +467,10 @@ publicações e laboratórios serão adicionados somente quando esses módulos f
 implementados.
 
 A categoria acadêmica será obrigatória e usará os códigos estáveis `doctor`,
-`doctoral_student`, `masters_student` e `undergraduate_researcher`. A exibição seguirá
-essa prioridade, depois a ordem configurada dentro da categoria, o nome e o ID. Os
-rótulos serão localizados pelo frontend e a função continuará sendo um campo separado.
+`doctoral_student`, `master`, `masters_student` e `undergraduate_researcher`. A
+exibição seguirá essa prioridade, depois a ordem configurada dentro da categoria, o
+nome e o ID. Os rótulos serão localizados pelo frontend e a função continuará sendo
+um campo separado.
 
 ## 9. API
 

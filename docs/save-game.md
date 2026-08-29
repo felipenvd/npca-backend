@@ -54,6 +54,8 @@ tarefa.
 - migration `researchers.0001_initial` criada e aplicada no ambiente de desenvolvimento;
 - migration `researchers.0002_researcher_academic_category` adiciona a categoria obrigatória
   sem classificar silenciosamente registros existentes;
+- migration `researchers.0003_add_master_academic_category` diferencia Mestre(a) de
+  Mestrando(a);
 - ordenação pública: categoria, ordem interna, nome e ID;
 - endpoints públicos adicionados:
 
