@@ -14,7 +14,7 @@ from django.utils import timezone
 from apps.projects.models import Project
 from apps.researchers.models import Researcher
 
-from .validators import validate_publication_file
+from .validators import validate_publication_cover, validate_publication_file
 
 DOI_PATTERN = re.compile(r"^10\.\d{4,9}/\S+$", re.IGNORECASE)
 DOI_PREFIX_PATTERN = re.compile(
@@ -26,6 +26,11 @@ DOI_PREFIX_PATTERN = re.compile(
 def publication_file_upload_to(_instance: Publication, filename: str) -> str:
     extension = PurePath(filename).suffix.lower()
     return f"publications/files/{uuid4().hex}{extension}"
+
+
+def publication_cover_upload_to(_instance: Publication, filename: str) -> str:
+    extension = PurePath(filename).suffix.lower()
+    return f"publications/covers/{uuid4().hex}{extension}"
 
 
 def normalize_doi(value: str) -> str:
@@ -47,6 +52,13 @@ class Publication(models.Model):
         ARCHIVED = "archived", "Arquivado"
 
     status = models.CharField(max_length=10, choices=Status, default=Status.DRAFT)
+    cover = models.ImageField(
+        "imagem de divulgação",
+        upload_to=publication_cover_upload_to,
+        validators=[validate_publication_cover],
+        blank=True,
+    )
+    cover_credit = models.CharField("crédito da imagem", max_length=200, blank=True)
     year = models.PositiveSmallIntegerField(
         "ano",
         validators=[MinValueValidator(1000)],
@@ -172,6 +184,11 @@ class PublicationTranslation(models.Model):
     language = models.CharField("idioma", max_length=5, choices=Language)
     title = models.CharField("título", max_length=500, blank=True)
     abstract = models.TextField("resumo", blank=True)
+    cover_alt_text = models.CharField(
+        "texto alternativo da imagem",
+        max_length=250,
+        blank=True,
+    )
     seo_title = models.CharField("título para SEO", max_length=70, blank=True)
     seo_description = models.CharField("descrição para SEO", max_length=160, blank=True)
 

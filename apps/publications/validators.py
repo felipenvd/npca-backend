@@ -3,7 +3,13 @@ from pathlib import PurePath
 from django.core.exceptions import ValidationError
 from django.core.files import File
 
+from apps.core.images import validate_content_image
+
 MAX_PUBLICATION_FILE_SIZE = 20 * 1024 * 1024
+
+
+def validate_publication_cover(upload: File) -> None:
+    validate_content_image(upload, label="A imagem de divulgação")
 
 
 def validate_publication_file(upload: File) -> None:

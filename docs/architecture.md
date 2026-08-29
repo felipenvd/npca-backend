@@ -394,6 +394,7 @@ Campos editoriais traduzíveis não serão duplicados diretamente no modelo prin
 
 - status editorial (`draft`, `published` ou `archived`);
 - traduções com título, resumo e SEO;
+- imagem de divulgação opcional, crédito e texto alternativo localizado;
 - autores ordenados, relacionados a Pesquisadores ou registrados como externos;
 - ano;
 - periódico ou evento;
@@ -511,6 +512,11 @@ será opcional e aparecerá publicamente apenas quando ele próprio estiver publ
 traduzido no idioma solicitado. A primeira publicação definirá `published_at`, preservado
 em arquivamentos, retornos a rascunho e republicações.
 
+A imagem de divulgação será opcional, validada pelo mecanismo compartilhado e armazenada
+com nome UUID. O crédito será global e o texto alternativo localizado poderá ficar vazio
+quando a imagem for apenas decorativa. Cards e detalhes usarão um fallback visual próprio
+quando não houver imagem.
+
 ## 9. API
 
 A API pública será versionada a partir de `/api/v1/`.
@@ -575,8 +581,8 @@ GET /api/v1/publications/{id}?lang=pt-br
 
 A listagem priorizará o ano mais recente, seguido da ordem manual, título e ID. Apenas
 publicações com status publicado serão retornadas. O detalhe incluirá autoria ordenada,
-DOI, URL externa, PDF, projeto público relacionado, SEO e idiomas equivalentes. Arquivos
-continuarão usando caminhos relativos a `/media/`.
+imagem de divulgação, DOI, URL externa, PDF, projeto público relacionado, SEO e idiomas
+equivalentes. Arquivos continuarão usando caminhos relativos a `/media/`.
 
 Erros da API usarão Problem Details conforme o RFC 9457, com
 `Content-Type: application/problem+json` e os campos `type`, `title`, `status`,

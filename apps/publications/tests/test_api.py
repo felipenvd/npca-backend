@@ -1,9 +1,18 @@
 import pytest
 from django.core.files.uploadedfile import SimpleUploadedFile
+from PIL import Image
 
 from apps.projects.models import Project, ProjectTranslation
 from apps.publications.models import Publication, PublicationAuthor, PublicationTranslation
 from apps.researchers.models import Researcher, ResearcherTranslation
+
+
+def webp_upload() -> SimpleUploadedFile:
+    from io import BytesIO
+
+    buffer = BytesIO()
+    Image.new("RGB", (64, 36), "#00bab3").save(buffer, format="WEBP")
+    return SimpleUploadedFile("cover.webp", buffer.getvalue(), content_type="image/webp")
 
 
 def create_researcher(name: str, *, active: bool = True) -> Researcher:
@@ -29,6 +38,7 @@ def create_publication(
     order: int = 0,
     status: str = Publication.Status.PUBLISHED,
     document=None,
+    cover=None,
     project: Project | None = None,
 ) -> Publication:
     publication = Publication.objects.create(
@@ -38,6 +48,8 @@ def create_publication(
         doi="10.1000/example" if title == "Principal" else "",
         external_url="https://example.com/paper",
         document=document,
+        cover=cover,
+        cover_credit="NPCA" if cover else "",
         project=project,
         display_order=order,
     )
@@ -46,12 +58,14 @@ def create_publication(
         language="pt-br",
         title=title,
         abstract=f"Resumo de {title}",
+        cover_alt_text="Visualização da pesquisa" if cover else "",
     )
     PublicationTranslation.objects.create(
         publication=publication,
         language="en",
         title=f"{title} EN",
         abstract=f"Abstract of {title}",
+        cover_alt_text="Research visualization" if cover else "",
     )
     PublicationAuthor.objects.create(
         publication=publication,
@@ -125,6 +139,7 @@ def test_detail_returns_authors_access_links_file_project_and_seo(
     publication = create_publication(
         title="Principal",
         project=project,
+        cover=webp_upload(),
         document=SimpleUploadedFile(
             "paper.pdf",
             b"%PDF-1.7\ncontent",
@@ -144,6 +159,11 @@ def test_detail_returns_authors_access_links_file_project_and_seo(
         "photo": None,
     }
     assert body["doi"] == "10.1000/example"
+    assert body["cover"] == {
+        "url": f"/media/{publication.cover.name}",
+        "alt": "Visualização da pesquisa",
+        "credit": "NPCA",
+    }
     assert body["file_url"] == f"/media/{publication.document.name}"
     assert body["project"] == {
         "id": project.pk,

@@ -5,6 +5,12 @@ from ninja import Schema
 Language = Literal["pt-br", "en"]
 
 
+class PublicationCover(Schema):
+    url: str
+    alt: str
+    credit: str | None
+
+
 class PublicationAuthorPhoto(Schema):
     url: str
     alt: str
@@ -29,6 +35,7 @@ class PublicationSummary(Schema):
     year: int
     venue: str
     authors: list[PublicationAuthorSchema]
+    cover: PublicationCover | None
     doi: str | None
     external_url: str | None
 

@@ -3,8 +3,21 @@ from io import BytesIO
 import pytest
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
+from PIL import Image
 
-from apps.publications.validators import validate_publication_file
+from apps.publications.validators import validate_publication_cover, validate_publication_file
+
+
+def test_accepts_valid_publication_cover() -> None:
+    buffer = BytesIO()
+    Image.new("RGB", (32, 18), "#00bab3").save(buffer, format="WEBP")
+    upload = SimpleUploadedFile(
+        "cover.webp",
+        buffer.getvalue(),
+        content_type="image/webp",
+    )
+
+    validate_publication_cover(upload)
 
 
 def test_accepts_pdf_signature_extension_and_mime() -> None:

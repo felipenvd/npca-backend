@@ -155,12 +155,15 @@ A quarta fatia vertical está implementada e validada na branch `develop`.
 - cada autoria usa exatamente uma identidade e Pesquisadores relacionados são protegidos
   contra exclusão;
 - título, resumo e SEO localizados em PT-BR e EN;
+- imagem de divulgação opcional com nome UUID, crédito e texto alternativo localizado;
 - DOI opcional normalizado e único sem diferenciar maiúsculas de minúsculas;
 - URL externa, PDF e projeto relacionado opcionais;
 - PDF limitado a 20 MiB, validado por extensão, MIME e assinatura, com nome UUID;
 - projeto só é exposto quando estiver publicado e traduzido no idioma solicitado;
 - `published_at` preservado após arquivamento, rascunho ou republicação;
 - migration `publications.0001_initial` criada e aplicada no PostgreSQL de desenvolvimento;
+- migration `publications.0002_publication_cover_publication_cover_credit_and_more` adiciona
+  imagem, crédito e texto alternativo e está aplicada no PostgreSQL de desenvolvimento;
 - endpoints públicos adicionados:
 
 ```text
@@ -174,6 +177,7 @@ GET /api/v1/publications/{id}?lang=pt-br
 - OpenAPI regenerado e cliente SSR tipado;
 - três publicações recentes na home, imediatamente após Projetos;
 - listagem paginada e detalhe por ID em PT-BR e EN;
+- imagem de divulgação nos cards e no detalhe, com fallback visual quando ausente;
 - autoria com links somente para perfis públicos ativos;
 - acesso seguro por DOI, URL externa e PDF quando informados;
 - vínculo opcional com projeto público no idioma atual;
@@ -203,7 +207,7 @@ Rotas:
 
 ## Verificações realizadas nesta fatia
 
-- suíte completa do backend: 98 testes passaram com PostgreSQL;
+- suíte completa do backend: 99 testes passaram com PostgreSQL;
 - Ruff, formatação, Django Check e migrations check passaram;
 - migrations de Projetos e Publicações aplicadas no PostgreSQL de desenvolvimento;
 - OpenAPI regenerado a partir do backend em execução;

@@ -10,6 +10,7 @@ from .schemas import (
     Language,
     PublicationAuthorPhoto,
     PublicationAuthorSchema,
+    PublicationCover,
     PublicationDetail,
     PublicationListResponse,
     PublicationProject,
@@ -55,6 +56,15 @@ def serialize_summary(
         year=publication.year,
         venue=publication.venue,
         authors=[serialize_author(author, lang) for author in publication.author_records.all()],
+        cover=(
+            PublicationCover(
+                url=publication.cover.url,
+                alt=translation.cover_alt_text,
+                credit=publication.cover_credit or None,
+            )
+            if publication.cover
+            else None
+        ),
         doi=publication.doi or None,
         external_url=publication.external_url or None,
     )

@@ -24,6 +24,8 @@ class PublicationForm(forms.ModelForm):
         model = Publication
         fields = (
             "status",
+            "cover",
+            "cover_credit",
             "year",
             "venue",
             "doi",
@@ -45,6 +47,8 @@ class PublicationForm(forms.ModelForm):
                 "limite de 20 MiB."
             ),
             "display_order": "Desempata publicações do mesmo ano.",
+            "cover": "Opcional. Use uma imagem JPEG, PNG ou WebP de até 5 MiB.",
+            "cover_credit": "Opcional. Informe a autoria ou a fonte da imagem.",
         }
 
     def clean_doi(self) -> str:
@@ -54,11 +58,22 @@ class PublicationForm(forms.ModelForm):
 class PublicationTranslationForm(forms.ModelForm):
     class Meta:
         model = PublicationTranslation
-        fields = ("language", "title", "abstract", "seo_title", "seo_description")
+        fields = (
+            "language",
+            "title",
+            "abstract",
+            "cover_alt_text",
+            "seo_title",
+            "seo_description",
+        )
         labels = {"title": "Título *", "abstract": "Resumo *"}
         help_texts = {
             "title": "Obrigatório para publicar.",
             "abstract": "Obrigatório para publicar.",
+            "cover_alt_text": (
+                "Descreva a imagem quando ela transmitir informação relevante. "
+                "Deixe vazio quando for apenas decorativa."
+            ),
             "seo_title": "Opcional. Quando vazio, o título da publicação será usado.",
             "seo_description": "Opcional. Quando vazia, o resumo será usado.",
         }

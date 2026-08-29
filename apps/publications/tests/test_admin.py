@@ -9,6 +9,7 @@ from apps.researchers.models import Researcher
 def publication_data(*, published: bool, complete_english: bool = False) -> dict[str, str]:
     return {
         "status": Publication.Status.PUBLISHED if published else Publication.Status.DRAFT,
+        "cover_credit": "",
         "year": "",
         "venue": "",
         "doi": "https://doi.org/10.1000/EXAMPLE",
@@ -22,11 +23,13 @@ def publication_data(*, published: bool, complete_english: bool = False) -> dict
         "translations-0-language": "pt-br",
         "translations-0-title": "Computação na Amazônia",
         "translations-0-abstract": "Resumo",
+        "translations-0-cover_alt_text": "",
         "translations-0-seo_title": "",
         "translations-0-seo_description": "",
         "translations-1-language": "en",
         "translations-1-title": "Computing in the Amazon" if complete_english else "",
         "translations-1-abstract": "Abstract" if complete_english else "",
+        "translations-1-cover_alt_text": "",
         "translations-1-seo_title": "",
         "translations-1-seo_description": "",
         "author_records-TOTAL_FORMS": "1",
@@ -57,6 +60,8 @@ def test_admin_add_page_exposes_bilingual_editorial_and_author_fields(client) ->
     assert "Periódico ou evento *" in content
     assert "Pesquisador cadastrado" in content
     assert "Nome do autor externo" in content
+    assert "Imagem de divulgação" in content
+    assert "Texto alternativo da imagem" in content
     assert "Arquivo PDF" in content
 
 

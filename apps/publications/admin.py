@@ -24,7 +24,14 @@ class PublicationTranslationInline(StackedInline):
         (
             None,
             {
-                "fields": ("language", "title", "abstract", "seo_title", "seo_description"),
+                "fields": (
+                    "language",
+                    "title",
+                    "abstract",
+                    "cover_alt_text",
+                    "seo_title",
+                    "seo_description",
+                ),
                 "description": (
                     "Título e resumo são obrigatórios nos dois idiomas para publicar, "
                     "mas podem ficar vazios enquanto o registro for um rascunho."
@@ -71,6 +78,7 @@ class PublicationAdmin(ModelAdmin):
     )
     ordering = ("-year", "display_order", "pk")
     readonly_fields = (
+        "cover_preview",
         "document_link",
         "published_at",
         "created_at",
@@ -88,6 +96,10 @@ class PublicationAdmin(ModelAdmin):
                     "são obrigatórios para publicar."
                 ),
             },
+        ),
+        (
+            "Apresentação",
+            {"fields": ("cover", "cover_preview", "cover_credit")},
         ),
         (
             "Acesso à publicação",
@@ -116,6 +128,15 @@ class PublicationAdmin(ModelAdmin):
             None,
         )
         return translation.title if translation and translation.title else f"Publicação #{obj.pk}"
+
+    @admin.display(description="Prévia da imagem")
+    def cover_preview(self, obj: Publication) -> str:
+        if not obj.cover:
+            return "Sem imagem"
+        return format_html(
+            '<img src="{}" alt="" style="max-height: 180px; max-width: 320px; object-fit: cover;">',
+            obj.cover.url,
+        )
 
     @admin.display(description="Arquivo atual")
     def document_link(self, obj: Publication) -> str:
