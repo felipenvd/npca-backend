@@ -352,7 +352,6 @@ Campos editoriais traduzíveis não serão duplicados diretamente no modelo prin
 - imagem de capa;
 - crédito e texto alternativo da imagem;
 - status e data de publicação;
-- destaque na página inicial.
 
 #### Pesquisador
 
@@ -364,8 +363,7 @@ Campos editoriais traduzíveis não serão duplicados diretamente no modelo prin
 - e-mail institucional;
 - currículo Lattes;
 - ORCID;
-- LinkedIn e outros links;
-- vínculo com projetos e publicações;
+- LinkedIn;
 - ativo/inativo;
 - ordem de exibição.
 
@@ -458,6 +456,14 @@ visual simples do Unfold, sem imagens internas. O HTML será sanitizado no backe
 com uma lista restrita de elementos de formatação antes de ser persistido e exposto
 pela API.
 
+Pesquisadores serão a segunda implementação. Nome, foto, e-mail, links e ordem de
+exibição serão globais; função, área de pesquisa, slug, biografia, texto alternativo e
+SEO serão localizados. O perfil inativo poderá permanecer incompleto, mas sua ativação
+exigirá as duas traduções completas e texto alternativo nos dois idiomas quando houver
+foto. A biografia usará o mesmo editor visual limitado e a mesma sanitização de HTML
+adotada em Notícias. Relacionamentos com projetos, publicações e laboratórios serão
+adicionados somente quando esses módulos forem implementados.
+
 ## 9. API
 
 A API pública será versionada a partir de `/api/v1/`.
@@ -471,8 +477,8 @@ GET /api/v1/events
 GET /api/v1/events/{slug}
 GET /api/v1/laboratories
 GET /api/v1/laboratories/{slug}
-GET /api/v1/people
-GET /api/v1/people/{slug}
+GET /api/v1/researchers
+GET /api/v1/researchers/{slug}
 GET /api/v1/projects
 GET /api/v1/projects/{slug}
 GET /api/v1/publications

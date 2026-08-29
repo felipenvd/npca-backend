@@ -8,6 +8,7 @@ from ninja import NinjaAPI
 from apps.core.api import router as core_router
 from apps.core.problems import register_problem_handlers
 from apps.news.api import router as news_router
+from apps.researchers.api import router as researchers_router
 
 docs_decorator = staff_member_required if settings.NINJA_DOCS_REQUIRE_STAFF else None
 
@@ -21,6 +22,7 @@ api = NinjaAPI(
 register_problem_handlers(api)
 api.add_router("", core_router)
 api.add_router("/news", news_router)
+api.add_router("/researchers", researchers_router)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
