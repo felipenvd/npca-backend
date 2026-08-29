@@ -32,7 +32,11 @@ def management_data(total: int = 2) -> dict[str, str]:
 
 @pytest.mark.django_db
 def test_inactive_researcher_accepts_incomplete_translations() -> None:
-    researcher = Researcher(full_name="Ana Silva", is_active=False)
+    researcher = Researcher(
+        full_name="Ana Silva",
+        academic_category=Researcher.AcademicCategory.DOCTOR,
+        is_active=False,
+    )
     data = {
         **management_data(),
         "translations-0-language": "pt-br",
@@ -47,7 +51,11 @@ def test_inactive_researcher_accepts_incomplete_translations() -> None:
 
 @pytest.mark.django_db
 def test_activation_requires_two_complete_translations() -> None:
-    researcher = Researcher(full_name="Ana Silva", is_active=True)
+    researcher = Researcher(
+        full_name="Ana Silva",
+        academic_category=Researcher.AcademicCategory.DOCTOR,
+        is_active=True,
+    )
     data = {
         **management_data(),
         "translations-0-language": "pt-br",
@@ -66,7 +74,11 @@ def test_activation_requires_two_complete_translations() -> None:
 
 @pytest.mark.django_db
 def test_complete_bilingual_researcher_generates_slugs() -> None:
-    researcher = Researcher(full_name="Ana Silva", is_active=True)
+    researcher = Researcher(
+        full_name="Ana Silva",
+        academic_category=Researcher.AcademicCategory.DOCTOR,
+        is_active=True,
+    )
     data = {
         **management_data(),
         "translations-0-language": "pt-br",
@@ -90,7 +102,11 @@ def test_complete_bilingual_researcher_generates_slugs() -> None:
 
 @pytest.mark.django_db
 def test_active_researcher_with_photo_requires_alt_text_in_both_languages() -> None:
-    researcher = Researcher(full_name="Ana Silva", is_active=True)
+    researcher = Researcher(
+        full_name="Ana Silva",
+        academic_category=Researcher.AcademicCategory.DOCTOR,
+        is_active=True,
+    )
     researcher.photo.name = "researchers/photos/example.webp"
     data = {
         **management_data(),

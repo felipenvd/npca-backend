@@ -13,6 +13,27 @@ from apps.core.sanitizers import sanitize_rich_text
 from .validators import validate_researcher_photo
 
 
+class AcademicCategory(models.TextChoices):
+    DOCTOR = "doctor", "Pesquisador(a) doutor(a)"
+    DOCTORAL_STUDENT = "doctoral_student", "Doutorando(a)"
+    MASTERS_STUDENT = "masters_student", "Mestrando(a)"
+    UNDERGRADUATE_RESEARCHER = (
+        "undergraduate_researcher",
+        "Graduando(a) de iniciação científica",
+    )
+
+
+def academic_category_ordering(field_name: str = "academic_category") -> models.Case:
+    return models.Case(
+        *(
+            models.When(**{field_name: value}, then=models.Value(priority))
+            for priority, value in enumerate(AcademicCategory.values)
+        ),
+        default=models.Value(len(AcademicCategory.values)),
+        output_field=models.IntegerField(),
+    )
+
+
 def researcher_photo_upload_to(_instance: Researcher, filename: str) -> str:
     extension = PurePath(filename).suffix.lower()
     return f"researchers/photos/{uuid4().hex}{extension}"
@@ -24,7 +45,14 @@ class ResearcherQuerySet(models.QuerySet):
 
 
 class Researcher(models.Model):
+    AcademicCategory = AcademicCategory
+
     full_name = models.CharField("nome completo", max_length=200)
+    academic_category = models.CharField(
+        "categoria acadêmica",
+        max_length=30,
+        choices=AcademicCategory,
+    )
     photo = models.ImageField(
         "foto",
         upload_to=researcher_photo_upload_to,
@@ -63,7 +91,18 @@ class Researcher(models.Model):
     class Meta:
         verbose_name = "pesquisador"
         verbose_name_plural = "pesquisadores"
-        ordering = ("display_order", "full_name", "pk")
+        ordering = (
+            academic_category_ordering(),
+            "display_order",
+            "full_name",
+            "pk",
+        )
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(academic_category__in=AcademicCategory.values),
+                name="valid_researcher_academic_category",
+            )
+        ]
 
     def __str__(self) -> str:
         return self.full_name

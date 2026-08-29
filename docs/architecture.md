@@ -356,6 +356,7 @@ Campos editoriais traduzíveis não serão duplicados diretamente no modelo prin
 #### Pesquisador
 
 - nome;
+- categoria acadêmica;
 - foto;
 - biografia;
 - função;
@@ -456,13 +457,19 @@ visual simples do Unfold, sem imagens internas. O HTML será sanitizado no backe
 com uma lista restrita de elementos de formatação antes de ser persistido e exposto
 pela API.
 
-Pesquisadores serão a segunda implementação. Nome, foto, e-mail, links e ordem de
-exibição serão globais; função, área de pesquisa, slug, biografia, texto alternativo e
-SEO serão localizados. O perfil inativo poderá permanecer incompleto, mas sua ativação
-exigirá as duas traduções completas e texto alternativo nos dois idiomas quando houver
-foto. A biografia usará o mesmo editor visual limitado e a mesma sanitização de HTML
-adotada em Notícias. Relacionamentos com projetos, publicações e laboratórios serão
-adicionados somente quando esses módulos forem implementados.
+Pesquisadores serão a segunda implementação. Nome, categoria acadêmica, foto, e-mail,
+links e ordem de exibição serão globais; função, área de pesquisa, slug, biografia,
+texto alternativo e SEO serão localizados. O perfil inativo poderá permanecer
+incompleto, mas sua ativação exigirá as duas traduções completas e texto alternativo
+nos dois idiomas quando houver foto. A biografia usará o mesmo editor visual limitado
+e a mesma sanitização de HTML adotada em Notícias. Relacionamentos com projetos,
+publicações e laboratórios serão adicionados somente quando esses módulos forem
+implementados.
+
+A categoria acadêmica será obrigatória e usará os códigos estáveis `doctor`,
+`doctoral_student`, `masters_student` e `undergraduate_researcher`. A exibição seguirá
+essa prioridade, depois a ordem configurada dentro da categoria, o nome e o ID. Os
+rótulos serão localizados pelo frontend e a função continuará sendo um campo separado.
 
 ## 9. API
 

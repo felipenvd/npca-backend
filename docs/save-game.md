@@ -43,8 +43,8 @@ tarefa.
 ### Backend
 
 - app `apps.researchers` registrado;
-- `Researcher` com nome, foto, e-mail público opcional, Lattes, ORCID, LinkedIn, ativo/inativo,
-  ordem e auditoria;
+- `Researcher` com nome, categoria acadêmica, foto, e-mail público opcional, Lattes, ORCID,
+  LinkedIn, ativo/inativo, ordem e auditoria;
 - `ResearcherTranslation` com idioma, slug, função, área, biografia, texto alternativo e SEO;
 - inativos podem permanecer incompletos;
 - ativação exige PT-BR e EN completos e texto alternativo quando houver foto;
@@ -52,6 +52,9 @@ tarefa.
 - biografia usa WYSIWYG e sanitização compartilhada;
 - imagem usa validação compartilhada com wrappers específicos por app;
 - migration `researchers.0001_initial` criada e aplicada no ambiente de desenvolvimento;
+- migration `researchers.0002_researcher_academic_category` adiciona a categoria obrigatória
+  sem classificar silenciosamente registros existentes;
+- ordenação pública: categoria, ordem interna, nome e ID;
 - endpoints públicos adicionados:
 
 ```text
@@ -66,6 +69,7 @@ GET /api/v1/researchers/{slug}?lang=pt-br
 - quatro pesquisadores na home;
 - listagem paginada e perfil individual em PT-BR e EN;
 - fallback por iniciais quando não houver foto;
+- categorias localizadas nos cards, perfis e grupos da listagem;
 - e-mail e perfis acadêmicos públicos quando informados;
 - navegação atualizada;
 - canonical, Open Graph `profile`, `hreflang` e JSON-LD `Person`.
@@ -81,7 +85,7 @@ Rotas:
 
 ## Verificações realizadas nesta fatia
 
-- suíte completa do backend: 58 testes passaram com PostgreSQL;
+- suíte completa do backend: 59 testes passaram com PostgreSQL;
 - Ruff, formatação, Django Check e migrations check passaram;
 - migration aplicada no PostgreSQL de desenvolvimento;
 - OpenAPI regenerado a partir do backend em execução;
@@ -91,6 +95,7 @@ Rotas:
 - perfil inexistente e perfil desativado retornaram `404`;
 - desativação removeu imediatamente o perfil da API pública;
 - canonical, Open Graph, `hreflang` e JSON-LD foram conferidos no HTML;
+- smoke de categorias confirmou prioridade, ordem interna e agrupamentos PT-BR/EN;
 - o registro temporário usado no smoke foi removido do banco.
 
 Não havia navegador integrado conectado para inspeção visual automatizada. Layout,

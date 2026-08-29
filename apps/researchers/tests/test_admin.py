@@ -8,6 +8,7 @@ from apps.researchers.models import Researcher
 def researcher_data(*, active: bool) -> dict[str, str | bool]:
     return {
         "full_name": "Ana Silva",
+        "academic_category": Researcher.AcademicCategory.DOCTOR,
         "is_active": active,
         "display_order": "1",
         "public_email": "ana@ufra.edu.br",
@@ -55,6 +56,10 @@ def test_admin_add_page_uses_wysiwyg_and_two_locales(client) -> None:
     assert "Área de pesquisa *" in content
     assert "Biografia *" in content
     assert "Gerado automaticamente a partir do nome" in content
+    assert "Categoria acadêmica" in content
+    assert content.index("Nome completo") < content.index("Categoria acadêmica")
+    assert content.index("Categoria acadêmica") < content.index("Ativo")
+    assert "dentro da categoria acadêmica" in content
 
 
 @pytest.mark.django_db

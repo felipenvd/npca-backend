@@ -3,6 +3,12 @@ from typing import Literal
 from ninja import Schema
 
 Language = Literal["pt-br", "en"]
+AcademicCategory = Literal[
+    "doctor",
+    "doctoral_student",
+    "masters_student",
+    "undergraduate_researcher",
+]
 
 
 class ResearcherPhoto(Schema):
@@ -13,6 +19,7 @@ class ResearcherPhoto(Schema):
 class ResearcherSummary(Schema):
     slug: str
     name: str
+    academic_category: AcademicCategory
     role: str
     research_area: str
     photo: ResearcherPhoto | None

@@ -22,6 +22,7 @@ class ResearcherForm(forms.ModelForm):
         model = Researcher
         fields = (
             "full_name",
+            "academic_category",
             "photo",
             "public_email",
             "lattes_url",
@@ -30,6 +31,9 @@ class ResearcherForm(forms.ModelForm):
             "is_active",
             "display_order",
         )
+        help_texts = {
+            "display_order": "Define a posição do pesquisador dentro da categoria acadêmica."
+        }
 
 
 class ResearcherTranslationForm(forms.ModelForm):

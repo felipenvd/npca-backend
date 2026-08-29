@@ -11,12 +11,14 @@ def create_active_researcher(
     *,
     name: str,
     order: int = 0,
+    category: str = Researcher.AcademicCategory.DOCTOR,
     pt_slug: str | None = None,
     en_slug: str | None = None,
     photo=None,
 ) -> Researcher:
     researcher = Researcher.objects.create(
         full_name=name,
+        academic_category=category,
         display_order=order,
         public_email="person@ufra.edu.br",
         lattes_url="http://lattes.cnpq.br/example",
@@ -66,7 +68,10 @@ def test_list_requires_valid_language(client) -> None:
 @pytest.mark.django_db
 def test_list_returns_only_active_researchers_in_requested_language(client) -> None:
     create_active_researcher(name="Ana Silva")
-    inactive = Researcher.objects.create(full_name="Pessoa Inativa")
+    inactive = Researcher.objects.create(
+        full_name="Pessoa Inativa",
+        academic_category=Researcher.AcademicCategory.DOCTORAL_STUDENT,
+    )
     ResearcherTranslation.objects.create(
         researcher=inactive,
         language="pt-br",
@@ -81,10 +86,14 @@ def test_list_returns_only_active_researchers_in_requested_language(client) -> N
 
 
 @pytest.mark.django_db
-def test_list_is_paginated_and_ordered_by_display_order_then_name(client) -> None:
-    create_active_researcher(name="Zuleica", order=2)
-    create_active_researcher(name="Bruno", order=1)
-    create_active_researcher(name="Ana", order=1)
+def test_list_is_paginated_and_ordered_by_category_then_display_order_and_name(client) -> None:
+    create_active_researcher(
+        name="Ana Mestranda",
+        category=Researcher.AcademicCategory.MASTERS_STUDENT,
+        order=1,
+    )
+    create_active_researcher(name="Bruno Doutor", order=2)
+    create_active_researcher(name="Ana Doutora", order=1)
 
     first_page = client.get(
         "/api/v1/researchers",
@@ -97,8 +106,12 @@ def test_list_is_paginated_and_ordered_by_display_order_then_name(client) -> Non
 
     assert first_page.status_code == 200
     assert first_page.json()["total"] == 3
-    assert [item["name"] for item in first_page.json()["items"]] == ["Ana", "Bruno"]
-    assert [item["name"] for item in second_page.json()["items"]] == ["Zuleica"]
+    assert [item["name"] for item in first_page.json()["items"]] == [
+        "Ana Doutora",
+        "Bruno Doutor",
+    ]
+    assert first_page.json()["items"][0]["academic_category"] == "doctor"
+    assert [item["name"] for item in second_page.json()["items"]] == ["Ana Mestranda"]
 
 
 @pytest.mark.django_db

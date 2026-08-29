@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from ninja import Query, Router
 
-from .models import ResearcherTranslation
+from .models import ResearcherTranslation, academic_category_ordering
 from .schemas import (
     Language,
     ResearcherDetail,
@@ -27,6 +27,7 @@ def serialize_summary(translation: ResearcherTranslation) -> ResearcherSummary:
     return ResearcherSummary(
         slug=translation.slug or "",
         name=researcher.full_name,
+        academic_category=researcher.academic_category,
         role=translation.role,
         research_area=translation.research_area,
         photo=serialize_photo(translation),
@@ -43,7 +44,12 @@ def list_researchers(
     queryset = (
         ResearcherTranslation.objects.select_related("researcher")
         .filter(language=lang, researcher__is_active=True)
-        .order_by("researcher__display_order", "researcher__full_name", "researcher_id")
+        .order_by(
+            academic_category_ordering("researcher__academic_category"),
+            "researcher__display_order",
+            "researcher__full_name",
+            "researcher_id",
+        )
     )
     total = queryset.count()
     start = (page - 1) * page_size

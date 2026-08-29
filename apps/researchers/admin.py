@@ -45,16 +45,21 @@ class ResearcherTranslationInline(StackedInline):
 class ResearcherAdmin(ModelAdmin):
     form = ResearcherForm
     inlines = (ResearcherTranslationInline,)
-    list_display = ("full_name", "is_active", "display_order", "updated_at")
+    list_display = (
+        "full_name",
+        "academic_category",
+        "is_active",
+        "display_order",
+        "updated_at",
+    )
     list_editable = ("display_order",)
-    list_filter = ("is_active", "updated_at")
+    list_filter = ("academic_category", "is_active", "updated_at")
     search_fields = (
         "full_name",
         "public_email",
         "translations__role",
         "translations__research_area",
     )
-    ordering = ("display_order", "full_name", "pk")
     readonly_fields = (
         "photo_preview",
         "created_at",
@@ -64,6 +69,7 @@ class ResearcherAdmin(ModelAdmin):
     )
     fields = (
         "full_name",
+        "academic_category",
         "is_active",
         "display_order",
         "photo",
