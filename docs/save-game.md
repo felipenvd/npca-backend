@@ -1,4 +1,4 @@
-# Save game — Notícias, Pesquisadores, Projetos, Publicações e Eventos concluídos
+# Save game — Cinco fatias de conteúdo e landing do LabCompAp concluídas
 
 Última atualização: 29 de agosto de 2026.
 
@@ -8,11 +8,11 @@ Este documento registra o ponto de retomada dos dois repositórios do novo site 
 
 | Repositório | Branch atual | Último marco funcional |
 | --- | --- | --- |
-| `npca-backend` | `develop` | `59613a4` |
-| `npca-frontend` | `develop` | `82bbf59` |
+| `npca-backend` | `develop` | `3a534ec` |
+| `npca-frontend` | `develop` | `5de66dc` |
 | `site-npca` | somente referência | `f348889` |
 
-Os commits coordenados das quatro primeiras fatias são:
+Os commits coordenados das cinco primeiras fatias são:
 
 ```text
 Notícias backend:       d1d602e feat(news): implementa gerenciamento e API bilíngue
@@ -25,12 +25,15 @@ Publicações backend:     2d27acc feat(publications): implementa gerenciamento 
 Publicações frontend:    d9599ea feat(publications): integra publicações bilíngues ao site
 Imagens backend:         59613a4 feat(publications): adiciona imagem de divulgação
 Imagens frontend:        82bbf59 feat(publications): exibe imagens nos cards e detalhes
+Eventos backend:         3a534ec feat(events): implementa gerenciamento e API bilíngue
+Eventos frontend:        5de66dc feat(events): integra eventos bilíngues ao site
 ```
 
-A quinta fatia, Eventos, está implementada e validada no working tree dos dois
-repositórios, ainda sem commit coordenado.
+A sexta fatia, a landing do LabCompAp, está implementada e validada no working tree dos
+dois repositórios, ainda sem commit coordenado.
 
-Não modificar nem importar código, cards ou registros fictícios do `site-npca`.
+Não importar código, cards ou registros fictícios do `site-npca`. A exceção aprovada é
+o conteúdo institucional e as imagens reais do LabCompAp.
 
 ## Notícias
 
@@ -247,6 +250,64 @@ Rotas:
 /en/events/[slug]/
 ```
 
+## LabCompAp
+
+A sexta fatia vertical substitui o catálogo genérico de laboratórios por uma landing
+page permanente do LabCompAp.
+
+### Backend
+
+- app `apps.labcompap` restrito ao acervo administrável de equipamentos e galeria;
+- grupo LabCompAp exibido ao final da barra lateral do Admin, após Publicações;
+- conteúdo institucional completo, SEO, três áreas de pesquisa e vinte técnicas
+  bilíngues versionados no frontend;
+- menu do módulo reduzido a Equipamentos e Galeria;
+- galeria segura com UUID, crédito e texto alternativo PT-BR/EN;
+- sem coordenação, equipe ou projetos relacionados, evitando duplicar conteúdos já
+  apresentados nas páginas do NPCA;
+- sem singleton, traduções editoriais, contatos, mapa ou ciclo de publicação no banco;
+- migrations `labcompap.0001_initial` até `labcompap.0005` criadas e aplicadas no
+  PostgreSQL de desenvolvimento;
+- comando `seed_labcompap` lê `scripts/seed/labcompap/data.json`, valida o pacote completo
+  e cria equipamentos e galeria de forma idempotente;
+- carga inicial contém nove imagens de galeria e dez equipamentos;
+- as imagens da galeria ficam em `scripts/seed/labcompap/media/` e são copiadas pelo
+  storage do Django para o volume persistente `MEDIA_ROOT`;
+- seed de produção é uma operação manual após migrations e não roda no startup;
+- endpoint público singular:
+
+```text
+GET /api/v1/labcompap?lang=pt-br
+```
+
+### Frontend
+
+- OpenAPI regenerado e cliente SSR tipado;
+- landing institucional sempre disponível, independentemente da API; falhas afetam
+  somente equipamentos e galeria;
+- destaque permanente na home imediatamente após Sobre;
+- acesso ao LabCompAp destacado como botão junto aos controles de idioma e tema nas
+  navegações desktop e mobile;
+- landing alinhada ao sistema visual do NPCA, com tokens semânticos e suporte real aos
+  temas claro e escuro;
+- cabeçalho próprio baseado no mesmo shell visual do portal, com logo NPCA, identificação
+  secundária do LabCompAp, âncoras, retorno, idioma e tema;
+- hero fotográfico ocupando a primeira dobra completa, com três imagens em crossfade,
+  pausa discreta e indicação acessível de rolagem para Sobre;
+- cards de áreas, técnicas agrupadas, tabela responsiva, galeria com lightbox e
+  localização institucional fixa;
+- movimento corporativo suave, teclado e `prefers-reduced-motion` sem nova dependência;
+- canonical, Open Graph, `hreflang` e JSON-LD `ResearchOrganization`.
+- dados institucionais permanentes e três imagens do hero versionados no código e em
+  `public/labcompap/hero/`, sem dependência do banco ou de `/media/`;
+
+Rotas:
+
+```text
+/pt-br/labcompap/
+/en/labcompap/
+```
+
 ## Acabamento global do frontend
 
 - logos vetoriais específicos para os temas claro e escuro;
@@ -257,18 +318,26 @@ Rotas:
 - menu mobile bilíngue com diálogo nativo, fechamento por `Esc`, controle de foco,
   idioma e tema;
 - indicação visual e semântica da rota ativa em Notícias, Pesquisadores, Projetos,
-  Eventos e Publicações.
+  LabCompAp, Eventos e Publicações.
+- footer institucional compartilhado pelo portal e pelo LabCompAp, com os dois contatos
+  oficiais, Instagram, YouTube e composição responsiva bilíngue.
+- Inter Variable 4.1 hospedada localmente no frontend, com preload, fallback de sistema
+  e licença OFL versionada junto ao arquivo WOFF2.
 
 ## Verificações realizadas nesta fatia
 
-- suíte completa do backend: 114 testes passaram com PostgreSQL;
+- suíte completa do backend: 127 testes passaram com PostgreSQL;
 - Ruff, formatação, Django Check e migrations check passaram;
-- migrations de Projetos, Publicações e Eventos aplicadas no PostgreSQL de desenvolvimento;
+- migrations de Projetos, Publicações, Eventos e LabCompAp aplicadas no PostgreSQL de
+  desenvolvimento;
 - OpenAPI regenerado a partir do backend em execução;
 - Prettier, ESLint, Astro Check e build passaram;
 - Compose de desenvolvimento e produção passou na validação;
 - smoke HTTP integrado confirmou home, listagens e detalhe de Eventos em PT-BR/EN;
 - o HTML de Eventos confirmou navegação ativa, canonical, `hreflang` e JSON-LD `Event`;
+- smoke HTTP confirmou a home e a landing do LabCompAp em PT-BR/EN;
+- o HTML confirmou navegação ativa, âncoras, canonical, `hreflang` e JSON-LD
+  `ResearchOrganization`;
 - smoke HTTP integrado com registro temporário isolado confirmou listagem e detalhe de
   Publicações em PT-BR/EN com `200`;
 - o HTML servido confirmou título localizado, `aria-current="page"`, `hreflang`, projeto
@@ -283,23 +352,22 @@ Rotas:
   listagens de Projetos em PT-BR e EN;
 - Prettier, ESLint, Astro Check e build passaram após o acabamento da navegação.
 
-Não havia navegador integrado conectado para inspeção visual automatizada. O drawer,
-os temas, a responsividade e a navegação por teclado ainda devem ser conferidos
-manualmente.
+Não havia navegador integrado conectado nesta sessão. Carrossel, lightbox,
+responsividade, temas, foco e redução de movimento ainda devem ser conferidos
+visualmente antes do deploy do LabCompAp.
 
 ## Próximos passos
 
-1. Criar um evento real completo no Admin e executar o smoke editorial.
-2. Conferir visualmente home, listagem e detalhe em desktop e mobile.
-3. Validar calendário, modalidades, estados editoriais, links, idioma e metadados.
-4. Criar os commits coordenados de Eventos nos dois repositórios.
-5. Enviar a branch `develop`, fazer code review e seguir para Laboratórios.
+1. Revisar equipamentos e galeria do LabCompAp no Admin.
+2. Criar os commits coordenados do LabCompAp nos dois repositórios.
+3. Enviar a branch `develop`, fazer code review e publicar em homologação.
 
 Comandos principais:
 
 ```bash
 cd npca-backend
 uv run poe check
+uv run poe seed-labcompap
 docker compose -f compose.yaml -f compose.dev.yaml config --quiet
 docker compose -f compose.yaml -f compose.production.yaml config --quiet
 

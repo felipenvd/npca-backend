@@ -77,6 +77,8 @@ Migrar para armazenamento S3 compatível continuará sendo possível no futuro s
 - Astro;
 - TypeScript;
 - Tailwind CSS;
+- Inter Variable hospedada no próprio frontend, com `font-display: swap` e fallback
+  para fontes do sistema;
 - shadcn/ui;
 - React somente para componentes interativos;
 - temas claro e escuro, usando a preferência do sistema como escolha inicial;
@@ -174,7 +176,7 @@ npca-frontend/
 │   │   │   ├── index.astro
 │   │   │   └── [slug].astro
 │   │   ├── eventos/
-│   │   ├── laboratorios/
+│   │   ├── labcompap/
 │   │   ├── pesquisadores/
 │   │   ├── projetos/
 │   │   └── publicacoes/
@@ -205,7 +207,7 @@ As rotas de conteúdo administrável deverão usar renderização sob demanda qu
 - projetos;
 - publicações;
 - pesquisadores;
-- laboratórios.
+- landing do LabCompAp.
 
 O frontend usará o adapter Node do Astro. Durante a renderização no servidor, a API poderá ser acessada pelo endereço interno do Compose. Requisições feitas diretamente pelo navegador deverão utilizar `/api/v1/`.
 
@@ -268,6 +270,12 @@ ficarão em um menu lateral acessível. O menu deverá usar semântica de diálo
 foco contido enquanto estiver aberto e permitir fechamento pelo botão, pela tecla
 `Esc` e pelo fundo da página.
 
+O acesso ao LabCompAp terá tratamento de CTA no cabeçalho principal. Dentro da landing,
+um cabeçalho próprio substituirá o cabeçalho global, mas reutilizará seu shell visual,
+dimensões, tipografia, logo e controles. Ele reunirá em uma única linha a identificação
+secundária do laboratório, as âncoras de conteúdo, o retorno ao NPCA, idioma e tema; em
+telas menores, essas ações serão agrupadas em um diálogo lateral acessível.
+
 ## 6. Estrutura do backend
 
 Estrutura inicial sugerida para `npca-backend`:
@@ -285,7 +293,7 @@ npca-backend/
 ├── apps/
 │   ├── core/
 │   ├── events/
-│   ├── laboratories/
+│   ├── labcompap/
 │   ├── news/
 │   ├── people/
 │   ├── projects/
@@ -417,17 +425,15 @@ Campos editoriais traduzíveis não serão duplicados diretamente no modelo prin
 - ordem de exibição, publicação e auditoria;
 - traduções com título, slug, resumo, descrição HTML, local, endereço e SEO.
 
-#### Laboratório
+#### LabCompAp
 
-- nome;
-- sigla;
-- slug;
-- descrição;
-- identidade visual;
-- imagens;
-- coordenação e equipe;
-- projetos relacionados;
-- links e contatos.
+- equipamentos bilíngues e galeria ordenáveis;
+- galeria com UUID, crédito e texto alternativo localizado;
+
+Todo o conteúdo institucional, incluindo textos PT-BR/EN, SEO, sigla, instituição,
+campus, fundação, endereço, PNIPE, áreas de pesquisa, técnicas e as três imagens do hero,
+é estático no frontend. Somente equipamentos e galeria pertencem ao Admin, à API e ao
+seed.
 
 Relacionamentos reais devem ser usados no banco. Autores, coordenadores e membros não devem ser armazenados somente como texto quando corresponderem a pesquisadores cadastrados.
 
@@ -473,8 +479,8 @@ localizados. O perfil inativo poderá permanecer incompleto, mas sua ativação 
 as duas traduções completas. A foto usará automaticamente o nome completo do
 pesquisador como texto alternativo, sem exigir preenchimento duplicado no Admin. A
 biografia usará o mesmo editor visual limitado e a mesma sanitização de HTML adotada
-em Notícias. O relacionamento com projetos será mantido pelo app de Projetos;
-publicações e laboratórios adicionarão seus vínculos quando forem implementados.
+em Notícias. Os relacionamentos com projetos e publicações serão mantidos pelos
+respectivos módulos.
 Lattes, ORCID e LinkedIn serão incluídos também na listagem pública para permitir
 atalhos opcionais nos cards.
 
@@ -535,6 +541,32 @@ o frontend só exibirá seu CTA para eventos agendados que ainda não terminaram
 recorrência, palestrantes relacionados, inscrição interna, capacidade, cobrança ou
 notificações nesta versão.
 
+O LabCompAp será a sexta implementação e substituirá o catálogo genérico de laboratórios.
+A landing page será permanente, sem slug, listagem pública, singleton no banco ou ciclo
+editorial. Sua composição própria usará o mesmo sistema visual, tokens semânticos e
+temas claro/escuro do portal.
+
+Equipamentos e galeria terão áreas próprias no Admin. As três áreas de pesquisa e as
+vinte técnicas bilíngues, com ícones, categorias e ordem, serão versionadas no frontend.
+Nome, chamada, resumo, Sobre, introduções, SEO, sigla, instituição, campus, fundação,
+endereço, PNIPE e hero também ficarão versionados no código. A landing não duplicará
+equipe, projetos ou contatos, pois esses conteúdos já aparecem no portal e no footer
+compartilhado. Não haverá catálogo, mapa administrável, formulário de contato ou
+agendamento interno nesta versão.
+
+O hero usará as três fotografias em tela cheia, alternadas por crossfade automático sem
+setas ou indicadores visuais. Um controle discreto permitirá pausar a apresentação; com
+`prefers-reduced-motion`, a primeira imagem permanecerá estática. O início da seção Sobre
+ficará abaixo da primeira dobra e será indicado por uma âncora discreta de rolagem.
+
+A carga editorial inicial será versionada em `scripts/seed/labcompap/`, com manifesto
+JSON e as imagens da galeria separados do código do app. O management command
+permanecerá no app, validará o pacote completo antes de gravar, criará registros reais
+no PostgreSQL e copiará a galeria pelo storage do Django para o volume persistente de
+mídia. A execução em produção será manual após as migrations; reinícios e deploys não
+executarão o seed automaticamente. As imagens do hero serão servidas como assets
+estáticos do frontend e não passarão pelo storage de mídia.
+
 ## 9. API
 
 A API pública será versionada a partir de `/api/v1/`.
@@ -546,8 +578,7 @@ GET /api/v1/news
 GET /api/v1/news/{slug}
 GET /api/v1/events
 GET /api/v1/events/{slug}
-GET /api/v1/laboratories
-GET /api/v1/laboratories/{slug}
+GET /api/v1/labcompap
 GET /api/v1/researchers
 GET /api/v1/researchers/{slug}
 GET /api/v1/projects
@@ -618,6 +649,17 @@ usarão término decrescente. Cancelados continuarão nas listagens e detalhes, 
 omitidos da consulta da home. O detalhe incluirá agenda, tipo, modalidade, situação,
 estado temporal, imagem, localização, acesso online, inscrição aplicável, SEO e slugs
 equivalentes. Mídia continuará usando caminhos relativos a `/media/`.
+
+O LabCompAp exporá uma única consulta:
+
+```text
+GET /api/v1/labcompap?lang=pt-br
+```
+
+A resposta conterá somente equipamentos e galeria localizados conforme `lang`, usando
+coleções vazias quando ainda não houver carga. A landing e todo o conteúdo institucional
+permanecerão disponíveis mesmo se esse acervo estiver vazio ou temporariamente
+indisponível. A mídia da galeria continuará relativa a `/media/`.
 
 Erros da API usarão Problem Details conforme o RFC 9457, com
 `Content-Type: application/problem+json` e os campos `type`, `title`, `status`,
@@ -868,7 +910,7 @@ A primeira versão deverá entregar:
 - projetos;
 - publicações;
 - eventos;
-- laboratórios, incluindo o LabCompaP;
+- landing institucional do LabCompAp;
 - Django Admin com grupos e permissões;
 - API pública documentada;
 - uploads persistentes no servidor;

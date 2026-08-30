@@ -1,0 +1,25 @@
+{
+  "equipment": [
+    { "inventory_code": "Cod7NYN84/24", "name_pt_br": "Computador Apple iMac", "name_en": "Apple iMac Computer", "brand": "Apple", "model_name": "iMac" },
+    { "inventory_code": "CodTB57I6/24", "name_pt_br": "Espaço físico do LabCompAp", "name_en": "LabCompAp Physical Space", "brand": "Várias", "model_name": "Vários" },
+    { "inventory_code": "CodS12B8R/24", "name_pt_br": "Impressora multifuncional a laser", "name_en": "Laser Multifunction Printer", "brand": "HP", "model_name": "Neverstop 1200W Wi-Fi" },
+    { "inventory_code": "CodZ8YA75/24", "name_pt_br": "Notebook para alunos", "name_en": "Student Laptop", "brand": "Acer", "model_name": "A515-54G-55HW" },
+    { "inventory_code": "Cod2EM48F/24", "name_pt_br": "Notebook para alunos", "name_en": "Student Laptop", "brand": "Lenovo", "model_name": "IdeaPad" },
+    { "inventory_code": "CodV5LQ39/24", "name_pt_br": "Notebook para alunos", "name_en": "Student Laptop", "brand": "Acer", "model_name": "A515-54G-55HW" },
+    { "inventory_code": "Cod1GT48G/24", "name_pt_br": "Notebook para alunos", "name_en": "Student Laptop", "brand": "Acer", "model_name": "A515-54G-55HW" },
+    { "inventory_code": "CodP4EO08/24", "name_pt_br": "Notebook para alunos", "name_en": "Student Laptop", "brand": "Acer", "model_name": "A515-54G-55HW" },
+    { "inventory_code": "CodI13P9B/24", "name_pt_br": "Notebook para alunos", "name_en": "Student Laptop", "brand": "Acer", "model_name": "A515-54G-55HW" },
+    { "inventory_code": "Cod9USV60/24", "name_pt_br": "Notebook para alunos", "name_en": "Student Laptop", "brand": "Acer", "model_name": "A515-54G-55HW" }
+  ],
+  "gallery_images": [
+    { "file": "image_01.webp", "credit": "", "alt_text_pt_br": "Vista geral do LabCompAp", "alt_text_en": "Overview of LabCompAp", "caption_pt_br": "Vista geral do LabCompAp", "caption_en": "Overview of LabCompAp" },
+    { "file": "image_02.webp", "credit": "", "alt_text_pt_br": "Estações de trabalho", "alt_text_en": "Workstations", "caption_pt_br": "Estações de trabalho", "caption_en": "Workstations" },
+    { "file": "image_03.webp", "credit": "", "alt_text_pt_br": "Equipamentos de computação", "alt_text_en": "Computing equipment", "caption_pt_br": "Equipamentos de computação", "caption_en": "Computing equipment" },
+    { "file": "image_04.webp", "credit": "", "alt_text_pt_br": "Ambiente de pesquisa", "alt_text_en": "Research environment", "caption_pt_br": "Ambiente de pesquisa", "caption_en": "Research environment" },
+    { "file": "image_05.webp", "credit": "", "alt_text_pt_br": "Infraestrutura do laboratório", "alt_text_en": "Laboratory infrastructure", "caption_pt_br": "Infraestrutura do laboratório", "caption_en": "Laboratory infrastructure" },
+    { "file": "image_06.webp", "credit": "", "alt_text_pt_br": "Espaço de trabalho colaborativo", "alt_text_en": "Collaborative workspace", "caption_pt_br": "Espaço de trabalho colaborativo", "caption_en": "Collaborative workspace" },
+    { "file": "image_07.webp", "credit": "", "alt_text_pt_br": "Recursos computacionais", "alt_text_en": "Computing resources", "caption_pt_br": "Recursos computacionais", "caption_en": "Computing resources" },
+    { "file": "image_08.webp", "credit": "", "alt_text_pt_br": "Instalações do LabCompAp", "alt_text_en": "LabCompAp facilities", "caption_pt_br": "Instalações do LabCompAp", "caption_en": "LabCompAp facilities" },
+    { "file": "image_09.webp", "credit": "", "alt_text_pt_br": "Equipe e pesquisadores", "alt_text_en": "Team and researchers", "caption_pt_br": "Equipe e pesquisadores", "caption_en": "Team and researchers" }
+  ]
+}

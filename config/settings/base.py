@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "apps.projects.apps.ProjectsConfig",
     "apps.publications.apps.PublicationsConfig",
     "apps.events.apps.EventsConfig",
+    "apps.labcompap.apps.LabCompApConfig",
 ]
 
 MIDDLEWARE = [
@@ -104,6 +105,9 @@ UNFOLD = {
     "SITE_URL": "/",
     "SITE_LOGO": lambda _request: static("npca/logo-npca.png"),
     "SITE_SYMBOL": "science",
+    "SIDEBAR": {
+        "navigation": "config.admin_navigation.sidebar_navigation",
+    },
     "COLORS": {
         "primary": {
             "50": "#e6fffe",

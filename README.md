@@ -36,7 +36,21 @@ uv run poe check
 ```
 
 Execute `uv run poe` para listar as tarefas disponíveis. Entre elas estão `format`,
-`lint`, `test`, `migrations`, `migrate`, `superuser` e `dev`.
+`lint`, `test`, `migrations`, `migrate`, `superuser`, `seed-labcompap` e `dev`.
+
+## Carga inicial do LabCompAp
+
+Os equipamentos bilíngues e as imagens iniciais da galeria ficam em
+`scripts/seed/labcompap/`. O comando valida o pacote, cria registros reais no banco e
+copia a galeria para o `MEDIA_ROOT` configurado. Todo o conteúdo institucional e as três
+imagens do hero são estáticos e versionados no frontend:
+
+```bash
+uv run poe seed-labcompap
+```
+
+O comando não sobrescreve uma página existente. `--force` deve ser usado somente quando
+a substituição integral do conteúdo editorial for intencional.
 
 ## Ambiente integrado
 
@@ -53,6 +67,7 @@ Com o ambiente em execução:
 uv run poe ps
 uv run poe logs
 uv run poe docker-superuser
+uv run poe docker-seed-labcompap
 uv run poe down
 ```
 
@@ -72,5 +87,14 @@ Em produção, preencha um `.env` seguro e execute:
 docker compose -f compose.yaml -f compose.production.yaml config
 docker compose -f compose.yaml -f compose.production.yaml up -d --build
 ```
+
+Após as migrations, a carga inicial de produção é uma operação manual e única:
+
+```bash
+docker compose -f compose.yaml -f compose.production.yaml exec backend \
+  uv run --no-sync python manage.py seed_labcompap
+```
+
+Ela não é executada automaticamente no startup nem pelo serviço `setup`.
 
 Consulte a [arquitetura do projeto](docs/architecture.md) para decisões de dados, mídia, segurança e deploy.

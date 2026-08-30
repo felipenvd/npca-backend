@@ -42,6 +42,10 @@ cmd = "python manage.py makemigrations"
 help = "Cria um superusuário autenticado por e-mail"
 cmd = "python manage.py createsuperuser"
 
+[tool.poe.tasks.seed-labcompap]
+help = "Cria o conteúdo administrável inicial do LabCompAp"
+cmd = "python manage.py seed_labcompap"
+
 [tool.poe.tasks.test]
 help = "Executa os testes do backend"
 cmd = "pytest"
@@ -98,6 +102,11 @@ executor = "simple"
 [tool.poe.tasks.docker-superuser]
 help = "Cria um superusuário no backend em execução no Docker"
 cmd = "docker compose -f compose.yaml -f compose.dev.yaml exec backend uv run --no-sync python manage.py createsuperuser"
+executor = "simple"
+
+[tool.poe.tasks.docker-seed-labcompap]
+help = "Cria o conteúdo inicial do LabCompAp no ambiente Docker de desenvolvimento"
+cmd = "docker compose -f compose.yaml -f compose.dev.yaml exec backend uv run --no-sync python manage.py seed_labcompap"
 executor = "simple"
 
 [tool.pytest.ini_options]
