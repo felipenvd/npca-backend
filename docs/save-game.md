@@ -1,6 +1,6 @@
-# Save game — Cinco fatias de conteúdo e landing do LabCompAp concluídas
+# Save game — Sete fatias verticais implementadas
 
-Última atualização: 29 de agosto de 2026.
+Última atualização: 30 de agosto de 2026.
 
 Este documento registra o ponto de retomada dos dois repositórios do novo site do NPCA.
 
@@ -8,8 +8,8 @@ Este documento registra o ponto de retomada dos dois repositórios do novo site 
 
 | Repositório | Branch atual | Último marco funcional |
 | --- | --- | --- |
-| `npca-backend` | `develop` | `3a534ec` |
-| `npca-frontend` | `develop` | `5de66dc` |
+| `npca-backend` | `develop` | `1ff17fd` |
+| `npca-frontend` | `develop` | `210efcd` |
 | `site-npca` | somente referência | `f348889` |
 
 Os commits coordenados das cinco primeiras fatias são:
@@ -29,8 +29,8 @@ Eventos backend:         3a534ec feat(events): implementa gerenciamento e API bi
 Eventos frontend:        5de66dc feat(events): integra eventos bilíngues ao site
 ```
 
-A sexta fatia, a landing do LabCompAp, está implementada e validada no working tree dos
-dois repositórios, ainda sem commit coordenado.
+A sétima fatia, Cursos e tutoriais, está implementada no working tree dos dois
+repositórios, ainda sem commit coordenado.
 
 Não importar código, cards ou registros fictícios do `site-npca`. A exceção aprovada é
 o conteúdo institucional e as imagens reais do LabCompAp.
@@ -258,7 +258,7 @@ page permanente do LabCompAp.
 ### Backend
 
 - app `apps.labcompap` restrito ao acervo administrável de equipamentos e galeria;
-- grupo LabCompAp exibido ao final da barra lateral do Admin, após Publicações;
+- grupo LabCompAp exibido ao final da barra lateral do Admin, após Cursos;
 - conteúdo institucional completo, SEO, três áreas de pesquisa e vinte técnicas
   bilíngues versionados no frontend;
 - menu do módulo reduzido a Equipamentos e Galeria;
@@ -308,6 +308,48 @@ Rotas:
 /en/labcompap/
 ```
 
+## Cursos e tutoriais
+
+A sétima fatia vertical divulga materiais educacionais externos, sem upload nem
+reprodução de vídeo no portal.
+
+### Backend
+
+- app `apps.courses` com Admin Unfold, formulários, schemas, API, validações e testes;
+- estados rascunho, publicado e arquivado, com `published_at` preservado;
+- tipos canal, curso, playlist, tutorial, live gravada e outro;
+- URL externa obrigatoriamente HTTPS e ausência de campos para vídeo, iframe ou HTML;
+- traduções PT-BR/EN com título, resumo e texto alternativo da capa;
+- imagem opcional com validação compartilhada, nome UUID e crédito;
+- destaque na home, ordem manual e auditoria;
+- Cursos aparece após Publicações e antes do LabCompAp na barra administrativa;
+- migration `courses.0001_initial` criada e aplicada no PostgreSQL de desenvolvimento;
+- `seed_courses` lê `scripts/seed/courses/data.json`, cria quatro destaques bilíngues
+  como rascunhos e preserva qualquer conteúdo editorial já existente;
+- URLs do YouTube foram normalizadas sem parâmetros de rastreamento;
+- endpoint público somente de listagem:
+
+```text
+GET /api/v1/courses?lang=pt-br&page=1&page_size=12
+GET /api/v1/courses?lang=pt-br&featured=true&page_size=4
+```
+
+### Frontend
+
+- OpenAPI regenerado e cliente SSR tipado;
+- seção após Publicações na home, com um destaque maior e até três cards;
+- cards com capa opcional, fallback por formato, resumo e CTA externo seguro;
+- listagem paginada com estados vazio e indisponível em PT-BR/EN;
+- navegação desktop e mobile atualizada após Publicações;
+- canonical, `hreflang`, Open Graph e rota ativa.
+
+Rotas:
+
+```text
+/pt-br/cursos/
+/en/courses/
+```
+
 ## Acabamento global do frontend
 
 - logos vetoriais específicos para os temas claro e escuro;
@@ -318,7 +360,7 @@ Rotas:
 - menu mobile bilíngue com diálogo nativo, fechamento por `Esc`, controle de foco,
   idioma e tema;
 - indicação visual e semântica da rota ativa em Notícias, Pesquisadores, Projetos,
-  LabCompAp, Eventos e Publicações.
+  LabCompAp, Eventos, Publicações e Cursos.
 - footer institucional compartilhado pelo portal e pelo LabCompAp, com os dois contatos
   oficiais, Instagram, YouTube e composição responsiva bilíngue.
 - Inter Variable 4.1 hospedada localmente no frontend, com preload, fallback de sistema
@@ -326,13 +368,16 @@ Rotas:
 
 ## Verificações realizadas nesta fatia
 
-- suíte completa do backend: 127 testes passaram com PostgreSQL;
+- suíte completa do backend: 149 testes passaram com PostgreSQL;
 - Ruff, formatação, Django Check e migrations check passaram;
-- migrations de Projetos, Publicações, Eventos e LabCompAp aplicadas no PostgreSQL de
-  desenvolvimento;
+- migrations de Projetos, Publicações, Eventos, LabCompAp e Cursos aplicadas no
+  PostgreSQL de desenvolvimento;
 - OpenAPI regenerado a partir do backend em execução;
 - Prettier, ESLint, Astro Check e build passaram;
 - Compose de desenvolvimento e produção passou na validação;
+- smoke HTTP confirmou home e listagem de Cursos em PT-BR/EN com `200`, navegação ativa,
+  canonical e `hreflang`;
+- a API pública permaneceu vazia após o seed, como esperado para os quatro rascunhos;
 - smoke HTTP integrado confirmou home, listagens e detalhe de Eventos em PT-BR/EN;
 - o HTML de Eventos confirmou navegação ativa, canonical, `hreflang` e JSON-LD `Event`;
 - smoke HTTP confirmou a home e a landing do LabCompAp em PT-BR/EN;
@@ -358,9 +403,10 @@ visualmente antes do deploy do LabCompAp.
 
 ## Próximos passos
 
-1. Revisar equipamentos e galeria do LabCompAp no Admin.
-2. Criar os commits coordenados do LabCompAp nos dois repositórios.
-3. Enviar a branch `develop`, fazer code review e publicar em homologação.
+1. Executar e revisar o seed de Cursos no ambiente desejado.
+2. Publicar os quatro registros após a revisão editorial bilíngue.
+3. Criar os commits coordenados de Cursos nos dois repositórios.
+4. Enviar a branch `develop`, fazer code review e publicar em homologação.
 
 Comandos principais:
 
@@ -368,6 +414,7 @@ Comandos principais:
 cd npca-backend
 uv run poe check
 uv run poe seed-labcompap
+uv run poe seed-courses
 docker compose -f compose.yaml -f compose.dev.yaml config --quiet
 docker compose -f compose.yaml -f compose.production.yaml config --quiet
 

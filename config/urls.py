@@ -7,6 +7,7 @@ from ninja import NinjaAPI
 
 from apps.core.api import router as core_router
 from apps.core.problems import register_problem_handlers
+from apps.courses.api import router as courses_router
 from apps.events.api import router as events_router
 from apps.labcompap.api import router as labcompap_router
 from apps.news.api import router as news_router
@@ -30,6 +31,7 @@ api.add_router("/researchers", researchers_router)
 api.add_router("/projects", projects_router)
 api.add_router("/publications", publications_router)
 api.add_router("/events", events_router)
+api.add_router("/courses", courses_router)
 api.add_router("/labcompap", labcompap_router)
 
 urlpatterns = [

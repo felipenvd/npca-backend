@@ -176,6 +176,7 @@ npca-frontend/
 │   │   │   ├── index.astro
 │   │   │   └── [slug].astro
 │   │   ├── eventos/
+│   │   ├── cursos/
 │   │   ├── labcompap/
 │   │   ├── pesquisadores/
 │   │   ├── projetos/
@@ -206,6 +207,7 @@ As rotas de conteúdo administrável deverão usar renderização sob demanda qu
 - eventos;
 - projetos;
 - publicações;
+- cursos e tutoriais;
 - pesquisadores;
 - landing do LabCompAp.
 
@@ -425,6 +427,16 @@ Campos editoriais traduzíveis não serão duplicados diretamente no modelo prin
 - ordem de exibição, publicação e auditoria;
 - traduções com título, slug, resumo, descrição HTML, local, endereço e SEO.
 
+#### Curso e tutorial
+
+- status editorial (`draft`, `published` ou `archived`);
+- tipo fixo: canal, curso, playlist, tutorial, live gravada ou outro;
+- URL externa exclusivamente HTTPS;
+- imagem de divulgação opcional, crédito e texto alternativo localizado;
+- destaque na home, ordem manual, publicação e auditoria;
+- traduções PT-BR/EN com título e resumo;
+- sem vídeo, iframe, HTML incorporado, slug ou página de detalhe interna.
+
 #### LabCompAp
 
 - equipamentos bilíngues e galeria ordenáveis;
@@ -567,6 +579,18 @@ mídia. A execução em produção será manual após as migrations; reinícios 
 executarão o seed automaticamente. As imagens do hero serão servidas como assets
 estáticos do frontend e não passarão pelo storage de mídia.
 
+Cursos e tutoriais serão a sétima implementação do padrão bilíngue. O módulo divulgará
+materiais educacionais hospedados externamente, sem upload ou reprodução de vídeo no
+portal. Rascunhos poderão permanecer incompletos; a publicação exigirá tipo, URL HTTPS
+e traduções PT-BR/EN com título e resumo. A primeira publicação definirá
+`published_at`, preservado em arquivamentos, retornos a rascunho e republicações.
+
+A capa será opcional, validada pelo mecanismo compartilhado e armazenada com nome UUID.
+Sem capa, o frontend exibirá um fallback próprio para cada formato. O seed inicial ficará
+em `scripts/seed/courses/data.json`, criará quatro destaques como rascunhos e não
+sobrescreverá conteúdo editorial existente. Eventos do tipo curso continuarão
+representando agenda; este módulo representa materiais externos permanentes.
+
 ## 9. API
 
 A API pública será versionada a partir de `/api/v1/`.
@@ -585,6 +609,7 @@ GET /api/v1/projects
 GET /api/v1/projects/{slug}
 GET /api/v1/publications
 GET /api/v1/publications/{id}
+GET /api/v1/courses
 GET /api/v1/health
 ```
 
@@ -660,6 +685,17 @@ A resposta conterá somente equipamentos e galeria localizados conforme `lang`, 
 coleções vazias quando ainda não houver carga. A landing e todo o conteúdo institucional
 permanecerão disponíveis mesmo se esse acervo estiver vazio ou temporariamente
 indisponível. A mídia da galeria continuará relativa a `/media/`.
+
+Cursos e tutoriais exporá somente a listagem:
+
+```text
+GET /api/v1/courses?lang=pt-br&page=1&page_size=12
+GET /api/v1/courses?lang=pt-br&featured=true&page_size=4
+```
+
+A API ocultará rascunhos, arquivados e traduções ausentes. A ordenação usará destaque,
+ordem manual, título e ID. A resposta conterá tipo, título, resumo, URL externa e capa
+relativa a `/media/`, sem endpoint de detalhe.
 
 Erros da API usarão Problem Details conforme o RFC 9457, com
 `Content-Type: application/problem+json` e os campos `type`, `title`, `status`,
@@ -910,6 +946,7 @@ A primeira versão deverá entregar:
 - projetos;
 - publicações;
 - eventos;
+- cursos e tutoriais externos;
 - landing institucional do LabCompAp;
 - Django Admin com grupos e permissões;
 - API pública documentada;

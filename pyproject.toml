@@ -46,6 +46,10 @@ cmd = "python manage.py createsuperuser"
 help = "Cria o conteúdo administrável inicial do LabCompAp"
 cmd = "python manage.py seed_labcompap"
 
+[tool.poe.tasks.seed-courses]
+help = "Cria os cursos e tutoriais externos iniciais"
+cmd = "python manage.py seed_courses"
+
 [tool.poe.tasks.test]
 help = "Executa os testes do backend"
 cmd = "pytest"
@@ -107,6 +111,11 @@ executor = "simple"
 [tool.poe.tasks.docker-seed-labcompap]
 help = "Cria o conteúdo inicial do LabCompAp no ambiente Docker de desenvolvimento"
 cmd = "docker compose -f compose.yaml -f compose.dev.yaml exec backend uv run --no-sync python manage.py seed_labcompap"
+executor = "simple"
+
+[tool.poe.tasks.docker-seed-courses]
+help = "Cria os cursos e tutoriais iniciais no ambiente Docker de desenvolvimento"
+cmd = "docker compose -f compose.yaml -f compose.dev.yaml exec backend uv run --no-sync python manage.py seed_courses"
 executor = "simple"
 
 [tool.pytest.ini_options]

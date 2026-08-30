@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "apps.projects.apps.ProjectsConfig",
     "apps.publications.apps.PublicationsConfig",
     "apps.events.apps.EventsConfig",
+    "apps.courses.apps.CoursesConfig",
     "apps.labcompap.apps.LabCompApConfig",
 ]
 

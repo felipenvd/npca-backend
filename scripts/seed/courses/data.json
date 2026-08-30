@@ -1,0 +1,80 @@
+{
+  "courses": [
+    {
+      "course_type": "channel",
+      "external_url": "https://www.youtube.com/@nucleodepesquisasemcomputa1776",
+      "is_featured": true,
+      "translations": [
+        {
+          "language": "pt-br",
+          "title": "Canal oficial do NPCA",
+          "summary": "Acesse aulas, transmissões e conteúdos educativos produzidos pelo núcleo.",
+          "cover_alt_text": ""
+        },
+        {
+          "language": "en",
+          "title": "Official NPCA channel",
+          "summary": "Access classes, broadcasts, and educational content produced by the research center.",
+          "cover_alt_text": ""
+        }
+      ]
+    },
+    {
+      "course_type": "course",
+      "external_url": "https://www.youtube.com/playlist?list=PLN2C2-5Bqwx4GCCN9Ub7WbocW4FP9GJk8",
+      "is_featured": true,
+      "translations": [
+        {
+          "language": "pt-br",
+          "title": "Introdução a Machine Learning",
+          "summary": "Fundamentos de aprendizagem de máquina e aplicações práticas.",
+          "cover_alt_text": ""
+        },
+        {
+          "language": "en",
+          "title": "Introduction to Machine Learning",
+          "summary": "Machine learning fundamentals and practical applications.",
+          "cover_alt_text": ""
+        }
+      ]
+    },
+    {
+      "course_type": "playlist",
+      "external_url": "https://www.youtube.com/playlist?list=PLN2C2-5Bqwx4uaMKP0lZ5xfIWO7-rxyy-",
+      "is_featured": true,
+      "translations": [
+        {
+          "language": "pt-br",
+          "title": "Redes Neurais Artificiais",
+          "summary": "Conceitos, arquiteturas e aplicações de redes neurais artificiais.",
+          "cover_alt_text": ""
+        },
+        {
+          "language": "en",
+          "title": "Artificial Neural Networks",
+          "summary": "Concepts, architectures, and applications of artificial neural networks.",
+          "cover_alt_text": ""
+        }
+      ]
+    },
+    {
+      "course_type": "recorded_live",
+      "external_url": "https://www.youtube.com/live/QUFYxlbVK1w",
+      "is_featured": true,
+      "translations": [
+        {
+          "language": "pt-br",
+          "title": "Visão Computacional",
+          "summary": "Aula gravada sobre fundamentos e técnicas de processamento de imagens.",
+          "cover_alt_text": ""
+        },
+        {
+          "language": "en",
+          "title": "Computer Vision",
+          "summary": "Recorded class on image processing fundamentals and techniques.",
+          "cover_alt_text": ""
+        }
+      ]
+    }
+  ]
+}

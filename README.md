@@ -36,7 +36,8 @@ uv run poe check
 ```
 
 Execute `uv run poe` para listar as tarefas disponíveis. Entre elas estão `format`,
-`lint`, `test`, `migrations`, `migrate`, `superuser`, `seed-labcompap` e `dev`.
+`lint`, `test`, `migrations`, `migrate`, `superuser`, `seed-labcompap`,
+`seed-courses` e `dev`.
 
 ## Carga inicial do LabCompAp
 
@@ -47,6 +48,7 @@ imagens do hero são estáticos e versionados no frontend:
 
 ```bash
 uv run poe seed-labcompap
+uv run poe seed-courses
 ```
 
 O comando não sobrescreve uma página existente. `--force` deve ser usado somente quando
@@ -68,6 +70,7 @@ uv run poe ps
 uv run poe logs
 uv run poe docker-superuser
 uv run poe docker-seed-labcompap
+uv run poe docker-seed-courses
 uv run poe down
 ```
 
@@ -93,6 +96,9 @@ Após as migrations, a carga inicial de produção é uma operação manual e ú
 ```bash
 docker compose -f compose.yaml -f compose.production.yaml exec backend \
   uv run --no-sync python manage.py seed_labcompap
+
+docker compose -f compose.yaml -f compose.production.yaml exec backend \
+  uv run --no-sync python manage.py seed_courses
 ```
 
 Ela não é executada automaticamente no startup nem pelo serviço `setup`.

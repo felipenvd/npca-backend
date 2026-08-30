@@ -12,5 +12,6 @@ def test_labcompap_is_the_last_admin_sidebar_group(admin_client):
 
     assert response.status_code == 200
     assert len(navigation) == len(app_list)
-    assert navigation[-2]["title"] == "Publicações"
+    assert navigation[-3]["title"] == "Publicações"
+    assert navigation[-2]["title"] == "Cursos"
     assert navigation[-1]["title"] == "LabCompAp"
