@@ -417,7 +417,7 @@ Campos editoriais traduzíveis não serão duplicados diretamente no modelo prin
 #### Evento
 
 - status editorial (`draft`, `published` ou `archived`);
-- situação manual (`scheduled`, `postponed` ou `canceled`);
+- situação manual (`scheduled`, `postponed`, `canceled` ou `completed`);
 - estado temporal calculado (`upcoming`, `ongoing` ou `past`);
 - tipo fixo: palestra, seminário, workshop, curso, defesa, conferência, encontro ou outro;
 - modalidade (`in_person`, `online` ou `hybrid`);
@@ -542,10 +542,15 @@ eventos online exigirão URL de acesso; híbridos exigirão ambos. A primeira pu
 definirá `published_at`, preservado em arquivamentos, retornos a rascunho e republicações.
 
 O calendário aceitará eventos de dia inteiro ou com horário, sempre interpretados e
-exibidos em `America/Belem`. A situação de agendado, adiado ou cancelado será editorial,
+exibidos em `America/Belem`. A situação de agendado, adiado, cancelado ou realizado será editorial,
 enquanto o estado de próximo, em andamento ou passado será calculado automaticamente a
 partir dos limites inicial e final. Eventos cancelados e adiados permanecerão públicos
 com avisos; adiados somente aparecerão na home quando tiverem nova data futura.
+Realizado confirma manualmente que o evento aconteceu e só poderá ser selecionado
+após o término informado; em eventos de dia inteiro, a partir do dia seguinte.
+O frontend exibirá Realizado/Completed, sem aviso de adiamento ou inscrição ativa.
+O estado Encerrado continuará sendo calculado pelas datas, sem confirmar realização.
+Novos seeds de demonstração incluirão um evento realizado; os existentes serão preservados.
 
 A imagem seguirá a validação compartilhada, receberá nome UUID e será opcional, com
 crédito global e texto alternativo localizado. A inscrição será apenas um link externo e

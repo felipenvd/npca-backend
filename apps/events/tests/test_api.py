@@ -174,3 +174,23 @@ def test_detail_hides_draft_and_wrong_language_slug(client) -> None:
     assert wrong_language.status_code == 404
     assert hidden.status_code == 404
     assert hidden["Content-Type"] == "application/problem+json"
+
+
+@pytest.mark.django_db
+def test_completed_event_is_returned_in_past_lists_and_bilingual_details(client) -> None:
+    event = create_event(
+        title="Evento realizado",
+        day_offset=-1,
+        schedule_status=Event.ScheduleStatus.COMPLETED,
+    )
+    for language in ("pt-br", "en"):
+        slug = event.translations.get(language=language).slug
+        past = client.get("/api/v1/events", {"lang": language, "period": "past"})
+        upcoming = client.get("/api/v1/events", {"lang": language, "period": "upcoming"})
+        detail = client.get(f"/api/v1/events/{slug}", {"lang": language})
+
+        assert past.status_code == detail.status_code == 200
+        assert past.json()["items"][0]["schedule_status"] == "completed"
+        assert past.json()["items"][0]["temporal_state"] == "past"
+        assert upcoming.json()["total"] == 0
+        assert detail.json()["schedule_status"] == "completed"

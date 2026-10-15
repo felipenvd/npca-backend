@@ -16,15 +16,14 @@ class ProjectForm(forms.ModelForm):
         label="Data de início *",
         required=False,
         widget=EnhancedAdminDateWidget(),
-        help_text=("Obrigatória para publicar. Use o calendário ou informe no formato dd/mm/aaaa."),
+        help_text="Obrigatória para publicar. Clique no campo para selecionar a data.",
     )
     end_date = forms.DateField(
         label="Data de término",
         required=False,
         widget=EnhancedAdminDateWidget(),
         help_text=(
-            "Obrigatória para publicar projetos concluídos. Use o calendário ou "
-            "informe no formato dd/mm/aaaa."
+            "Obrigatória para publicar projetos concluídos. Clique no campo para selecionar a data."
         ),
     )
     website_url = forms.URLField(

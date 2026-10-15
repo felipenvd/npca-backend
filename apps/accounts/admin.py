@@ -3,15 +3,16 @@ from django.contrib.auth.admin import GroupAdmin as DjangoGroupAdmin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
-from unfold.admin import ModelAdmin
 from unfold.forms import AdminPasswordChangeForm
+
+from apps.core.admin import NPCAAdmin
 
 from .forms import AdminUserChangeForm, AdminUserCreationForm
 from .models import User
 
 
 @admin.register(User)
-class UserAdmin(DjangoUserAdmin, ModelAdmin):
+class UserAdmin(DjangoUserAdmin, NPCAAdmin):
     form = AdminUserChangeForm
     add_form = AdminUserCreationForm
     change_password_form = AdminPasswordChangeForm
@@ -57,5 +58,5 @@ admin.site.unregister(Group)
 
 
 @admin.register(Group)
-class GroupAdmin(DjangoGroupAdmin, ModelAdmin):
+class GroupAdmin(DjangoGroupAdmin, NPCAAdmin):
     pass

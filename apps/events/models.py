@@ -38,6 +38,7 @@ class Event(models.Model):
         SCHEDULED = "scheduled", "Agendado"
         POSTPONED = "postponed", "Adiado"
         CANCELED = "canceled", "Cancelado"
+        COMPLETED = "completed", "Realizado"
 
     class EventType(models.TextChoices):
         LECTURE = "lecture", "Palestra"
@@ -170,6 +171,8 @@ class Event(models.Model):
     def clean(self) -> None:
         super().clean()
         errors: dict[str, str] = {}
+        if completion_error := self.completion_error():
+            errors["schedule_status"] = completion_error
         if self.start_date and self.end_date and self.end_date < self.start_date:
             errors["end_date"] = "A data de término deve ser igual ou posterior ao início."
         if self.is_all_day and (self.start_time or self.end_time):
@@ -211,6 +214,8 @@ class Event(models.Model):
             {translation.language: translation for translation in self.translations.all()},
             modality=self.modality,
         )
+        if completion_error := self.completion_error():
+            errors.append(completion_error)
         if not self.event_type:
             errors.append("Informe o tipo antes de publicar.")
         if not self.modality:
@@ -226,6 +231,17 @@ class Event(models.Model):
             errors.append("Informe a URL de acesso para esta modalidade.")
         if errors:
             raise ValidationError(errors)
+
+    def completion_error(self) -> str | None:
+        if self.schedule_status != self.ScheduleStatus.COMPLETED:
+            return None
+        try:
+            temporal_state = self.temporal_state()
+        except ValueError:
+            return "Informe as datas e os horários aplicáveis antes de marcar como realizado."
+        if temporal_state != self.TemporalState.PAST:
+            return "O evento só pode ser marcado como realizado após o término informado."
+        return None
 
     def temporal_state(self, reference: datetime | None = None) -> str:
         if self.start_date is None or self.end_date is None:

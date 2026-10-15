@@ -294,6 +294,8 @@ class Command(BaseCommand):
                     "modality": modality,
                     "schedule_status": Event.ScheduleStatus.values[(number - 1) % 3]
                     if number <= 3
+                    else Event.ScheduleStatus.COMPLETED
+                    if number == 4
                     else Event.ScheduleStatus.SCHEDULED,
                     "start_date": start,
                     "end_date": self.today + timedelta(days=1) if number == 5 else start,

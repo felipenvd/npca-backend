@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import date, time, timedelta
 
 import pytest
 from django.urls import reverse
@@ -72,6 +72,7 @@ def test_admin_add_page_exposes_schedule_translations_and_media(client) -> None:
     assert "Imagem de divulgação" in content
     assert "Texto alternativo da imagem" in content
     assert "unfold/forms/js/trix/trix.js" in content
+    assert '<option value="completed">Realizado</option>' in content
 
 
 @pytest.mark.django_db
@@ -123,3 +124,65 @@ def test_admin_blocks_incomplete_publication_and_accepts_complete_hybrid_event(c
     assert event.status == Event.Status.PUBLISHED
     assert event.is_all_day is True
     assert event.published_at is not None
+
+
+@pytest.mark.django_db
+def test_admin_can_confirm_completed_event_and_rejects_future_event(admin_client) -> None:
+    data = event_data(published=False)
+    future_date = data.pop("_event_date")
+    data.update(
+        {
+            "schedule_status": Event.ScheduleStatus.COMPLETED,
+            "start_date": future_date,
+            "end_date": future_date,
+        }
+    )
+
+    response = admin_client.post(reverse("admin:events_event_add"), data)
+
+    assert response.status_code == 200
+    assert "schedule_status" in response.context["adminform"].form.errors
+    assert not Event.objects.exists()
+
+    past_date = (timezone.localdate() - timedelta(days=1)).strftime("%d/%m/%Y")
+    data.update({"start_date": past_date, "end_date": past_date})
+    response = admin_client.post(reverse("admin:events_event_add"), data)
+
+    assert response.status_code == 302
+    assert Event.objects.get().schedule_status == Event.ScheduleStatus.COMPLETED
+
+
+@pytest.mark.django_db
+def test_admin_saves_brazilian_date_and_full_24_hour_times(admin_client) -> None:
+    data = event_data(published=False)
+    data.pop("_event_date")
+    data.pop("is_all_day")
+    data.update(
+        start_date="29/02/2032", end_date="29/02/2032", start_time="00:07", end_time="23:59"
+    )
+
+    response = admin_client.post(reverse("admin:events_event_add"), data)
+
+    assert response.status_code == 302
+    event = Event.objects.get()
+    assert event.start_date == event.end_date == date(2032, 2, 29)
+    assert event.start_time == time(0, 7)
+    assert event.end_time == time(23, 59)
+    content = admin_client.get(reverse("admin:events_event_change", args=[event.pk])).content
+    assert b'name="start_time" value="00:07"' in content
+    assert b'name="end_time" value="23:59"' in content
+
+
+@pytest.mark.django_db
+def test_admin_rejects_invalid_calendar_date_and_time(admin_client) -> None:
+    data = event_data(published=False)
+    data.pop("_event_date")
+    data.pop("is_all_day")
+    data.update(start_date="29/02/2027", start_time="24:00", end_time="12:60")
+
+    response = admin_client.post(reverse("admin:events_event_add"), data)
+
+    assert response.status_code == 200
+    errors = response.context["adminform"].form.errors
+    assert {"start_date", "start_time", "end_time"} <= errors.keys()
+    assert not Event.objects.exists()

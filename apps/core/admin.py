@@ -1,9 +1,30 @@
 from django import forms
+from django.conf import settings
 from unfold.admin import ModelAdmin, StackedInline
 
 
-class BilingualContentAdmin(ModelAdmin):
-    """Keep shared data first, paired content next and publication last."""
+class NPCAAdmin(ModelAdmin):
+    """Share the admin's select component across forms and editable lists."""
+
+    class Media:
+        extra = "" if settings.DEBUG else ".min"
+        js = (
+            f"admin/js/vendor/jquery/jquery{extra}.js",
+            "admin/js/vendor/select2/select2.full.js",
+            "admin/js/jquery.init.js",
+            "core/admin/select.js",
+        )
+        css = {
+            "screen": (
+                "admin/css/vendor/select2/select2.css",
+                "admin/css/autocomplete.css",
+                "core/admin/select.css",
+            ),
+        }
+
+
+class BilingualContentAdmin(NPCAAdmin):
+    """Show publication first, followed by shared data and paired content."""
 
     change_form_template = "admin/bilingual_change_form.html"
 

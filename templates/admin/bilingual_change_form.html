@@ -2,6 +2,11 @@
 {% load bilingual_admin %}
 
 {% block field_sets %}
+    {% content_fieldsets adminform "Publicação" as publication_fieldsets %}
+    {% for fieldset in publication_fieldsets %}
+        {% include "admin/includes/fieldset.html" %}
+    {% endfor %}
+
     {% content_fieldsets adminform as main_fieldsets %}
     {% for fieldset in main_fieldsets %}
         {% include "admin/includes/fieldset.html" %}
@@ -32,8 +37,4 @@
         {% endfor %}
     {% endif %}
 
-    {% content_fieldsets adminform "Publicação" as publication_fieldsets %}
-    {% for fieldset in publication_fieldsets %}
-        {% include "admin/includes/fieldset.html" %}
-    {% endfor %}
 {% endblock %}

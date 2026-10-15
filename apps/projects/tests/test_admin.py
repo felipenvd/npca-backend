@@ -66,8 +66,8 @@ def test_admin_add_page_exposes_editorial_fields_and_two_languages(client) -> No
     assert "Coordenador *" in content
     assert "Data de início *" in content
     assert content.count("npca-enhanced-date-field") == 2
-    assert "core/admin/enhanced_date_picker.js" in content
-    assert "core/admin/enhanced_date_picker.css" in content
+    assert "core/admin/date_time_picker.js" in content
+    assert "core/admin/date_time_picker.css" in content
     assert "dd/mm/aaaa" in content
     assert "Gerado automaticamente a partir do título" in content
     assert "Texto alternativo" not in content

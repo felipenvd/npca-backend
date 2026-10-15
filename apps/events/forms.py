@@ -3,10 +3,10 @@ from django.core.exceptions import ValidationError
 from django.forms.models import BaseInlineFormSet
 from django.utils.text import slugify
 from unfold.contrib.forms.widgets import WysiwygWidget
-from unfold.widgets import UnfoldAdminSingleTimeWidget, UnfoldAdminURLInputWidget
+from unfold.widgets import UnfoldAdminURLInputWidget
 
 from apps.core.sanitizers import sanitize_rich_text
-from apps.core.widgets import EnhancedAdminDateWidget
+from apps.core.widgets import EnhancedAdminDateWidget, EnhancedAdminTimeWidget
 
 from .models import Event, EventTranslation, event_publication_errors
 
@@ -16,24 +16,24 @@ class EventForm(forms.ModelForm):
         label="Data de início *",
         required=False,
         widget=EnhancedAdminDateWidget(),
-        help_text="Obrigatória para publicar. Use o formato dd/mm/aaaa.",
+        help_text="Obrigatória para publicar. Clique no campo para selecionar a data.",
     )
     end_date = forms.DateField(
         label="Data de término *",
         required=False,
         widget=EnhancedAdminDateWidget(),
-        help_text="Obrigatória para publicar. Use o formato dd/mm/aaaa.",
+        help_text="Obrigatória para publicar. Clique no campo para selecionar a data.",
     )
     start_time = forms.TimeField(
         label="Hora de início",
         required=False,
-        widget=UnfoldAdminSingleTimeWidget(attrs={"placeholder": "hh:mm"}),
+        widget=EnhancedAdminTimeWidget(),
         help_text="Obrigatória para publicar quando não for um evento de dia inteiro.",
     )
     end_time = forms.TimeField(
         label="Hora de término",
         required=False,
-        widget=UnfoldAdminSingleTimeWidget(attrs={"placeholder": "hh:mm"}),
+        widget=EnhancedAdminTimeWidget(),
         help_text="Obrigatória para publicar quando não for um evento de dia inteiro.",
     )
     online_url = forms.URLField(
@@ -72,6 +72,11 @@ class EventForm(forms.ModelForm):
             "modality": "Modalidade *",
         }
         help_texts = {
+            "schedule_status": (
+                "Selecione Realizado para confirmar que o evento aconteceu, após o término "
+                "informado. Em eventos de dia inteiro, aguarde o dia seguinte à data de término. "
+                "Encerrado é calculado automaticamente pelas datas e não confirma a realização."
+            ),
             "event_type": "Obrigatório para publicar.",
             "modality": "Obrigatória para publicar.",
             "is_all_day": "Marque para eventos sem horário específico.",

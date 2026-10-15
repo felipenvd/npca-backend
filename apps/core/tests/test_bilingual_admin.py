@@ -87,9 +87,10 @@ def test_add_forms_pair_fields_and_defer_advanced_options(admin_client, route, f
     advanced = html.index("<details")
     assert "open" not in html[advanced : html.index(">", advanced)]
     assert html.index(f'for="id_translations-1-{second}"') < advanced
-    assert (
-        html.index('for="id_is_active"' if "researchers" in route else 'for="id_status"') > advanced
-    )
+    main_section = "Apresentação" if route == "news_news" else "Dados gerais"
+    assert html.index(
+        'for="id_is_active"' if "researchers" in route else 'for="id_status"'
+    ) < html.index(main_section)
     if "courses" not in route:
         assert html.index('name="translations-0-seo_title"') > advanced
     assert 'for="id_created_at"' not in html

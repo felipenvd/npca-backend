@@ -1,4 +1,5 @@
 from datetime import date, datetime, time, timedelta
+from unittest.mock import patch
 from zoneinfo import ZoneInfo
 
 import pytest
@@ -142,3 +143,64 @@ def test_first_publication_date_is_preserved() -> None:
     assert first_publication is not None
     assert timezone.now() - first_publication < timedelta(seconds=2)
     assert event.published_at == first_publication
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("hour", (8, 9, 10, 11))
+def test_completed_status_requires_end_time_and_allows_exact_boundary(hour) -> None:
+    event = Event.objects.create(
+        schedule_status=Event.ScheduleStatus.COMPLETED,
+        event_type=Event.EventType.SEMINAR,
+        modality=Event.Modality.IN_PERSON,
+        start_date=date(2026, 9, 10),
+        end_date=date(2026, 9, 10),
+        start_time=time(9),
+        end_time=time(11),
+    )
+    complete_translations(event)
+    reference = datetime(2026, 9, 10, hour, tzinfo=ZoneInfo("America/Belem"))
+
+    with patch("apps.events.models.timezone.now", return_value=reference):
+        if hour < 11:
+            with pytest.raises(ValidationError, match="após o término"):
+                event.full_clean()
+            with pytest.raises(ValidationError, match="após o término"):
+                event.validate_for_publication()
+        else:
+            event.full_clean()
+            event.validate_for_publication()
+            assert event.temporal_state() == "past"
+
+
+@pytest.mark.django_db
+def test_completed_all_day_requires_day_to_end_and_does_not_mark_other_events() -> None:
+    event = Event(
+        schedule_status=Event.ScheduleStatus.COMPLETED,
+        start_date=date(2026, 9, 10),
+        end_date=date(2026, 9, 10),
+        is_all_day=True,
+    )
+    belem = ZoneInfo("America/Belem")
+    with patch(
+        "apps.events.models.timezone.now", return_value=datetime(2026, 9, 10, 23, 59, tzinfo=belem)
+    ):
+        with pytest.raises(ValidationError, match="após o término"):
+            event.full_clean()
+    with patch("apps.events.models.timezone.now", return_value=datetime(2026, 9, 11, tzinfo=belem)):
+        event.full_clean()
+        event.schedule_status = Event.ScheduleStatus.SCHEDULED
+        event.full_clean()
+        assert event.temporal_state() == "past"
+        assert event.schedule_status == "scheduled"
+
+
+@pytest.mark.django_db
+def test_completed_draft_requires_complete_schedule() -> None:
+    event = Event(schedule_status=Event.ScheduleStatus.COMPLETED)
+
+    with pytest.raises(ValidationError, match="Informe as datas"):
+        event.full_clean()
+
+    event.start_date = event.end_date = timezone.localdate() - timedelta(days=1)
+    with pytest.raises(ValidationError, match="Informe as datas"):
+        event.full_clean()

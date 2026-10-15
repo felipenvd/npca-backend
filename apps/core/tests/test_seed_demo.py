@@ -99,6 +99,7 @@ def test_seed_creates_all_admin_modules_and_public_bilingual_content(demo_settin
             assert response.status_code == 200, response.content
             assert response.json()["total"] > 0
         events = client.get("/api/v1/events", {"lang": language, "period": "all"}).json()
+        assert "completed" in {item["schedule_status"] for item in events["items"]}
         assert {item["temporal_state"] for item in events["items"]} == {
             "upcoming",
             "ongoing",

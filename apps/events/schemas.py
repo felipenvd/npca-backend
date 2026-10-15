@@ -15,7 +15,7 @@ EventType = Literal[
     "meetup",
     "other",
 ]
-ScheduleStatus = Literal["scheduled", "postponed", "canceled"]
+ScheduleStatus = Literal["scheduled", "postponed", "canceled", "completed"]
 TemporalState = Literal["upcoming", "ongoing", "past"]
 Modality = Literal["in_person", "online", "hybrid"]
 
