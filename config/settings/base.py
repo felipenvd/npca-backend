@@ -38,7 +38,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.locale.LocaleMiddleware",
+    "apps.core.middleware.AdminLocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "apps.core.middleware.ApiProblemDetailsMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -86,6 +86,7 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = "accounts.User"
 
 LANGUAGE_CODE = "pt-br"
+LOCALE_PATHS = [BASE_DIR / "locale"]
 TIME_ZONE = "America/Belem"
 USE_I18N = True
 USE_TZ = True
@@ -104,7 +105,10 @@ UNFOLD = {
     "SITE_HEADER": _("NPCA"),
     "SITE_SUBHEADER": _("Núcleo de Pesquisa em Computação Aplicada"),
     "SITE_URL": "/",
-    "SITE_LOGO": lambda _request: static("npca/logo-npca.png"),
+    "SITE_LOGO": {
+        "light": lambda _request: static("npca/npca-logo-light.svg"),
+        "dark": lambda _request: static("npca/npca-logo-dark.svg"),
+    },
     "SITE_SYMBOL": "science",
     "SIDEBAR": {
         "navigation": "config.admin_navigation.sidebar_navigation",

@@ -1,0 +1,9 @@
+{% extends "admin/login.html" %}
+
+{% block content %}
+    <div class="flex justify-center mb-8">
+        <img src="{{ site_logo.light }}" alt="NPCA — Núcleo de Pesquisa em Computação Aplicada" width="320" height="127" class="block h-auto max-w-full dark:hidden">
+        <img src="{{ site_logo.dark }}" alt="NPCA — Núcleo de Pesquisa em Computação Aplicada" width="320" height="127" class="hidden h-auto max-w-full dark:block">
+    </div>
+    {{ block.super }}
+{% endblock %}

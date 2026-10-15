@@ -38,8 +38,8 @@ def test_admin_exposes_external_link_translations_and_optional_cover(client) -> 
     content = response.content.decode()
 
     assert response.status_code == 200
-    assert 'value="pt-br" selected' in content
-    assert 'value="en" selected' in content
+    assert 'name="translations-0-language" value="pt-br"' in content
+    assert 'name="translations-1-language" value="en"' in content
     assert "URL externa *" in content
     assert "Imagem de divulgação" in content
     assert "Título *" in content

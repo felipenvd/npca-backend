@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from unfold.admin import ModelAdmin, StackedInline
+
+from apps.core.admin import BilingualContentAdmin, BilingualTranslationInline
 
 from .forms import (
     CourseForm,
@@ -10,14 +11,10 @@ from .forms import (
 from .models import Course, CourseTranslation
 
 
-class CourseTranslationInline(StackedInline):
+class CourseTranslationInline(BilingualTranslationInline):
     model = CourseTranslation
     form = CourseTranslationForm
     formset = CourseTranslationInlineFormSet
-    extra = 2
-    max_num = 2
-    can_delete = False
-    classes = ("collapse",)
     fieldsets = (
         (
             None,
@@ -33,7 +30,7 @@ class CourseTranslationInline(StackedInline):
 
 
 @admin.register(Course)
-class CourseAdmin(ModelAdmin):
+class CourseAdmin(BilingualContentAdmin):
     form = CourseForm
     inlines = (CourseTranslationInline,)
     list_display = (
@@ -63,14 +60,12 @@ class CourseAdmin(ModelAdmin):
     )
     fieldsets = (
         (
-            None,
+            "Dados gerais",
             {
                 "fields": (
-                    "status",
                     "course_type",
                     "external_url",
                     "external_link",
-                    ("is_featured", "display_order"),
                 ),
                 "description": (
                     "Tipo, URL HTTPS e traduções completas são obrigatórios para publicar. "
@@ -82,6 +77,7 @@ class CourseAdmin(ModelAdmin):
             "Apresentação",
             {"fields": ("cover", "cover_preview", "cover_credit")},
         ),
+        ("Opções avançadas", {"fields": ("is_featured", "display_order")}),
         (
             "Auditoria",
             {
@@ -95,6 +91,7 @@ class CourseAdmin(ModelAdmin):
                 "classes": ("collapse",),
             },
         ),
+        ("Publicação", {"fields": ("status",)}),
     )
     warn_unsaved_form = True
 

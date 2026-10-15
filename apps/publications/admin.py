@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from unfold.admin import ModelAdmin, StackedInline, TabularInline
+from unfold.admin import TabularInline
+
+from apps.core.admin import BilingualContentAdmin, BilingualTranslationInline
 
 from .forms import (
     PublicationAuthorForm,
@@ -12,14 +14,10 @@ from .forms import (
 from .models import Publication, PublicationAuthor, PublicationTranslation
 
 
-class PublicationTranslationInline(StackedInline):
+class PublicationTranslationInline(BilingualTranslationInline):
     model = PublicationTranslation
     form = PublicationTranslationForm
     formset = PublicationTranslationInlineFormSet
-    extra = 2
-    max_num = 2
-    can_delete = False
-    classes = ("collapse",)
     fieldsets = (
         (
             None,
@@ -52,7 +50,7 @@ class PublicationAuthorInline(TabularInline):
 
 
 @admin.register(Publication)
-class PublicationAdmin(ModelAdmin):
+class PublicationAdmin(BilingualContentAdmin):
     form = PublicationForm
     inlines = (PublicationTranslationInline, PublicationAuthorInline)
     autocomplete_fields = ("project",)
@@ -88,9 +86,9 @@ class PublicationAdmin(ModelAdmin):
     )
     fieldsets = (
         (
-            None,
+            "Dados gerais",
             {
-                "fields": ("status", ("year", "display_order"), "venue", "project"),
+                "fields": ("year", "venue", "project"),
                 "description": (
                     "Ano, periódico ou evento, ao menos um autor e as traduções completas "
                     "são obrigatórios para publicar."
@@ -105,6 +103,7 @@ class PublicationAdmin(ModelAdmin):
             "Acesso à publicação",
             {"fields": ("doi", "external_url", "document", "document_link")},
         ),
+        ("Opções avançadas", {"fields": ("display_order",)}),
         (
             "Auditoria",
             {
@@ -118,6 +117,7 @@ class PublicationAdmin(ModelAdmin):
                 "classes": ("collapse",),
             },
         ),
+        ("Publicação", {"fields": ("status",)}),
     )
     warn_unsaved_form = True
 

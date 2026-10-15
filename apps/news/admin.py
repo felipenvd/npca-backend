@@ -1,19 +1,16 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from unfold.admin import ModelAdmin, StackedInline
+
+from apps.core.admin import BilingualContentAdmin, BilingualTranslationInline
 
 from .forms import NewsTranslationForm, NewsTranslationInlineFormSet
 from .models import News, NewsTranslation
 
 
-class NewsTranslationInline(StackedInline):
+class NewsTranslationInline(BilingualTranslationInline):
     model = NewsTranslation
     form = NewsTranslationForm
     formset = NewsTranslationInlineFormSet
-    extra = 2
-    max_num = 2
-    can_delete = False
-    classes = ("collapse",)
     fieldsets = (
         (
             None,
@@ -37,7 +34,7 @@ class NewsTranslationInline(StackedInline):
 
 
 @admin.register(News)
-class NewsAdmin(ModelAdmin):
+class NewsAdmin(BilingualContentAdmin):
     inlines = (NewsTranslationInline,)
     list_display = ("title_pt_br", "status", "published_at", "updated_at")
     list_filter = ("status", "published_at", "updated_at")
@@ -51,16 +48,16 @@ class NewsAdmin(ModelAdmin):
         "created_by",
         "updated_by",
     )
-    fields = (
-        "status",
-        "cover",
-        "cover_preview",
-        "cover_credit",
-        "published_at",
-        "created_at",
-        "updated_at",
-        "created_by",
-        "updated_by",
+    fieldsets = (
+        ("Apresentação", {"fields": ("cover", "cover_preview", "cover_credit")}),
+        (
+            "Auditoria",
+            {
+                "fields": ("published_at", "created_at", "updated_at", "created_by", "updated_by"),
+                "classes": ("collapse",),
+            },
+        ),
+        ("Publicação", {"fields": ("status",)}),
     )
     warn_unsaved_form = True
 

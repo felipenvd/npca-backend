@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from unfold.admin import ModelAdmin, StackedInline
+
+from apps.core.admin import BilingualContentAdmin, BilingualTranslationInline
 
 from .forms import (
     ResearcherForm,
@@ -10,14 +11,10 @@ from .forms import (
 from .models import Researcher, ResearcherTranslation
 
 
-class ResearcherTranslationInline(StackedInline):
+class ResearcherTranslationInline(BilingualTranslationInline):
     model = ResearcherTranslation
     form = ResearcherTranslationForm
     formset = ResearcherTranslationInlineFormSet
-    extra = 2
-    max_num = 2
-    can_delete = False
-    classes = ("collapse",)
     fieldsets = (
         (
             None,
@@ -40,7 +37,7 @@ class ResearcherTranslationInline(StackedInline):
 
 
 @admin.register(Researcher)
-class ResearcherAdmin(ModelAdmin):
+class ResearcherAdmin(BilingualContentAdmin):
     form = ResearcherForm
     inlines = (ResearcherTranslationInline,)
     list_display = (
@@ -64,21 +61,21 @@ class ResearcherAdmin(ModelAdmin):
         "created_by",
         "updated_by",
     )
-    fields = (
-        "full_name",
-        "academic_category",
-        "is_active",
-        "display_order",
-        "photo",
-        "photo_preview",
-        "public_email",
-        "lattes_url",
-        "orcid_url",
-        "linkedin_url",
-        "created_at",
-        "updated_at",
-        "created_by",
-        "updated_by",
+    fieldsets = (
+        ("Dados gerais", {"fields": ("full_name", "academic_category", "photo", "photo_preview")}),
+        (
+            "Contatos e currículo",
+            {"fields": ("public_email", "lattes_url", "orcid_url", "linkedin_url")},
+        ),
+        ("Opções avançadas", {"fields": ("display_order",)}),
+        (
+            "Auditoria",
+            {
+                "fields": ("created_at", "updated_at", "created_by", "updated_by"),
+                "classes": ("collapse",),
+            },
+        ),
+        ("Publicação", {"fields": ("is_active",)}),
     )
     warn_unsaved_form = True
 

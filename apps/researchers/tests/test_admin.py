@@ -45,8 +45,8 @@ def test_admin_add_page_uses_wysiwyg_and_two_locales(client) -> None:
 
     assert response.status_code == 200
     assert "unfold/forms/js/trix/trix.js" in content
-    assert 'value="pt-br" selected' in content
-    assert 'value="en" selected' in content
+    assert 'name="translations-0-language" value="pt-br"' in content
+    assert 'name="translations-1-language" value="en"' in content
     assert "Os campos marcados com * são obrigatórios para ativar" in content
     assert "Área de pesquisa *" in content
     assert "Biografia *" in content

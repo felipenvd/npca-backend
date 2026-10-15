@@ -1,19 +1,16 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from unfold.admin import ModelAdmin, StackedInline
+
+from apps.core.admin import BilingualContentAdmin, BilingualTranslationInline
 
 from .forms import EventForm, EventTranslationForm, EventTranslationInlineFormSet
 from .models import Event, EventTranslation
 
 
-class EventTranslationInline(StackedInline):
+class EventTranslationInline(BilingualTranslationInline):
     model = EventTranslation
     form = EventTranslationForm
     formset = EventTranslationInlineFormSet
-    extra = 2
-    max_num = 2
-    can_delete = False
-    classes = ("collapse",)
     fieldsets = (
         (
             None,
@@ -40,7 +37,7 @@ class EventTranslationInline(StackedInline):
 
 
 @admin.register(Event)
-class EventAdmin(ModelAdmin):
+class EventAdmin(BilingualContentAdmin):
     form = EventForm
     inlines = (EventTranslationInline,)
     list_display = (
@@ -79,16 +76,14 @@ class EventAdmin(ModelAdmin):
     )
     fieldsets = (
         (
-            None,
+            "Dados gerais",
             {
                 "fields": (
-                    "status",
                     "schedule_status",
                     ("event_type", "modality"),
                     ("start_date", "end_date"),
                     "is_all_day",
                     ("start_time", "end_time"),
-                    "display_order",
                 ),
                 "description": (
                     "Tipo, modalidade e agenda completa são obrigatórios para publicar. "
@@ -104,6 +99,7 @@ class EventAdmin(ModelAdmin):
             "Acesso e inscrição",
             {"fields": ("online_url", "registration_url")},
         ),
+        ("Opções avançadas", {"fields": ("display_order",)}),
         (
             "Auditoria",
             {
@@ -117,6 +113,7 @@ class EventAdmin(ModelAdmin):
                 "classes": ("collapse",),
             },
         ),
+        ("Publicação", {"fields": ("status",)}),
     )
     warn_unsaved_form = True
 

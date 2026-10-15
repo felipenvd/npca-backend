@@ -1,5 +1,6 @@
 import pytest
 from django.conf import settings
+from django.contrib.staticfiles import finders
 from django.urls import reverse
 
 from apps.accounts.forms import AdminUserChangeForm, AdminUserCreationForm
@@ -35,7 +36,12 @@ def test_unfold_admin_uses_npca_branding(client) -> None:
     assert response.status_code == 200
     assert "NPCA Admin" in response.content.decode()
     assert settings.UNFOLD["COLORS"]["primary"]["500"] == "#00bab3"
-    assert settings.UNFOLD["SITE_LOGO"](None) == "/static/npca/logo-npca.png"
+    assert response.context["site_logo"] == {
+        "light": "/static/npca/npca-logo-light.svg",
+        "dark": "/static/npca/npca-logo-dark.svg",
+    }
+    assert finders.find("npca/npca-logo-light.svg")
+    assert finders.find("npca/npca-logo-dark.svg")
     assert "THEME" not in settings.UNFOLD
 
 

@@ -1,0 +1,434 @@
+# Traduções PT-BR dos textos adicionais do Django Unfold.
+# As demais traduções são fornecidas pelos catálogos nativos do Django.
+msgid ""
+msgstr ""
+"Project-Id-Version: NPCA Admin\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2026-10-01 17:00-0300\n"
+"Last-Translator: NPCA\n"
+"Language-Team: NPCA\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Select record"
+msgstr "Selecionar registro"
+
+msgid "Select action"
+msgstr "Selecionar ação"
+
+msgid "Collapse"
+msgstr "Recolher"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "Value"
+msgstr "Valor"
+
+msgid "Default"
+msgstr "Padrão"
+
+msgid "Code"
+msgstr "Código"
+
+msgid "Current file"
+msgstr "Arquivo atual"
+
+msgid "Reset to default"
+msgstr "Restaurar padrão"
+
+msgid "From"
+msgstr "De"
+
+msgid "To"
+msgstr "Até"
+
+msgid "Date from"
+msgstr "Data inicial"
+
+msgid "Date to"
+msgstr "Data final"
+
+msgid "Not enough data."
+msgstr "Não há dados suficientes."
+
+msgid "Add new item"
+msgstr "Adicionar novo item"
+
+msgid "Paragraph"
+msgstr "Parágrafo"
+
+msgid "Underlined"
+msgstr "Sublinhado"
+
+msgid "Bold"
+msgstr "Negrito"
+
+msgid "Italic"
+msgstr "Itálico"
+
+msgid "Strike"
+msgstr "Tachado"
+
+msgid "Link"
+msgstr "Link"
+
+msgid "Heading"
+msgstr "Título"
+
+msgid "Quote"
+msgstr "Citação"
+
+msgid "Unordered list"
+msgstr "Lista com marcadores"
+
+msgid "Ordered list"
+msgstr "Lista numerada"
+
+msgid "Indent increase"
+msgstr "Aumentar recuo"
+
+msgid "Indent decrease"
+msgstr "Diminuir recuo"
+
+msgid "Undo"
+msgstr "Desfazer"
+
+msgid "Redo"
+msgstr "Refazer"
+
+msgid "Enter an URL"
+msgstr "Informe uma URL"
+
+msgid "Unlink"
+msgstr "Remover link"
+
+msgid "Object permissions"
+msgstr "Permissões do objeto"
+
+msgid "Object"
+msgstr "Objeto"
+
+msgid "Group"
+msgstr "Grupo"
+
+msgid "Group permissions"
+msgstr "Permissões do grupo"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Manage group"
+msgstr "Gerenciar grupo"
+
+msgid "User permissions"
+msgstr "Permissões do usuário"
+
+msgid "Manage user"
+msgstr "Gerenciar usuário"
+
+msgctxt "verb"
+msgid "impersonate"
+msgstr "Acessar como outro usuário"
+
+#, python-format
+msgid "impersonate %(username)s"
+msgstr "Acessar como %(username)s"
+
+#, python-format
+msgid "You are currently working on behalf of <em>%(user)s</em>."
+msgstr "Você está acessando em nome de <em>%(user)s</em>."
+
+msgid "stop impersonating"
+msgstr "Encerrar acesso como outro usuário"
+
+msgid "hide warning"
+msgstr "Ocultar aviso"
+
+msgid "Select format"
+msgstr "Selecionar formato"
+
+msgid "Export"
+msgstr "Exportar"
+
+msgid "Import"
+msgstr "Importar"
+
+#, python-format
+msgid "\n                    Export %(len)s selected item.\n                "
+msgid_plural "\n                    Export %(len)s selected items.\n                "
+msgstr[0] "\n                    Exportar %(len)s item selecionado.\n                "
+msgstr[1] "\n                    Exportar %(len)s itens selecionados.\n                "
+
+msgid "This exporter will export the following fields"
+msgstr "Os seguintes campos serão exportados"
+
+msgid "Submit"
+msgstr "Enviar"
+
+msgid "Below is a preview of data to be imported. If you are satisfied with the results, click 'Confirm import'"
+msgstr "Confira abaixo os dados que serão importados. Se estiverem corretos, clique em 'Confirmar importação'"
+
+msgid "Confirm import"
+msgstr "Confirmar importação"
+
+msgid "Line number"
+msgstr "Número da linha"
+
+msgid "View traceback"
+msgstr "Ver detalhes do erro"
+
+msgid "New"
+msgstr "Novo"
+
+msgid "Skipped"
+msgstr "Ignorado"
+
+msgid "Update"
+msgstr "Atualizar"
+
+msgid "Some rows failed to validate"
+msgstr "Algumas linhas não passaram na validação"
+
+msgid "Please correct these errors in your data where possible, then reupload it using the form above."
+msgstr "Corrija os erros nos dados e envie novamente o arquivo pelo formulário acima."
+
+msgid "Row"
+msgstr "Linha"
+
+msgid "Non field specific"
+msgstr "Erro geral"
+
+msgid "This exporter will export the following fields: "
+msgstr "Os seguintes campos serão exportados: "
+
+msgid "This importer will import the following fields: "
+msgstr "Os seguintes campos serão importados: "
+
+msgid "Choose a date from the list below to revert to a previous version of this object"
+msgstr "Escolha uma data na lista abaixo para restaurar uma versão anterior deste objeto"
+
+msgid "This object doesn't have a change history."
+msgstr "Este objeto não tem histórico de alterações."
+
+msgid "Press the 'Revert' button below to revert to this version of the object."
+msgstr "Clique no botão 'Restaurar' abaixo para restaurar esta versão do objeto."
+
+msgid "Press the 'Change History' button below to edit the history."
+msgstr "Clique no botão 'Histórico de alterações' abaixo para editar o histórico."
+
+msgid "Changed by"
+msgstr "Alterado por"
+
+msgid "Comment"
+msgstr "Comentário"
+
+msgid "Change reason"
+msgstr "Motivo da alteração"
+
+msgid "Changes"
+msgstr "Alterações"
+
+msgid "Field"
+msgstr "Campo"
+
+msgid "Old value"
+msgstr "Valor anterior"
+
+msgid "New value"
+msgstr "Novo valor"
+
+msgid "Revert"
+msgstr "Restaurar"
+
+msgid "Change History"
+msgstr "Histórico de alterações"
+
+msgid "Select action to run"
+msgstr "Selecione a ação a executar"
+
+#, python-brace-format
+msgid "Raw passwords are not stored, so there is no way to see this user’s password, but you can change the password using <a href=\"{}\" class=\"text-primary-600 dark:text-primary-500\">this form</a>."
+msgstr "As senhas não são armazenadas em texto puro, por isso não é possível ver a senha deste usuário. Você pode alterá-la usando <a href=\"{}\" class=\"text-primary-600 dark:text-primary-500\">este formulário</a>."
+
+msgid "Dataset not found. No action performed."
+msgstr "Conjunto de dados não encontrado. Nenhuma ação foi executada."
+
+msgid "Select value"
+msgstr "Selecionar valor"
+
+#, python-brace-format
+msgid "Field <strong class=\"font-semibold\">{field_name}</strong> is not an autocomplete field. Please add it to the `autocomplete_fields` list."
+msgstr "O campo <strong class=\"font-semibold\">{field_name}</strong> não usa preenchimento automático. Adicione-o à lista `autocomplete_fields`."
+
+msgid "You can not create nested object without parent"
+msgstr "Não é possível criar um objeto aninhado sem um objeto pai"
+
+msgid "Run"
+msgstr "Executar"
+
+msgid "After you've created a user, you’ll be able to edit more user options."
+msgstr "Após criar o usuário, você poderá editar outras opções da conta."
+
+msgid "Welcome back to"
+msgstr "Bem-vindo ao"
+
+msgid "Forgotten your password or username?"
+msgstr "Esqueceu sua senha ou seu nome de usuário?"
+
+msgid "Type to search"
+msgstr "Digite para buscar"
+
+msgid "You have been successfully logged out from the administration"
+msgstr "Você saiu do painel administrativo com sucesso"
+
+msgid "No data"
+msgstr "Sem dados"
+
+msgid "All applications"
+msgstr "Todas as aplicações"
+
+msgid "True"
+msgstr "Verdadeiro"
+
+msgid "False"
+msgstr "Falso"
+
+msgid "Apply Filters"
+msgstr "Aplicar filtros"
+
+msgid "Filters"
+msgstr "Filtros"
+
+msgid "Navigate"
+msgstr "Navegar"
+
+msgid "Select"
+msgstr "Selecionar"
+
+msgid "Recent searches"
+msgstr "Buscas recentes"
+
+msgid "Nothing matched your search"
+msgstr "Nenhum resultado corresponde à sua busca"
+
+#, python-format
+msgid "\n            Found <span class=\"font-medium text-important\">%(counter)s</span> result in %(time)s seconds\n        "
+msgid_plural "\n            Found <span class=\"font-medium text-important\">%(counter)s</span> results in %(time)s seconds\n        "
+msgstr[0] "\n            <span class=\"font-medium text-important\">%(counter)s</span> resultado encontrado em %(time)s segundos\n        "
+msgstr[1] "\n            <span class=\"font-medium text-important\">%(counter)s</span> resultados encontrados em %(time)s segundos\n        "
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Record picture"
+msgstr "Imagem do registro"
+
+msgid "This item will be deleted."
+msgstr "Este item será excluído."
+
+msgid "Click to cancel"
+msgstr "Clique para cancelar"
+
+msgid "No results found"
+msgstr "Nenhum resultado encontrado"
+
+msgid "This page yielded into no results. Create a new item or reset your filters."
+msgstr "Nenhum registro foi encontrado. Adicione um novo item ou limpe os filtros."
+
+msgid "Reset filters"
+msgstr "Limpar filtros"
+
+msgid "Image preview"
+msgstr "Prévia da imagem"
+
+msgid "Click to download"
+msgstr "Clique para baixar"
+
+msgid "Go back"
+msgstr "Voltar"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Next"
+msgstr "Próximo"
+
+msgid "Search apps and models..."
+msgstr "Buscar aplicações e modelos..."
+
+msgid "Available shortcuts"
+msgstr "Atalhos disponíveis"
+
+msgid "Global shortcuts"
+msgstr "Atalhos gerais"
+
+msgid "Open command tool"
+msgstr "Abrir busca de comandos"
+
+msgid "Open shortcuts list"
+msgstr "Abrir lista de atalhos"
+
+msgid "Toggle sidebar"
+msgstr "Mostrar ou ocultar menu lateral"
+
+msgid "Toggle dark/light mode"
+msgstr "Alternar entre tema claro e escuro"
+
+msgid "Changelist shortcuts"
+msgstr "Atalhos da lista de registros"
+
+msgid "Toggle filter"
+msgstr "Mostrar ou ocultar filtros"
+
+msgid "Create new record"
+msgstr "Criar novo registro"
+
+msgid "Command tool shortcuts"
+msgstr "Atalhos da busca de comandos"
+
+msgid "Open selection"
+msgstr "Abrir item selecionado"
+
+msgid "Open selection in new tab"
+msgstr "Abrir item selecionado em nova aba"
+
+msgid "General"
+msgstr "Geral"
+
+msgid "Light"
+msgstr "Claro"
+
+msgid "Dark"
+msgstr "Escuro"
+
+msgid "System"
+msgstr "Sistema"
+
+msgid "Return to site"
+msgstr "Voltar ao site"
+
+#, python-format
+msgid "%(full_result_count)s total"
+msgstr "%(full_result_count)s no total"
+
+msgid "Choose file to upload"
+msgstr "Selecione um arquivo para enviar"
+
+msgid "Toggle password visibility"
+msgstr "Mostrar ou ocultar senha"
+
+msgid "Add row"
+msgstr "Adicionar linha"
+
+msgid "Welcome"
+msgstr "Bem-vindo"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Select currency"
+msgstr "Selecionar moeda"

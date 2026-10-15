@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from unfold.admin import ModelAdmin, StackedInline, TabularInline
+from unfold.admin import TabularInline
+
+from apps.core.admin import BilingualContentAdmin, BilingualTranslationInline
 
 from .forms import (
     ProjectForm,
@@ -12,14 +14,10 @@ from .forms import (
 from .models import Project, ProjectTeamMember, ProjectTranslation
 
 
-class ProjectTranslationInline(StackedInline):
+class ProjectTranslationInline(BilingualTranslationInline):
     model = ProjectTranslation
     form = ProjectTranslationForm
     formset = ProjectTranslationInlineFormSet
-    extra = 2
-    max_num = 2
-    can_delete = False
-    classes = ("collapse",)
     fieldsets = (
         (
             None,
@@ -53,7 +51,7 @@ class ProjectTeamMemberInline(TabularInline):
 
 
 @admin.register(Project)
-class ProjectAdmin(ModelAdmin):
+class ProjectAdmin(BilingualContentAdmin):
     form = ProjectForm
     inlines = (ProjectTranslationInline, ProjectTeamMemberInline)
     autocomplete_fields = ("coordinator",)
@@ -87,15 +85,12 @@ class ProjectAdmin(ModelAdmin):
     )
     fieldsets = (
         (
-            None,
+            "Dados gerais",
             {
                 "fields": (
-                    "status",
                     "situation",
                     "coordinator",
                     ("start_date", "end_date"),
-                    "is_featured",
-                    "display_order",
                 ),
                 "description": (
                     "Coordenador e data de início são obrigatórios para publicar. "
@@ -118,6 +113,7 @@ class ProjectAdmin(ModelAdmin):
                 )
             },
         ),
+        ("Opções avançadas", {"fields": ("is_featured", "display_order")}),
         (
             "Auditoria",
             {
@@ -131,6 +127,7 @@ class ProjectAdmin(ModelAdmin):
                 "classes": ("collapse",),
             },
         ),
+        ("Publicação", {"fields": ("status",)}),
     )
     warn_unsaved_form = True
 

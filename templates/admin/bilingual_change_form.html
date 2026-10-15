@@ -1,0 +1,39 @@
+{% extends "admin/change_form.html" %}
+{% load bilingual_admin %}
+
+{% block field_sets %}
+    {% content_fieldsets adminform as main_fieldsets %}
+    {% for fieldset in main_fieldsets %}
+        {% include "admin/includes/fieldset.html" %}
+    {% endfor %}
+{% endblock %}
+
+{% block after_related_objects %}
+    <details class="border border-base-200 rounded-default dark:border-base-800" {% if errors %}open{% endif %}>
+        <summary class="cursor-pointer font-semibold text-important px-3 py-2">Opções avançadas</summary>
+        <div class="p-3 flex flex-col gap-6">
+            {% content_fieldsets adminform "Opções avançadas" as advanced_fieldsets %}
+            {% for fieldset in advanced_fieldsets %}
+                {% include "admin/includes/fieldset.html" %}
+            {% endfor %}
+            {% for inline in inline_admin_formsets %}
+                {% if inline.opts.bilingual %}
+                    {% bilingual_rows inline True as rows %}
+                    {% include "admin/includes/bilingual_rows.html" %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </details>
+
+    {% if change %}
+        {% content_fieldsets adminform "Auditoria" as audit_fieldsets %}
+        {% for fieldset in audit_fieldsets %}
+            {% include "admin/includes/fieldset.html" %}
+        {% endfor %}
+    {% endif %}
+
+    {% content_fieldsets adminform "Publicação" as publication_fieldsets %}
+    {% for fieldset in publication_fieldsets %}
+        {% include "admin/includes/fieldset.html" %}
+    {% endfor %}
+{% endblock %}

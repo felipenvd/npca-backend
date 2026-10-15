@@ -1,0 +1,23 @@
+{% load bilingual_admin %}
+{% if inline_admin_formset.has_change_permission or inline_admin_formset.has_add_permission %}
+    <fieldset id="{{ inline_admin_formset.formset.prefix }}-group" class="module">
+        {% include "unfold/helpers/inline_heading.html" %}
+        <p class="mb-4 text-subtle">Preencha cada campo em português e, logo abaixo, sua versão em inglês.</p>
+        {% for name, options in inline_admin_formset.opts.fieldsets %}
+            {% if options.description %}<p class="mb-4 text-subtle">{{ options.description }}</p>{% endif %}
+        {% endfor %}
+        {{ inline_admin_formset.formset.management_form }}
+        {% include "unfold/helpers/form_errors.html" with errors=inline_admin_formset.formset.non_form_errors %}
+        {% for form in inline_admin_formset.formset.forms %}
+            {% include "unfold/helpers/form_errors.html" with errors=form.non_field_errors %}
+            {% for field in form.hidden_fields %}
+                {{ field }}
+                {% include "unfold/helpers/form_errors.html" with errors=field.errors %}
+            {% endfor %}
+        {% endfor %}
+        {% bilingual_rows inline_admin_formset as rows %}
+        {% include "admin/includes/bilingual_rows.html" %}
+    </fieldset>
+{% else %}
+    {% include "admin/edit_inline/stacked.html" %}
+{% endif %}
