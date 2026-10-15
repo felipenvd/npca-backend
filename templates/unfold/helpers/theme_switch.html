@@ -1,0 +1,32 @@
+{% load i18n %}
+
+{% if not theme %}
+    <div class="npca-theme-switch border-b border-base-200 grid grid-cols-3 gap-1 mb-1 pb-1 px-2 dark:border-base-700" role="group" aria-label="Tema da interface">
+        <button type="button"
+                class="cursor-pointer flex min-w-0 flex-col items-center justify-center gap-1 px-1 py-2 rounded-default text-xs hover:bg-base-100 hover:text-base-700 dark:hover:bg-base-700 dark:hover:text-base-200"
+                x-on:click="switchTheme('light')"
+                x-bind:aria-pressed="adminTheme == 'light'"
+                x-bind:class="adminTheme == 'light' && 'text-primary-600 dark:text-primary-500 dark:hover:text-primary-500! hover:text-primary-600!'">
+            <span class="material-symbols-outlined" aria-hidden="true">light_mode</span>
+            <span class="leading-none">{% trans "Light" %}</span>
+        </button>
+
+        <button type="button"
+                class="cursor-pointer flex min-w-0 flex-col items-center justify-center gap-1 px-1 py-2 rounded-default text-xs hover:bg-base-100 hover:text-base-700 dark:hover:bg-base-700 dark:hover:text-base-200"
+                x-on:click="switchTheme('dark')"
+                x-bind:aria-pressed="adminTheme == 'dark'"
+                x-bind:class="adminTheme == 'dark' && 'text-primary-600 dark:text-primary-500 dark:hover:text-primary-500! hover:text-primary-600!'">
+            <span class="material-symbols-outlined" aria-hidden="true">dark_mode</span>
+            <span class="leading-none">{% trans "Dark" %}</span>
+        </button>
+
+        <button type="button"
+                class="cursor-pointer flex min-w-0 flex-col items-center justify-center gap-1 px-1 py-2 rounded-default text-xs hover:bg-base-100 hover:text-base-700 dark:hover:bg-base-700 dark:hover:text-base-200"
+                x-on:click="switchTheme('auto')"
+                x-bind:aria-pressed="adminTheme == 'auto'"
+                x-bind:class="adminTheme == 'auto' && 'text-primary-600 dark:text-primary-500 dark:hover:text-primary-500! hover:text-primary-600!'">
+            <span class="material-symbols-outlined" aria-hidden="true">computer</span>
+            <span class="leading-none">{% trans "System" %}</span>
+        </button>
+    </div>
+{% endif %}
