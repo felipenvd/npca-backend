@@ -1,5 +1,6 @@
 import pytest
 from django.urls import reverse
+from django.utils.html import strip_tags
 
 from apps.accounts.models import User
 from apps.researchers.models import Researcher
@@ -48,14 +49,14 @@ def test_admin_add_page_uses_wysiwyg_and_two_locales(client) -> None:
     assert 'name="translations-0-language" value="pt-br"' in content
     assert 'name="translations-1-language" value="en"' in content
     assert "Os campos marcados com * são obrigatórios para ativar" in content
-    assert "Área de pesquisa *" in content
-    assert "Biografia *" in content
+    assert "Área de pesquisa *" in strip_tags(content)
+    assert "Biografia *" in strip_tags(content)
     assert "Função *" not in content
     assert "Texto alternativo da foto" not in content
     assert "Gerado automaticamente a partir do nome" in content
     assert "Categoria acadêmica" in content
     assert content.index("Nome completo") < content.index("Categoria acadêmica")
-    assert content.index("Categoria acadêmica") < content.index("Ativo")
+    assert content.index("Ativo") < content.index("Categoria acadêmica")
     assert "dentro da categoria acadêmica" in content
 
 

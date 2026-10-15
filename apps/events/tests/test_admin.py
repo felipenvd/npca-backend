@@ -3,6 +3,7 @@ from datetime import date, time, timedelta
 import pytest
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.html import strip_tags
 
 from apps.accounts.models import User
 from apps.events.models import Event
@@ -64,9 +65,9 @@ def test_admin_add_page_exposes_schedule_translations_and_media(client) -> None:
     assert response.status_code == 200
     assert 'name="translations-0-language" value="pt-br"' in content
     assert 'name="translations-1-language" value="en"' in content
-    assert "Título *" in content
-    assert "Descrição *" in content
-    assert "Data de início *" in content
+    assert "Título *" in strip_tags(content)
+    assert "Descrição *" in strip_tags(content)
+    assert "Data de início *" in strip_tags(content)
     assert "Evento de dia inteiro" in content
     assert "URL externa de inscrição" in content
     assert "Imagem de divulgação" in content

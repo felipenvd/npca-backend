@@ -1,5 +1,6 @@
 import pytest
 from django.urls import reverse
+from django.utils.html import strip_tags
 
 from apps.accounts.models import User
 from apps.publications.models import Publication
@@ -54,10 +55,10 @@ def test_admin_add_page_exposes_bilingual_editorial_and_author_fields(client) ->
     assert response.status_code == 200
     assert 'name="translations-0-language" value="pt-br"' in content
     assert 'name="translations-1-language" value="en"' in content
-    assert "Título *" in content
-    assert "Resumo *" in content
-    assert "Ano *" in content
-    assert "Periódico ou evento *" in content
+    assert "Título *" in strip_tags(content)
+    assert "Resumo *" in strip_tags(content)
+    assert "Ano *" in strip_tags(content)
+    assert "Periódico ou evento *" in strip_tags(content)
     assert "Pesquisador cadastrado" in content
     assert "Nome do autor externo" in content
     assert "Imagem de divulgação" in content

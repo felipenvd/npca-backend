@@ -1,0 +1,7 @@
+.npca-required-marker {
+  color: var(--color-red-600, #dc2626);
+}
+
+.dark .npca-required-marker {
+  color: var(--color-red-500, #ef4444);
+}

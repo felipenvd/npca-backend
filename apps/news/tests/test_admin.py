@@ -1,5 +1,6 @@
 import pytest
 from django.urls import reverse
+from django.utils.html import strip_tags
 
 from apps.accounts.models import User
 from apps.news.models import News
@@ -18,9 +19,9 @@ def test_admin_add_page_uses_wysiwyg_and_two_locales(client) -> None:
     assert 'name="translations-0-language" value="pt-br"' in content
     assert 'name="translations-1-language" value="en"' in content
     assert "Os campos marcados com * são obrigatórios para publicar" in content
-    assert "Título *" in content
-    assert "Resumo *" in content
-    assert "Conteúdo *" in content
+    assert "Título *" in strip_tags(content)
+    assert "Resumo *" in strip_tags(content)
+    assert "Conteúdo *" in strip_tags(content)
     assert "Gerado automaticamente a partir do título" in content
     assert "Texto alternativo da capa" not in content
 

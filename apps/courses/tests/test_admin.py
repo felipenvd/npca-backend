@@ -1,5 +1,6 @@
 import pytest
 from django.urls import reverse
+from django.utils.html import strip_tags
 
 from apps.accounts.models import User
 from apps.courses.models import Course
@@ -40,10 +41,10 @@ def test_admin_exposes_external_link_translations_and_optional_cover(client) -> 
     assert response.status_code == 200
     assert 'name="translations-0-language" value="pt-br"' in content
     assert 'name="translations-1-language" value="en"' in content
-    assert "URL externa *" in content
+    assert "URL externa *" in strip_tags(content)
     assert "Imagem de divulgação" in content
-    assert "Título *" in content
-    assert "Resumo *" in content
+    assert "Título *" in strip_tags(content)
+    assert "Resumo *" in strip_tags(content)
     assert "upload de vídeo" not in content.lower()
 
 

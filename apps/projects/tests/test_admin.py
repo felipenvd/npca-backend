@@ -2,6 +2,7 @@ from datetime import date
 
 import pytest
 from django.urls import reverse
+from django.utils.html import strip_tags
 
 from apps.accounts.models import User
 from apps.projects.models import Project
@@ -60,11 +61,11 @@ def test_admin_add_page_exposes_editorial_fields_and_two_languages(client) -> No
     assert "unfold/forms/js/trix/trix.js" in content
     assert 'name="translations-0-language" value="pt-br"' in content
     assert 'name="translations-1-language" value="en"' in content
-    assert "Título *" in content
-    assert "Resumo *" in content
-    assert "Descrição *" in content
-    assert "Coordenador *" in content
-    assert "Data de início *" in content
+    assert "Título *" in strip_tags(content)
+    assert "Resumo *" in strip_tags(content)
+    assert "Descrição *" in strip_tags(content)
+    assert "Coordenador *" in strip_tags(content)
+    assert "Data de início *" in strip_tags(content)
     assert content.count("npca-enhanced-date-field") == 2
     assert "core/admin/date_time_picker.js" in content
     assert "core/admin/date_time_picker.css" in content
