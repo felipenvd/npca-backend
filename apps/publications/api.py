@@ -35,7 +35,7 @@ def serialize_author(author: PublicationAuthor, lang: Language) -> PublicationAu
     if translation is None:
         return PublicationAuthorSchema(name=researcher.full_name, slug=None, photo=None)
     photo = (
-        PublicationAuthorPhoto(url=researcher.photo.url, alt=researcher.full_name)
+        PublicationAuthorPhoto(url=researcher.display_photo.url, alt=researcher.full_name)
         if researcher.photo
         else None
     )

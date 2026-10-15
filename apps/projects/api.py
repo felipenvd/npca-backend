@@ -38,7 +38,7 @@ def serialize_person(researcher: Researcher, lang: Language) -> ProjectPerson:
         return ProjectPerson(name=researcher.full_name, slug=None, photo=None)
 
     photo = (
-        ProjectPersonPhoto(url=researcher.photo.url, alt=researcher.full_name)
+        ProjectPersonPhoto(url=researcher.display_photo.url, alt=researcher.full_name)
         if researcher.photo
         else None
     )

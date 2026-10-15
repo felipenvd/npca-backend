@@ -26,7 +26,7 @@ def serialize_links(researcher: Researcher) -> ResearcherLinks:
 def serialize_photo(researcher: Researcher) -> ResearcherPhoto | None:
     if not researcher.photo:
         return None
-    return ResearcherPhoto(url=researcher.photo.url, alt=researcher.full_name)
+    return ResearcherPhoto(url=researcher.display_photo.url, alt=researcher.full_name)
 
 
 def serialize_summary(translation: ResearcherTranslation) -> ResearcherSummary:

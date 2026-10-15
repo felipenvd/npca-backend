@@ -1,0 +1,30 @@
+<div class="photo-editor" data-photo-editor data-input-id="{{ widget.attrs.id }}" data-initial-url="{% if widget.is_initial %}{{ widget.value.url }}{% endif %}">
+    {% include "unfold/widgets/clearable_file_input.html" %}
+    <div class="photo-editor__preview" data-preview hidden>
+        <canvas width="240" height="240" data-preview-canvas role="img" aria-label="Prévia circular da foto"></canvas>
+        <div>
+            <button type="button" data-edit class="photo-editor__button">Ajustar enquadramento</button>
+            <p>O mesmo enquadramento será usado no card e no perfil.</p>
+        </div>
+    </div>
+    <p data-status role="status" class="photo-editor__status"></p>
+    <dialog class="photo-editor__dialog" aria-labelledby="{{ widget.attrs.id }}_crop_title">
+        <div class="photo-editor__heading">
+            <h2 id="{{ widget.attrs.id }}_crop_title">Ajustar foto</h2>
+            <button type="button" data-cancel aria-label="Fechar ajuste da foto" class="photo-editor__close">×</button>
+        </div>
+        <p class="photo-editor__hint">Arraste a foto para enquadrar o rosto. Use os controles para ajustar a posição e o zoom.</p>
+        <canvas width="560" height="560" data-crop-canvas role="img" aria-label="Enquadramento circular da foto"></canvas>
+        <div class="photo-editor__controls">
+            <div><label for="{{ widget.attrs.id }}_zoom">Zoom</label><output data-output="zoom" aria-live="off"></output><input id="{{ widget.attrs.id }}_zoom" type="range" data-control="zoom" min="1" max="3" step="0.01" value="1"></div>
+            <div><label for="{{ widget.attrs.id }}_x">Posição horizontal</label><input id="{{ widget.attrs.id }}_x" type="range" data-control="x" min="0" max="100" step="1" value="50"></div>
+            <div><label for="{{ widget.attrs.id }}_y">Posição vertical</label><input id="{{ widget.attrs.id }}_y" type="range" data-control="y" min="0" max="100" step="1" value="50"></div>
+        </div>
+        <div class="photo-editor__actions">
+            <button type="button" data-reset class="photo-editor__button">Centralizar</button>
+            <button type="button" data-cancel class="photo-editor__button">Cancelar</button>
+            <button type="button" data-apply class="photo-editor__button photo-editor__button--primary">Aplicar enquadramento</button>
+        </div>
+        <p class="photo-editor__hint">Depois de aplicar, salve o cadastro para publicar o ajuste.</p>
+    </dialog>
+</div>

@@ -8,6 +8,8 @@ from unfold.widgets import UnfoldAdminURLInputWidget
 from apps.core.sanitizers import sanitize_rich_text
 
 from .models import Researcher, ResearcherTranslation, activation_errors
+from .photos import cropped_photo, validate_photo_crop
+from .widgets import ResearcherPhotoWidget
 
 
 class ResearcherForm(forms.ModelForm):
@@ -36,6 +38,7 @@ class ResearcherForm(forms.ModelForm):
             "full_name",
             "academic_category",
             "photo",
+            "photo_crop",
             "public_email",
             "lattes_url",
             "orcid_url",
@@ -43,9 +46,44 @@ class ResearcherForm(forms.ModelForm):
             "is_active",
             "display_order",
         )
+        widgets = {"photo": ResearcherPhotoWidget(), "photo_crop": forms.HiddenInput()}
         help_texts = {
             "display_order": "Define a posição do pesquisador dentro da categoria acadêmica."
         }
+
+    def clean_photo_crop(self):
+        if self.add_prefix("photo_crop") not in self.data:
+            crop = (
+                {}
+                if self.files.get(self.add_prefix("photo"))
+                else self.initial.get("photo_crop", {})
+            )
+        else:
+            crop = self.cleaned_data.get("photo_crop")
+            if crop is None:
+                crop = {}
+        validate_photo_crop(crop)
+        return crop
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.photo_crop = self.cleaned_data["photo_crop"]
+        if commit:
+            self.prepare_photo_crop()
+            instance.save()
+            self.save_m2m()
+        return instance
+
+    def prepare_photo_crop(self):
+        instance = self.instance
+        if not instance.photo:
+            instance.photo_crop = {}
+            instance.photo_cropped = ""
+        elif self.files.get(
+            self.add_prefix("photo")
+        ) is not None or instance.photo_crop != self.initial.get("photo_crop", {}):
+            result = cropped_photo(instance.photo, instance.photo_crop)
+            instance.photo_cropped.save(result.name, result, save=False)
 
 
 class ResearcherTranslationForm(forms.ModelForm):

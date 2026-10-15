@@ -10,6 +10,7 @@ from django.utils.text import slugify
 
 from apps.core.sanitizers import sanitize_rich_text
 
+from .photos import validate_photo_crop
 from .validators import validate_researcher_photo
 
 
@@ -60,6 +61,12 @@ class Researcher(models.Model):
         validators=[validate_researcher_photo],
         blank=True,
     )
+    photo_crop = models.JSONField(
+        "enquadramento da foto", default=dict, blank=True, validators=[validate_photo_crop]
+    )
+    photo_cropped = models.ImageField(
+        "foto enquadrada", upload_to="researchers/cropped/", blank=True, editable=False
+    )
     public_email = models.EmailField("e-mail institucional ou profissional", blank=True)
     lattes_url = models.URLField("Currículo Lattes", max_length=500, blank=True)
     orcid_url = models.URLField("ORCID", max_length=500, blank=True)
@@ -107,6 +114,10 @@ class Researcher(models.Model):
 
     def __str__(self) -> str:
         return self.full_name
+
+    @property
+    def display_photo(self):
+        return (self.photo_cropped or self.photo) if self.photo else None
 
     def validate_for_activation(self) -> None:
         translations = {item.language: item for item in self.translations.all()}
