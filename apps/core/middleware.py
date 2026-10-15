@@ -2,6 +2,7 @@ from collections.abc import Callable
 
 from django.http import HttpRequest, HttpResponse
 from django.middleware.locale import LocaleMiddleware
+from django.urls import reverse
 from django.utils import translation
 
 from .problems import PROBLEM_MEDIA_TYPE, generic_problem
@@ -11,7 +12,10 @@ class AdminLocaleMiddleware(LocaleMiddleware):
     """Use Brazilian Portuguese in the admin and negotiate other routes normally."""
 
     def process_request(self, request: HttpRequest) -> None:
-        if request.path_info == "/admin" or request.path_info.startswith("/admin/"):
+        admin_prefix = reverse("admin:index")
+        if request.path_info == admin_prefix.rstrip("/") or request.path_info.startswith(
+            admin_prefix
+        ):
             translation.activate("pt-br")
             request.LANGUAGE_CODE = translation.get_language()
         else:

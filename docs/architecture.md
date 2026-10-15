@@ -127,7 +127,7 @@ O acesso externo deverá utilizar uma única origem:
 ```text
 https://npca.example.br/          -> frontend Astro
 https://npca.example.br/api/v1/   -> Django Ninja
-https://npca.example.br/admin/    -> Django Admin
+https://npca.example.br/gestao-npca/    -> Django Admin
 https://npca.example.br/media/    -> arquivos do MEDIA_ROOT
 https://npca.example.br/static/   -> arquivos estáticos do Django Admin
 ```
@@ -141,7 +141,7 @@ Internet
 Caddy
    |-- / ----------------> Astro
    |-- /api/v1/ ---------> Django Ninja
-   |-- /admin/ ----------> Django Admin
+   |-- /gestao-npca/ ----------> Django Admin
    |-- /media/ ----------> volume de mídia (somente leitura)
    `-- /static/ ---------> volume de staticfiles (somente leitura)
 

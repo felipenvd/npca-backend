@@ -7,7 +7,7 @@ from django.utils import translation
 from apps.core.middleware import AdminLocaleMiddleware
 
 
-@pytest.mark.parametrize("path", ("/admin", "/admin/", "/admin/jsi18n/"))
+@pytest.mark.parametrize("path", ("/gestao-npca", "/gestao-npca/", "/gestao-npca/jsi18n/"))
 def test_admin_middleware_uses_pt_br_despite_browser_and_cookie(path):
     request = RequestFactory().get(path, HTTP_ACCEPT_LANGUAGE="en-US,en;q=0.9")
     request.COOKIES[settings.LANGUAGE_COOKIE_NAME] = "pt"
@@ -21,7 +21,9 @@ def test_admin_middleware_uses_pt_br_despite_browser_and_cookie(path):
         assert settings.LANGUAGE_COOKIE_NAME not in response.cookies
 
 
-@pytest.mark.parametrize("path", ("/api/v1/news", "/administrator/", "/media/photo.webp"))
+@pytest.mark.parametrize(
+    "path", ("/api/v1/news", "/gestao-npca-extra/", "/admin/", "/media/photo.webp")
+)
 def test_other_routes_keep_normal_language_negotiation(path):
     request = RequestFactory().get(path, HTTP_ACCEPT_LANGUAGE="en-US,en;q=0.9")
     middleware = AdminLocaleMiddleware(lambda request: HttpResponse())
@@ -36,7 +38,7 @@ def test_other_routes_keep_normal_language_negotiation(path):
 @pytest.mark.parametrize("language", ("en", "pt", "pt-br"))
 def test_admin_groups_and_navigation_are_brazilian_portuguese(admin_client, language):
     admin_client.cookies[settings.LANGUAGE_COOKIE_NAME] = language
-    response = admin_client.get("/admin/auth/group/", HTTP_ACCEPT_LANGUAGE=language)
+    response = admin_client.get("/gestao-npca/auth/group/", HTTP_ACCEPT_LANGUAGE=language)
     html = response.content.decode()
 
     assert response.status_code == 200
@@ -56,25 +58,25 @@ def test_admin_groups_and_navigation_are_brazilian_portuguese(admin_client, lang
 
 @pytest.mark.django_db
 def test_login_and_forms_use_project_translations(client, admin_client):
-    login = client.get("/admin/login/", HTTP_ACCEPT_LANGUAGE="en")
+    login = client.get("/gestao-npca/login/", HTTP_ACCEPT_LANGUAGE="en")
     assert login.status_code == 200
     assert "Bem-vindo ao" in login.content.decode()
     assert "Voltar ao site" in login.content.decode()
 
-    form = admin_client.get("/admin/accounts/user/add/", HTTP_ACCEPT_LANGUAGE="en")
+    form = admin_client.get("/gestao-npca/accounts/user/add/", HTTP_ACCEPT_LANGUAGE="en")
     assert form.status_code == 200
     assert (
         "Após criar o usuário, você poderá editar outras opções da conta." in form.content.decode()
     )
 
-    javascript = admin_client.get("/admin/jsi18n/", HTTP_ACCEPT_LANGUAGE="en")
+    javascript = admin_client.get("/gestao-npca/jsi18n/", HTTP_ACCEPT_LANGUAGE="en")
     assert javascript.status_code == 200
     assert javascript["Content-Language"] == "pt-br"
 
 
 @pytest.mark.django_db
 def test_api_language_is_not_stuck_in_admin_locale(admin_client):
-    admin_client.get("/admin/", HTTP_ACCEPT_LANGUAGE="en")
+    admin_client.get("/gestao-npca/", HTTP_ACCEPT_LANGUAGE="en")
     response = admin_client.get("/api/v1/news", {"lang": "en"}, HTTP_ACCEPT_LANGUAGE="en")
 
     assert response.status_code == 200

@@ -43,7 +43,7 @@ antes de passar a servir esse mesmo banco pelo Docker.
 
 O painel oficial usa Django Admin com Django Unfold, identidade visual do NPCA e
 alternância nativa entre os temas claro e escuro. Ele estará em
-`http://localhost:8000/admin/`. A documentação da API estará em
+`http://localhost:8000/gestao-npca/`. A documentação da API estará em
 `http://localhost:8000/api/v1/docs` e o healthcheck em
 `http://localhost:8000/api/v1/health`.
 Erros da API seguem RFC 9457 e usam `application/problem+json`; o Admin e o

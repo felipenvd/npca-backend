@@ -35,7 +35,7 @@ api.add_router("/courses", courses_router)
 api.add_router("/labcompap", labcompap_router)
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("gestao-npca/", admin.site.urls),
     path("api/v1/", api.urls),
 ]
 

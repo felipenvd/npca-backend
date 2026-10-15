@@ -4,7 +4,7 @@ from config.admin_navigation import sidebar_navigation
 
 
 def test_labcompap_is_the_last_admin_sidebar_group(admin_client):
-    response = admin_client.get("/admin/")
+    response = admin_client.get("/gestao-npca/")
     request = response.wsgi_request
 
     navigation = sidebar_navigation(request)
