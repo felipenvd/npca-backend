@@ -100,3 +100,103 @@ def test_admin_blocks_incomplete_activation_and_accepts_complete_bilingual_profi
     researcher = Researcher.objects.get()
     assert researcher.is_active is True
     assert set(researcher.translations.values_list("language", flat=True)) == {"pt-br", "en"}
+
+
+@pytest.mark.django_db
+def test_changelist_saves_display_order_without_changing_photos(admin_client):
+    researcher = Researcher.objects.create(
+        full_name="Ana Silva",
+        academic_category=Researcher.AcademicCategory.DOCTOR,
+        display_order=1,
+        photo="researchers/photos/original.jpg",
+        photo_cropped="researchers/cropped/avatar.webp",
+        photo_crop={"x": 50, "y": 10, "zoom": 1.5},
+    )
+    other = Researcher.objects.create(
+        full_name="Bruno Silva",
+        academic_category=Researcher.AcademicCategory.DOCTOR,
+        display_order=2,
+    )
+    url = reverse("admin:researchers_researcher_changelist")
+    response = admin_client.get(url)
+    formset = response.context["cl"].formset
+    assert len(formset.forms) == 2
+    values = {
+        "form-TOTAL_FORMS": "2",
+        "form-INITIAL_FORMS": "2",
+        "form-MIN_NUM_FORMS": "0",
+        "form-MAX_NUM_FORMS": "1000",
+        "_save": "Salvar",
+    }
+    for form in formset.forms:
+        values[f"{form.prefix}-id"] = str(form.instance.pk)
+        values[f"{form.prefix}-display_order"] = "3" if form.instance.pk == researcher.pk else "0"
+
+    response = admin_client.post(url, values)
+
+    assert response.status_code == 302
+    researcher.refresh_from_db()
+    other.refresh_from_db()
+    assert researcher.display_order == 3
+    assert other.display_order == 0
+    assert researcher.photo.name == "researchers/photos/original.jpg"
+    assert researcher.photo_cropped.name == "researchers/cropped/avatar.webp"
+    assert researcher.photo_crop == {"x": 50, "y": 10, "zoom": 1.5}
+    assert researcher.updated_by_id == int(admin_client.session["_auth_user_id"])
+    assert not other.photo
+    assert not other.photo_cropped
+
+
+@pytest.mark.django_db
+def test_admin_activates_undergraduate_without_research_area_or_biography(admin_client):
+    data = researcher_data(active=True)
+    data["academic_category"] = Researcher.AcademicCategory.UNDERGRADUATE_RESEARCHER
+    for index in range(2):
+        data[f"translations-{index}-research_area"] = ""
+        data[f"translations-{index}-biography_html"] = ""
+
+    response = admin_client.post(reverse("admin:researchers_researcher_add"), data)
+
+    assert response.status_code == 302
+    researcher = Researcher.objects.get()
+    assert researcher.is_active
+    researcher.validate_for_activation()
+    assert researcher.translations.count() == 2
+    for language in ("pt-br", "en"):
+        translation = researcher.translations.get(language=language)
+        assert translation.slug == "ana-silva"
+        detail = admin_client.get(f"/api/v1/researchers/{translation.slug}", {"lang": language})
+        assert detail.status_code == 200
+        assert detail.json()["research_area"] == ""
+        assert detail.json()["biography_html"] == ""
+
+    # A category change must restore the activation requirements on the server.
+    from apps.core.tests.test_bilingual_admin import FormValues
+
+    url = reverse("admin:researchers_researcher_change", args=[researcher.pk])
+    page = admin_client.get(url)
+    values = FormValues(page.content.decode(), "researcher_form").values
+    values.update({"academic_category": "doctor", "_save": "Salvar"})
+    invalid = admin_client.post(url, values)
+    assert invalid.status_code == 200
+    researcher.refresh_from_db()
+    assert researcher.academic_category == Researcher.AcademicCategory.UNDERGRADUATE_RESEARCHER
+    assert "Preencha área de pesquisa" in invalid.content.decode()
+    assert "Preencha biografia" in invalid.content.decode()
+
+    for index in range(2):
+        values[f"translations-{index}-research_area"] = "Área de pesquisa"
+        values[f"translations-{index}-biography_html"] = "<p>Biografia</p>"
+    valid = admin_client.post(url, values)
+    assert valid.status_code == 302
+    researcher.refresh_from_db()
+    assert researcher.academic_category == Researcher.AcademicCategory.DOCTOR
+    researcher.validate_for_activation()
+
+
+def test_admin_marks_research_content_as_required_according_to_category(admin_client):
+    response = admin_client.get(reverse("admin:researchers_researcher_add"))
+    html = response.content.decode()
+    assert html.count('data-required-controller="academic_category"') == 4
+    assert 'data-required-values="doctor,doctoral_student,master,masters_student"' in html
+    assert "Opcional para graduandos de iniciação científica" in html

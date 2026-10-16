@@ -107,8 +107,14 @@ class ResearcherTranslationForm(forms.ModelForm):
                 "Gerado automaticamente a partir do nome quando deixado em branco. "
                 "Depois de ativado, altere somente se também for atualizar a URL."
             ),
-            "research_area": "Obrigatório para ativar.",
-            "biography_html": "Obrigatório para ativar.",
+            "research_area": (
+                "Opcional para graduandos de iniciação científica. "
+                "Obrigatório para ativar nas demais categorias."
+            ),
+            "biography_html": (
+                "Opcional para graduandos de iniciação científica. "
+                "Obrigatório para ativar nas demais categorias."
+            ),
             "seo_title": "Opcional. Quando vazio, o nome será usado.",
             "seo_description": "Opcional. Quando vazia, a área de pesquisa será usada.",
         }
@@ -164,6 +170,6 @@ class ResearcherTranslationInlineFormSet(BaseInlineFormSet):
             translations[language] = translation
 
         if self.instance.is_active:
-            errors = activation_errors(translations)
+            errors = activation_errors(translations, self.instance.academic_category)
             if errors:
                 raise ValidationError(errors)

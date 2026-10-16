@@ -1,0 +1,525 @@
+{
+  "researchers": [
+    {
+      "full_name": "Marcus de Barros Braga",
+      "academic_category": "doctor",
+      "is_active": true,
+      "display_order": 0,
+      "public_email": "marcus.braga@ufra.edu.br",
+      "lattes_url": "http://lattes.cnpq.br/3949343776644469",
+      "orcid_url": "https://orcid.org/0000-0003-1621-4460",
+      "linkedin_url": "https://linkedin.com/in/marcus-de-barros-braga-331500183",
+      "photo_crop": {},
+      "translations": [
+        {
+          "language": "en",
+          "slug": "marcus-de-barros-braga",
+          "research_area": "Computational Intelligence and Computational Biology",
+          "biography_html": "<div>Computer scientist (UFPA), Master's degree in Electrical Engineering - Applied Computing with emphasis on Computational Intelligence (UFPA) and PhD in Genetics and Molecular Biology with emphasis on Bioinformatics (UFPA). Specialist in the application of computational intelligence methods to data related to health and the agricultural sector, especially with computer vision techniques, time series forecasting and large language models. Adjunct Professor of the Bachelor's degree in Information Systems at the Federal Rural University of the Amazon (UFRA), Paragominas/PA campus. Permanent faculty member of the Postgraduate Program in Biotechnology Applied to Agriculture (PPGBAA/UFRA). Permanent faculty member of the Professional Master's Program in Computer Science Education (PROFCOMP/UFPA), a national network program coordinated by the Brazilian Computer Society (SBC). Leader of the research group \"Research Center in Applied Computing\" (CNPq/UFRA). Coordinator of the Applied Computing Laboratory (LabCompAp). Director of Graduate Studies (DPG/PROPED) at UFRA. Coordinates artificial intelligence projects funded by CNPq, FAPESPA, FINEP, and UFRA itself.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "slug": "marcus-de-barros-braga",
+          "research_area": "Inteligência Computacional e Biologia Computacional",
+          "biography_html": "<div>Cientista da computação (UFPA), mestre em engenharia elétrica - computação aplicada com ênfase em inteligência computacional (UFPA) e doutor em genética e biologia molecular com ênfase em bioinformática (UFPA). Especialista em aplicação de métodos de inteligência computacional a dados relacionados a saúde e ao setor agrário, especialmente com técnicas de visão computacional, previsão de séries temporais e grandes modelos de linguagem. Professor Adjunto do curso de Bacharelado em Sistemas de Informação na Universidade Federal Rural da Amazônia (UFRA), campus Paragominas/PA. Docente permanente do Programa de Pós-Graduação em Biotecnologia Aplicada à Agropecuária (PPGBAA/UFRA). Docente permanente do Mestrado Profissional em Ensino de Computação (PROFCOMP/UFPA), programa em rede nacional, coordenado pela Sociedade Brasileira de Computação (SBC). Líder do grupo de pesquisa ''Núcleo de Pesquisas em Computação Aplicada'' (CNPq/UFRA). Coordenador do Laboratório de Computação Aplicada (LabCompAp). Diretor de Pós-Graduação (DPG/PROPED) da UFRA. Coordena projetos de inteligência artificial financiados por CNPq, FAPESPA, FINEP e pela própria UFRA.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "photo": "marcus-de-barros-braga.webp",
+      "photo_cropped": null
+    },
+    {
+      "full_name": "Fabricio Almeida Araujo",
+      "academic_category": "doctor",
+      "is_active": true,
+      "display_order": 1,
+      "public_email": "fabricio.araujo@ufra.edu.br",
+      "lattes_url": "http://lattes.cnpq.br/1551552575314663",
+      "orcid_url": "https://orcid.org/0000-0001-8134-5964",
+      "linkedin_url": "https://linkedin.com/in/araujopa",
+      "photo_crop": {
+        "x": 50,
+        "y": 7,
+        "zoom": 1.06
+      },
+      "translations": [
+        {
+          "language": "en",
+          "slug": "fabricio-almeida-araujo",
+          "research_area": "Computational Biology",
+          "biography_html": "<div>Professor and researcher with interdisciplinary work in the areas of Computer Science, Bioinformatics, and Applied Biotechnology, focusing on computational solutions for biological and agricultural challenges in the Amazon. He holds a PhD in Genetics and Molecular Biology (Bioinformatics) from the Federal University of Pará (UFPA), with a research period at the Georg-August-Universität Göttingen (Germany), and a postdoctoral internship in the PROCAD-AM/UFRA Program. Currently, he is a Professor at the Federal Rural University of the Amazon (Paragominas campus) and Director of the Distance Education Center (NEAD) at UFRA, having coordinated the Bachelor's degree in Information Systems at the campus. He is also a Permanent Faculty Member of the Postgraduate Program in Biotechnology Applied to Agriculture (PPGBAA). Coordinates and participates in projects integrating artificial intelligence, computer vision, and genomics applied to agribusiness and health, with emphasis on the development of bioinformatics tools, intelligent agricultural diagnostic systems, and assistive technologies focused on child development. Also works in the training of technology professionals, promoting the interface between software engineering, data science, and biotechnology. Has consolidated experience in applied computing, machine learning, comparative genomics, and omics data analysis, with scientific production recognized in international journals and registration of computer programs with the INPI (Brazilian National Institute of Industrial Property).</div>",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "slug": "fabricio-almeida-araujo",
+          "research_area": "Biologia Computacional",
+          "biography_html": "<div>Professor e pesquisador com atuação interdisciplinar nas áreas de Ciência da Computação, Bioinformática e Biotecnologia Aplicada, com foco em soluções computacionais para desafios biológicos e agropecuários na Amazônia. Doutor em Genética e Biologia Molecular (Bioinformática) pela Universidade Federal do Pará (UFPA), com período sanduíche na Georg-August-Universität Göttingen (Alemanha), e estágio pós-doutoral no Programa PROCAD-AM/UFRA. Atualmente é Professor do Magistério Superior da Universidade Federal Rural da Amazônia (campus Paragominas) e Diretor do Núcleo de Educação a Distância (NEAD) da UFRA, tendo coordenado o Bacharelado em Sistemas de Informação do campus. É também Docente Permanente do Programa de Pós-Graduação em Biotecnologia Aplicada à Agropecuária (PPGBAA). Coordena e participa de projetos que integram inteligência artificial, visão computacional e genômica aplicada ao agronegócio e à saúde, com destaque para o desenvolvimento de ferramentas bioinformáticas, sistemas inteligentes de diagnóstico agrícola e tecnologias assistivas voltadas ao desenvolvimento infantil. Atua também na formação de profissionais de tecnologia, promovendo a interface entre engenharia de software, ciência de dados e biotecnologia. Tem experiência consolidada em computação aplicada, aprendizado de máquina, genômica comparativa e análise de dados ômicos, com produção científica reconhecida em periódicos internacionais e registro de programas de computador no INPI</div>",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "photo": "fabricio-almeida-araujo.webp",
+      "photo_cropped": "fabricio-almeida-araujo-cropped.webp"
+    },
+    {
+      "full_name": "Gilberto Nerino de Souza Junior",
+      "academic_category": "doctor",
+      "is_active": true,
+      "display_order": 2,
+      "public_email": "gilbertojr@ufra.edu.br",
+      "lattes_url": "http://lattes.cnpq.br/8391942175575646",
+      "orcid_url": "https://orcid.org/0000-0002-8452-3938",
+      "linkedin_url": "https://linkedin.com/in/gilberto-nerino-junior-b462b836",
+      "photo_crop": {
+        "x": 50,
+        "y": 4,
+        "zoom": 1
+      },
+      "translations": [
+        {
+          "language": "en",
+          "slug": "gilberto-nerino-de-souza-junior",
+          "research_area": "Computational Intelligence",
+          "biography_html": "<div>Bachelor's degree in Information Systems from the Federal University of Pará (UFPA). Master's degree in Computer Science, Research Line - Intelligent Systems from UFPA. PhD in Electrical Engineering in the area of ​​Applied Computing from the Postgraduate Program in Electrical Engineering at UFPA, Research Line - Computational Intelligence. Adjunct Professor Class C at the Federal Rural University of the Amazon - Paragominas/PA Campus. Member of the Research Group \"Center for Applied Computing Research\" - (NPCA - CNPq/UFRA). Member of the Research Group \"Engineering, Science and Technology in the Amazon Group\" - (GECTAM - CNPq/UFRA). Member of the Research Group Laboratory of Bioinformatics and Genomics of Microorganisms (LAB_BGM - CNPq/UFPA). Member of the Research Group \"Center for Mathematical Optimization and Data Analysis for Decision Making in Multidisciplinary Contexts (NOMADE - CNPq/UEPA). Full Member of the Brazilian Computer Society (SBC). At the undergraduate level, he teaches Logic and Programming Techniques, Algorithm Analysis, Human-Computer Interface, and Computational Intelligence. He researches and develops techniques in machine learning, bio-inspired computing, time series, human-computer interaction, digital games with an emphasis on experimental behavior analysis, and the development of programming routines with an emphasis on geoinformation.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "slug": "gilberto-nerino-de-souza-junior",
+          "research_area": "Inteligência Computacional",
+          "biography_html": "<div>Bacharel em Sistemas de Informação formado pela Universidade Federal do Pará (UFPA). Mestre em Ciência da Computação, linha de Pesquisa - Sistemas Inteligentes pela UFPA. Doutor em Engenharia Elétrica na área de Computação Aplicada pelo Programa de Pós-Graduação de Engenharia Elétrica da UFPA, Linha de Pesquisa - Inteligência Computacional. Professor Adjunto Classe C da Universidade Federal Rural da Amazônia - Campus de Paragominas/PA. Membro do Grupo de Pesquisa ''Núcleo de Pesquisas em Computação Aplicada'' - (NPCA - CNPq/UFRA). Membro do Grupo de Pesquisa ''Grupo de Engenharia, Ciência e Tecnologia na Amazônia'' - (GECTAM - CNPq/UFRA). Membro do Grupo de Pesquisa Laboratório de Bioinformática e Genômica de Microrganismos (LAB_BGM - CNPq/UFPA). Membro do Grupo de Pesquisa ''Núcleo de Otimização Matemática e Análise de Dados para Tomada de Decisão em Contextos Multidisciplinares (NOMADE - CNPq/UEPA). Associado Efetivo da Sociedade Brasileira de Computação (SBC). Em graduação, atua como professor de Lógica e Técnicas de Programação, Análise de Algoritmos, Interface Humano Computador e Inteligência Computacional. Pesquisa e desenvolve técnicas de aprendizado de máquina, computação bio-inspirada, séries temporais, interação humano computador, jogos digitais com ênfase na análise experimental do comportamento e desenvolvimento de rotinas de programação com ênfase em geoinformação.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "photo": "gilberto-nerino-de-souza-junior.webp",
+      "photo_cropped": "gilberto-nerino-de-souza-junior-cropped.webp"
+    },
+    {
+      "full_name": "Rommel Thiago Juca Ramos",
+      "academic_category": "doctor",
+      "is_active": true,
+      "display_order": 3,
+      "public_email": "rommelthiago@gmail.com",
+      "lattes_url": "http://lattes.cnpq.br/1274395392752454",
+      "orcid_url": "https://orcid.org/0000-0002-8032-1474",
+      "linkedin_url": "https://linkedin.com/in/rommel-ramos-55278223",
+      "photo_crop": {
+        "x": 50,
+        "y": 19,
+        "zoom": 1.15
+      },
+      "translations": [
+        {
+          "language": "en",
+          "slug": "rommel-thiago-juca-ramos",
+          "research_area": "Computational Biology",
+          "biography_html": "<div>Computer Engineer, Master's and PhD in Genetics and Molecular Biology, with emphasis in Bioinformatics, from the Federal University of Pará (UFPA). He works as an Associate Professor III at the Faculty of Biotechnology of the Institute of Biological Sciences at UFPA, developing teaching, research, innovation and academic management activities. He is a permanent advisor and collaborator in excellent postgraduate programs, including the Postgraduate Program in Bioinformatics at the Federal University of Minas Gerais (CAPES 7), the Postgraduate Program in Genetics and Molecular Biology at UFPA (CAPES 7), Electrical Engineering (CAPES 6) at UFPA and Biotechnology (CAPES 5), with a focus on computational intelligence applied to biological, environmental and engineering sciences. He has solid experience in human resource development, with 21 undergraduate research supervisions, 10 undergraduate theses, 14 master's dissertations and 5 completed doctoral theses. He has supervised four completed postdoctoral internships and currently mentors two postdoctoral researchers. He has a significant and consistent scientific output, with over 170 articles published in journals indexed in databases such as Web of Science and Scopus. He has accumulated over 2,200 citations in these databases and over 3,700 citations in Google Scholar. He coordinates and participates in several research projects funded by national and international agencies, including CNPq, CAPES, FAPESPA, and SECTET, focusing on genomics and metagenomics of microorganisms, environmental monitoring, antimicrobial resistance in water bodies, and the integration of molecular data with environmental sensors. Notable projects include those focused on monitoring Amazonian rivers, bioprospecting microbial biodiversity, analyzing environmental resistomes, and developing strategies based on computational intelligence to support the management of water quality and natural resources. He maintains consolidated international scientific collaborations with researchers and institutions in Latin America, North America, and Europe, including collaborations with universities and research centers in the Dominican Republic, Germany, and Portugal, resulting in bilateral projects, joint publications, and the training of human resources at an international level. His scientific work is interdisciplinary and focuses on the development and application of computational methods for the analysis of complex biological and environmental systems, including bioinformatics and computational biology, environmental monitoring using culture-independent molecular methods, omics data integration, the Internet of Things (IoT), machine learning, and the development of computational platforms. He was an Affiliate Member of the Brazilian Academy of Sciences from 2018 to 2022, served as Coordinator of the Microbial Genetics and Bioinformatics Area of ​​the Brazilian Society of Microbiology between 2020 and 2023, and is a CNPq research productivity fellow at the PQ-1D level. She also works on strategic projects with the Guamá Foundation, contributing to the integration of biotechnology, information technologies, innovation, and public policies, with a focus on strengthening the science, technology, and innovation ecosystem in the Amazon.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "slug": "rommel-thiago-juca-ramos",
+          "research_area": "Biologia Computacional",
+          "biography_html": "<div>Engenheiro de Computação, Mestre e Doutor em Genética e Biologia Molecular, com ênfase em Bioinformática, pela Universidade Federal do Pará (UFPA). Atua como Professor Associado III da Faculdade de Biotecnologia do Instituto de Ciências Biológicas da UFPA, desenvolvendo atividades de ensino, pesquisa, inovação e gestão acadêmica. É orientador permanente e colaborador em programas de pós-graduação de excelência, incluindo o Programa de Pós-Graduação em Bioinformática da Universidade Federal de Minas Gerais (CAPES 7), o Programa de Pós-Graduação em Genética e Biologia Molecular da UFPA (CAPES 7), Engenharia Elétrica (CAPES 6) da UFPA e Biotecnologia (CAPES 5), com atuação concentrada na área de inteligência computacional aplicada às ciências biológicas, ambientais e engenharias.Possui sólida experiência na formação de recursos humanos, com 21 orientações de iniciação científica, 10 trabalhos de conclusão de curso, 14 dissertações de mestrado e 5 teses de doutorado concluídas. Supervisou quatro estágios de pós-doutorado já finalizados e acompanha atualmente duas pós-doutorandas. Apresenta produção científica expressiva e consistente, com mais de 170 artigos publicados em periódicos indexados em bases como Web of Science e Scopus. Acumula mais de 2.200 citações nessas bases e mais de 3.700 citações no Google Scholar. Coordena e participa de diversos projetos de pesquisa financiados por agências nacionais e internacionais, incluindo CNPq, CAPES, FAPESPA e SECTET, com foco em genômica e metagenômica de microrganismos, monitoramento ambiental, resistência a antimicrobianos em corpos hídricos e integração de dados moleculares com sensores ambientais. Destacam-se projetos voltados ao monitoramento de rios amazônicos, bioprospecção da biodiversidade microbiana, análise de resistomas ambientais e desenvolvimento de estratégias baseadas em inteligência computacional para apoio à gestão da qualidade da água e dos recursos naturais. Mantém colaborações científicas internacionais consolidadas com pesquisadores e instituições da América Latina, América do Norte e Europa, incluindo cooperações com universidades e centros de pesquisa na República Dominicana, Alemanha e Portugal, resultando em projetos bilaterais, publicações conjuntas e formação de recursos humanos em nível internacional.Sua atuação científica é interdisciplinar e concentra-se no desenvolvimento e aplicação de métodos computacionais para análise de sistemas biológicos e ambientais complexos, incluindo bioinformática e biologia computacional, monitoramento ambiental por métodos moleculares independentes de cultivo, integração de dados ômicos, Internet das Coisas (IoT), aprendizado de máquina e desenvolvimento de plataformas computacionais. Foi Membro Afiliado da Academia Brasileira de Ciências no período de 2018 a 2022, atuou como Coordenador da Área de Genética de Microrganismos e Bioinformática da Sociedade Brasileira de Microbiologia entre 2020 e 2023 e é bolsista de produtividade em pesquisa do CNPq nível PQ-1D. Atua ainda em projetos estratégicos junto à Fundação Guamá, contribuindo para a integração entre biotecnologia, tecnologias da informação, inovação e políticas públicas, com foco no fortalecimento do ecossistema de ciência, tecnologia e inovação da Amazônia.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "photo": "rommel-thiago-juca-ramos.webp",
+      "photo_cropped": "rommel-thiago-juca-ramos-cropped.webp"
+    },
+    {
+      "full_name": "Thais Gleice Martins Braga",
+      "academic_category": "doctor",
+      "is_active": true,
+      "display_order": 4,
+      "public_email": "",
+      "lattes_url": "http://lattes.cnpq.br/7803075813196828",
+      "orcid_url": "https://orcid.org/0000-0001-9559-7142",
+      "linkedin_url": "",
+      "photo_crop": {
+        "x": 0,
+        "y": 51,
+        "zoom": 1.07
+      },
+      "translations": [
+        {
+          "language": "en",
+          "slug": "thais-gleice-martins-braga",
+          "research_area": "Agricultural Informatics",
+          "biography_html": "<div>Holds a degree in Environmental Engineering from the Federal Rural University of the Amazon (2014), a master's degree in Environmental Sciences from the Federal University of Pará with an emphasis on climate physics, focusing on the increase in Earth's surface temperature (2017), and a doctorate in Biodiversity and Biotechnology from the BIONORTE Network at the Federal University of Pará (2019), working with forest fragmentation and ecological restoration through ecological corridors in the Brazilian Legal Amazon. Currently an adjunct professor at the Federal Rural University of the Amazon - UFRA. Leader of the UFRA research group in partnership with CNPq in engineering, science and technology in the Amazon - GECTAM, Coordinator of research and extension projects with traditional peoples and communities in the Amazon, Scientific Member of Paragoclima, Associate Researcher at the Guamá and Biotec Foundation, founder of the science and technology institution called the Amazon certification system, the AMZ Institute, Research Member of the Applied Computing Research Group - NPCA at UFRA. She has extensive experience in the areas of environmental sciences, biodiversity and biotechnology, geotechnologies applied to climate change and environmental systems modeling, as well as expertise and coordination of research and technological innovation in environmental engineering, environmental impact assessment, environmental monitoring and human territoriality, auditing, expertise and environmental certification. She is an associate researcher at the Science and Technology Park of the State of Pará, a reviewer for journals, and a member of the technical-scientific editorial board for research and technological innovation funding agencies, coordinator of research and technological innovation projects, and a specialist reviewer for the seventh edition of the Global Environment Outlook (GEO-7), which is in action for a healthy planet. The Global Environmental Outlook (GEO) is the leading intergovernmental environmental assessment led by experts from UNEP, a United Nations organization.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "slug": "thais-gleice-martins-braga",
+          "research_area": "Informática Agrária",
+          "biography_html": "<div>Engenharia Ambiental pela Universidade Federal Rural da Amazônia (2014), mestrado em Ciências Ambientais pela Universidade Federal do Pará com ênfase em física do clima, no âmbito de aumento da temperatura superficial da terra (2017) e doutorado em Biodiversidade e Biotecnologia da Rede BIONORTE pela Universidade Federal do Pará (2019), atuando com fragmentação florestal e restauração ecológica através de corredores ecológicos na Amazônia legal brasileira. Atualmente docente adjunto da Universidade Federal Rural da Amazônia - UFRA. Lider do grupo de pesquisa da UFRA em parceria com o CNPq em engenharia, ciência e tecnologia na Amazônia - GECTAM, Coordenadora de projetos de pesquisa e extensão com povos e comunidades tradicionais na Amazônia, Membro cientista do Paragoclima, pesquisadora associada da fundação Guamá e Biotec, fundadora da instituição de ciência e tecnologia denominada sistema de certificação Amazon, o instituto AMZ, membro pesquisadora do grupo de pesquisa em computação aplicada - NPCA da UFRA. Atua com ampla experiência nas área de Ciências ambientais, biodiversidade e biotecnologia, geotecnologias aplicada a mudanças climáticas e a modelagem de sistemas ambientais, além de expertises e coordenações de pesquisas e inovação tecnológica em engenharia ambiental, avaliação de impactos ambientais, monitoramento ambiental e territorialidade humana, auditória, pericia e certificação ambiental. Pesquisadora associada do parque de ciência e tecnologia do estado do Pará, avaliadora de periódicos, e membro de editorial técnico - cientifico de fomento a pesquisa e inovação tecnológica de fundações de amparo a pesquisa, coordenadora de projetos de pesquisa e inovação tecnológica, além de membro revisor especialista sétima edição do Global Environment Outlook (GEO-7) está em ação para um planeta saudável, do Global Environmental Outlook (GEO) que é a principal avaliação ambiental intergovernamental e liderada por especialistas do PNUMA, da organização das nações unidas - ONU.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "photo": "thais-gleice-martins-braga.webp",
+      "photo_cropped": "thais-gleice-martins-braga-cropped.webp"
+    },
+    {
+      "full_name": "Daniel Leal Souza",
+      "academic_category": "doctor",
+      "is_active": true,
+      "display_order": 5,
+      "public_email": "",
+      "lattes_url": "http://lattes.cnpq.br/6059334260016388",
+      "orcid_url": "https://orcid.org/0000-0002-1345-6723",
+      "linkedin_url": "",
+      "photo_crop": {
+        "x": 50,
+        "y": 8,
+        "zoom": 1.28
+      },
+      "translations": [
+        {
+          "language": "en",
+          "slug": "daniel-leal-souza",
+          "research_area": "Computational Intelligence",
+          "biography_html": "<div>He holds a bachelor's degree in Computer Science from the Centro Universitário do Estado do Pará (CESUPA) (2007-2010), a master's degree in Computer Science from the Universidade Federal do Pará (2011-2014), and a doctorate in Electrical Engineering from the PPGEE at UFPA (Area of ​​Concentration: Applied Computing - Subarea: Computational Intelligence). Currently, he is an Adjunct Professor at the Centro Universitário do Estado do Pará - CESUPA (Computer Science), a member of LCBIO/UFPA (Laboratory of Bio-inspired Computing), the Research Group on Evolutionary Algorithms at UFPA (Research Groups registered with CNPq), coordinator of the HAL and FEYNMAN research groups (CESUPA), and of the Research Center in Applied Computing at the Universidade Federal Rural da Amazônia (UFRA). Has experience in the areas of Computer Science, Computer Engineering and Information Systems, with emphasis on Computational Intelligence and Parallel and High-Performance Computing, mainly working on the following related topics: Programming Languages ​​(Java, C/C++, CUDA-C, Python, Objective-C, Swift); Artificial Intelligence techniques applied to Engineering; Programming applied to AI (Pytorch, Pytorch Lightning, TensorFlow, Keras, Darts); Evolutionary Computation; Formal Languages ​​and Automata; Compilers; Theory of Computation; Parallel Programming (OpenMP and CUDA standards for massive parallelism). In the field of Artificial Intelligence, working on the development of hybrid bio-inspired metaheuristics based on numerical optimization (e.g., Gauss-Newton, Levemberg-Marquardt), multi-population swarm intelligence (e.g., GA, PSO, ABC), evolutionary strategies based on Fuzzy Logic, Machine/Deep Learning, and mechanisms for convergence control. Currently working on the development of parallel and distributed optimization solutions based on natural and bio-inspired computing, with experience in parallel models of genetic algorithms, particle swarms, and bee colonies applied to engineering problems. In parallel, he is developing (in conjunction with the NPCA research group) a time series mapping system based on Recurrent Neural Networks (RNN) and applied to the epidemiological monitoring of COVID-19 in the state of Pará. He also has experience in software development with an emphasis on scientific and numerical computing, heterogeneous computing (with an emphasis on GPU Computing and FPGA programming), parallel numerical methods on GPUs (FDTD), parameter control based on Fuzzy logic applied to evolutionary computing, and optimization/hybridization/parallelization of learning algorithms in artificial neural networks. He works as a scientist in a Post-Doctoral project at CPGF - Postgraduate Program in Geophysics (UFPA): Application of Deep Learning tools in 1D Electromagnetic Inversion for Geonavigation in Well Logging During Drilling.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "slug": "daniel-leal-souza",
+          "research_area": "Inteligência Computacional",
+          "biography_html": "<div>É bacharel em Ciência da Computação no Centro Universitário do Estado do Pará (CESUPA) (2007-2010), mestre em Ciência da Computação pela Universidade Federal do Pará (2011-2014) e doutor em Engenharia Elétrica pelo PPGEE da UFPA (Área de Concentração: Computação Aplicada - Subárea: Inteligência Computacional). Atualmente, é Professor Adjunto no Centro Universitário do Estado do Pará - CESUPA (Ciência da Computação), integrante do LCBIO/UFPA (Laboratório de Computação Bioinspirada), do Grupo de Pesquisa em Algoritmos Evolutivos da UFPA (Grupos de Pesquisa cadastrado no CNPq), coordenador dos grupos de pesquisa HAL e FEYNMAN (CESUPA) e do Núcleo de Pesquisas em Computação Aplicada da Universidade Federal Rural da Amazônia (UFRA). Possui experiência nas áreas de Ciência da Computação, Engenharia da Computação e Sistemas de Informação, com ênfase em Inteligência Computacional e Computação Paralela e de Alto Desempenho, atuando, principalmente, nos seguintes temas relacionados: Linguagens de Programação (Java, C/C++, CUDA-C, Python, Objective-C, Swift); Técnicas de Inteligência Artificial aplicadas a Engenharia; Programação aplicada a IA (Pytorch, Pytorch Lightning, TensorFlow, Keras, Darts); Computação Evolutiva; Linguagens Formais e Autômatos; Compiladores; Teoria da Computação; Programação Paralela (padrão OpenMP e CUDA para paralelismo massivo).No campo da Inteligência Artificial, atuando no desenvolvimento de metaheurísticas bioinspiradas híbridas baseadas em otimização numérica (e.g. Gauss-Newton, Levemberg-Marquardt), inteligência de enxames multi-populacional (e.g. AG, PSO, ABC), estratégias evolutivas baseadas em Lógica Fuzzy, Machine/Deep Learning e mecanismos para controle de convergência. Atualmente trabalha no desenvolvimento de soluções de otimização paralela e distribuída com base em computação natural e bio-inspirada, com experiência em modelos paralelos de algoritmos genéticos, enxame de partículas e colônia de abelhas aplicados em problemas de engenharia. Paralelamente, desenvolve (em conjunto ao grupo de pesquisa NPCA) um sistema de mapeamento de séries temporais baseada em Redes Neurais Recorrentes (RNN) e aplicado ao monitoramento epidemiológico do COVID-19 no estado do Pará. Também possui experiência em desenvolvimento de software com ênfase em computação científica e numérica, computação heterogênea (com ênfase em GPU Computing e programação em FPGA), métodos numéricos paralelos em GPU (FDTD), controle de parâmetros baseado em lógica Fuzzy aplicado a computação evolutiva e otimização/hibridização/paralelização de algoritmos de aprendizagem em redes neurais artificiais.Atua como cientista em projeto de Pós-Doutorado no CPGF - Programa de Pós-Graduação em Geofísica (UFPA): Aplicação de ferramentas de Deep Learning na Inversão Eletromagnética 1D para Geonavegação em Perfilagem de Poços Durante a Perfuração.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "photo": "daniel-leal-souza.webp",
+      "photo_cropped": "daniel-leal-souza-cropped.webp"
+    },
+    {
+      "full_name": "Igor Wenner Silva Falcao",
+      "academic_category": "doctor",
+      "is_active": true,
+      "display_order": 6,
+      "public_email": "igorufpa2013.4@gmail.com",
+      "lattes_url": "http://lattes.cnpq.br/6677376621642966",
+      "orcid_url": "https://orcid.org/0000-0003-3691-7358",
+      "linkedin_url": "https://linkedin.com/in/igorfaalcao",
+      "photo_crop": {
+        "x": 50,
+        "y": 24,
+        "zoom": 1
+      },
+      "translations": [
+        {
+          "language": "en",
+          "slug": "igor-wenner-silva-falcao",
+          "research_area": "Artificial Intelligence and Data Science",
+          "biography_html": "<div>I hold a Bachelor's degree in Information Systems from the Federal University of Pará (UFPA - 2018), a Master's degree in Electrical Engineering (PPGEE - UFPA - 2020), and a Doctorate in Electrical Engineering, with an emphasis on Applied Computing (PPGEE - UFPA - 2024). I was a Teaching Assistant scholarship recipient through the UFPA's Monit program (Monit - UFPA - 2017) and a Scientific Initiation scholarship recipient through the Institutional Program for Scientific Initiation Scholarships (PIBIC - UFPA - 2018), receiving the Outstanding Award in Scientific and Technological Initiation that year. I completed a Post-Doctorate at the Vale Technological Institute (ITV - 2025), through ITV-Sustainable Development. I am an Assistant Professor at the Federal Rural University of the Amazon (UFRA), where I collaborate with the Applied Computing Research Center (NPCA). I ​​am an enthusiast of Science and Innovation in various research areas, working as a researcher in the Operational Research Laboratory (LPO-UFPA) and the Laboratory of Intelligent Interactive Systems (LIIS-UFPA). I ​​develop teaching, extension, and research activities, the latter through projects in interdisciplinary areas, mainly applying Data Science in various fields, including: Digital Health, Telemedicine, Remote Sensing, Environment, Sustainability, and Social Technologies. Currently, I am developing solutions to transform complex data into strategic insights and intelligent solutions, working at the intersection of science and technology to drive decision-making.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "slug": "igor-wenner-silva-falcao",
+          "research_area": "Inteligência Artificial e Ciência de Dados",
+          "biography_html": "<div>Possuo Graduação em Bacharelado em Sistemas de Informação pela Universidade Federal do Pará (UFPA - 2018), Mestrado em Engenharia Elétrica (PPGEE - UFPA - 2020) e Doutorado em Engenharia Elétrica, com ênfase em Computação Aplicada (PPGEE - UFPA - 2024). Fui bolsista de Monitoria pelo programa Monit da UFPA (Monit - UFPA - 2017) e bolsista de Iniciação Científica pelo Programa Institucional de Bolsas de Iniciação Científica (PIBIC - UFPA - 2018), recebendo, nesse ano, o Prêmio Destaque na Iniciação Científica e Tecnológica. Realizei Pós-Doutorado no Instituto Tecnológico Vale (ITV - 2025), pelo ITV-Desenvolvimento Sustentável. Sou Professor Assistente A da Universidade Federal Rural da Amazônia (UFRA), onde atuo como colaborador do Núcleo de Pesquisa em Computação Aplicada (NPCA). Sou entusiasta da Ciência e Inovação em diversas linhas de pesquisa, atuando como pesquisador no Laboratório de Pesquisa Operacional (LPO-UFPA) e no Laboratório de Sistemas Interativos Inteligentes (LIIS-UFPA). Desenvolvo atividades de ensino, extensão e pesquisa, esta última por meio de projetos em áreas interdisciplinares, principalmente aplicando Ciência de Dados em diversos eixos, dentre eles: Saúde Digital, Telemedicina, Sensoriamento Remoto, Meio Ambiente, Sustentabilidade e Tecnologias Sociais. Atualmente, desenvolvo soluções para transformar dados complexos em insights estratégicos e soluções inteligentes, atuando na intersecção entre ciência e tecnologia para impulsionar a tomada de decisão.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "photo": "igor-wenner-silva-falcao.webp",
+      "photo_cropped": "igor-wenner-silva-falcao-cropped.webp"
+    },
+    {
+      "full_name": "Allan Douglas Bento da Costa",
+      "academic_category": "doctor",
+      "is_active": true,
+      "display_order": 7,
+      "public_email": "",
+      "lattes_url": "http://lattes.cnpq.br/2599065838802816",
+      "orcid_url": "https://orcid.org/0000-0002-7068-8889",
+      "linkedin_url": "https://linkedin.com/in/allancostaphd",
+      "photo_crop": {
+        "x": 100,
+        "y": 50,
+        "zoom": 1
+      },
+      "translations": [
+        {
+          "language": "en",
+          "slug": "allan-douglas-bento-da-costa",
+          "research_area": "Computational Intelligence and Computer Networks",
+          "biography_html": "<div>He holds two Post-Doctoral degrees, a Doctorate and a Master's degree in Computer Science, in addition to three specializations. Currently a Permanent Professor at UFRA, he has a solid academic and professional trajectory in the area of ​​Information Security and Technology Management. He holds certifications of great international relevance, including CCISO, CISM, CISO, CRISC, CEH, CHEFI, CASP+, Security+, CySA+, CPENT, ISFS 27001, PMP, PDPP, CSA and CNSS, consolidating his expertise in cybersecurity, IT governance, risk management and data protection. He has worked as a professor at several higher education institutions, including UNAMA, IFPA, CESUPA, Estácio/IESAM, FAPAN, Faculdade Integrada Ipiranga and FAPEN. He is the creator and leader of the Research Group \"Applied Center for Intelligence in Cybersecurity (CAIC/CNPq), and a permanent member of the Research Center in Applied Computing (CNPq/UFRA). He is a member of prestigious organizations such as IEEE (Advancement of Technology for Humanity) and SBC (Brazilian Computer Society), and is an international reviewer for IEEE Access and Science Publishing Group. Author of two edited books and numerous publications in national and international journals and events, he has worked in the technology sector for over 25 years, with experience as a Technology Director, Information Security Consultant, Digital Forensic Expert, Senior Security Analyst, Security Officer, and Security Intelligence and Content Security Leader. His work is guided by innovation, evangelism in Information Security, and active contribution to the evolution of the sector, promoting knowledge and best practices in the area of ​​cybersecurity.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "slug": "allan-douglas-bento-da-costa",
+          "research_area": "Inteligência Computacional e Redes de Computadores",
+          "biography_html": "<div>Possui dois Pós Doutorados, Doutor e Mestre em Ciência da Computação, além de possuir 3 especializações. Atualmente é Professor Permanente pela UFRA, possui uma sólida trajetória acadêmica e profissional na área de Segurança da Informação e Gestão de Tecnologia. Detentor de certificações de grande relevância no cenário internacional, incluindo CCISO, CISM, CISO, CRISC, CEH, CHEFI, CASP+, Security+, CySA+, CPENT, ISFS 27001, PMP, PDPP, CSA e CNSS, consolidando sua expertise em segurança cibernética, governança de TI, gerenciamento de riscos e proteção de dados.Atuou como professor em diversas instituições de ensino superior, incluindo UNAMA, IFPA, CESUPA, Estácio/IESAM, FAPAN, Faculdade Integrada Ipiranga e FAPEN. Idealizador e líder do Grupo de Pesquisa ''Centro Aplicado de Inteligência em Cibersegurança (CAIC/CNPq), membro permanente do Núcleo de Pesquisas em Computação Aplicada (CNPq/UFRA). Integra organizações de prestígio, como IEEE (Advancement of Technology for Humanity) e SBC (Sociedade Brasileira de Computação), além de ser revisor internacional do IEEE Access e Science Publishing Group.Autor de dois livros organizados e diversas publicações em periódicos e eventos nacionais e internacionais, atua há mais de 25 anos no setor de tecnologia, com experiência como Diretor de Tecnologia, Consultor de Segurança da Informação, Perito Forense Digital, Analista Sênior de Segurança, Security Officer e Líder de Security Intelligence e Content Security.Seu trabalho é pautado pela inovação, evangelização em Segurança da Informação e contribuição ativa para a evolução do setor, promovendo conhecimento e boas práticas na área de cibersegurança.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "photo": "allan-douglas-bento-da-costa.webp",
+      "photo_cropped": "allan-douglas-bento-da-costa-cropped.webp"
+    },
+    {
+      "full_name": "Jailton Wagner Rodrigues Tavares",
+      "academic_category": "master",
+      "is_active": true,
+      "display_order": 0,
+      "public_email": "",
+      "lattes_url": "http://lattes.cnpq.br/2404548541223350",
+      "orcid_url": "https://orcid.org/0000-0001-9713-6083",
+      "linkedin_url": "",
+      "photo_crop": {
+        "x": 75,
+        "y": 50,
+        "zoom": 1
+      },
+      "translations": [
+        {
+          "language": "en",
+          "slug": "jailton-wagner-rodrigues-tavares",
+          "research_area": "Computational Biology",
+          "biography_html": "<div>Master's degree in Computer Science from PPGCC/UFPA (2022), with an emphasis on Applied Computational Intelligence. Holds specializations in Teaching for Professional Education (IFPA), Health Informatics (UNIFESP), and Computer Networks (UFPA), in addition to a Bachelor's degree in Computer Science (UNAMA). Currently, he manages the Multidisciplinary Laboratory in Applied Computing (LAMUCA) and leads the respective research group at IFPA Campus Paragominas, where he also acts as an Innovation Agent. He is a member of the Applied Computing Research Center (NPCA/UFRA) and the Simulation and Computational Biology Laboratory (SimBic/UFPA). He has a solid track record in the field of Health Informatics, with experience in the management and implementation of hospital systems (HIS, LIS, RIS, PACS, and ERP). He teaches at the technical, undergraduate, and postgraduate levels, developing teaching, research, and extension projects. Interested in: Computational Intelligence, Internet of Things (IoT), Data Science, and Applied Computing.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "slug": "jailton-wagner-rodrigues-tavares",
+          "research_area": "Biologia Computacional",
+          "biography_html": "<div>Mestre em Ciência da Computação pelo PPGCC/UFPA (2022), com ênfase em Inteligência Computacional Aplicada. Possui especializações em Docência para Educação Profissional (IFPA), Informática em Saúde (UNIFESP) e Redes de Computadores (UFPA), além de ser Bacharel em Ciência da Computação (UNAMA). Atualmente, é gestor do Laboratório Multidisciplinar em Computação Aplicada (LAMUCA) e líder do respectivo grupo de pesquisa no IFPA Campus Paragominas, onde também atua como Agente de Inovação. Integra o Núcleo de Pesquisas em Computação Aplicada (NPCA/UFRA) e o Laboratório de Simulação e Biologia Computacional (SimBic/UFPA). Possui sólida trajetória na área de Informática em Saúde, com experiência no gerenciamento e implantação de sistemas hospitalares (HIS, LIS, RIS, PACS e ERP). Atua na docência em níveis técnico, graduação e pós-graduação, desenvolvendo projetos de ensino, pesquisa e extensão. Tem interesse em: Inteligência Computacional, Internet das Coisas (IoT), Ciência de Dados e Computação Aplicada.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "photo": "jailton-wagner-rodrigues-tavares.webp",
+      "photo_cropped": "jailton-wagner-rodrigues-tavares-cropped.webp"
+    },
+    {
+      "full_name": "Felipe Nascimento Vidal",
+      "academic_category": "masters_student",
+      "is_active": true,
+      "display_order": 0,
+      "public_email": "fnvidal44@gmail.com",
+      "lattes_url": "http://lattes.cnpq.br/8413460948125160",
+      "orcid_url": "https://orcid.org/0009-0004-9582-2978",
+      "linkedin_url": "https://linkedin.com/in/felipe-vidal-ba4180295",
+      "photo_crop": {
+        "x": 60,
+        "y": 36,
+        "zoom": 1.35
+      },
+      "translations": [
+        {
+          "language": "en",
+          "slug": "felipe-nascimento-vidal",
+          "research_area": "Computational Intelligence and Computational Biology",
+          "biography_html": "<div>Master's student in Bioinformatics at the Federal Rural University of the Amazon (UFRA) and graduate in Information Systems from the same institution. He is a member of the Applied Computing Research Center (NPCA), where he works as a scientific researcher on projects focused on developing solutions based on artificial intelligence, computer vision, and data analysis, with applications in agribusiness and bioinformatics. He has experience in software development, integration of emerging technologies, and management of multidisciplinary projects, with experience in technical leadership and team coordination. His focus is on applied research, technology transfer, and the development of intelligent solutions aimed at the challenges of the Amazon, with an emphasis on innovation, scalability, and socioeconomic impact.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "slug": "felipe-nascimento-vidal",
+          "research_area": "Inteligência Computacional e Biologia Computacional",
+          "biography_html": "<div>Mestrando em Bioinformática pela Universidade Federal Rural da Amazônia (UFRA) e graduado em Sistemas de Informação pela mesma instituição. Integra o Núcleo de Pesquisas em Computação Aplicada (NPCA), onde atua como pesquisador científico em projetos voltados ao desenvolvimento de soluções baseadas em inteligência artificial, visão computacional e análise de dados, com aplicações no agronegócio e na bioinformática.Possui experiência no desenvolvimento de software, integração de tecnologias emergentes e gestão de projetos multidisciplinares, com atuação em liderança técnica e coordenação de equipes. Tem como foco a pesquisa aplicada, a transferência tecnológica e o desenvolvimento de soluções inteligentes voltadas aos desafios da Amazônia, com ênfase em inovação, escalabilidade e impacto socioeconômico.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "photo": "felipe-nascimento-vidal.webp",
+      "photo_cropped": "felipe-nascimento-vidal-cropped.webp"
+    },
+    {
+      "full_name": "José Pires de Oliveira Neto",
+      "academic_category": "masters_student",
+      "is_active": true,
+      "display_order": 1,
+      "public_email": "jose88pires@gmail.com",
+      "lattes_url": "http://lattes.cnpq.br/8438621229583003",
+      "orcid_url": "https://orcid.org/0009-0008-6400-8710",
+      "linkedin_url": "https://linkedin.com/in/josé-pires-a97430237",
+      "photo_crop": {
+        "x": 57,
+        "y": 50,
+        "zoom": 1.25
+      },
+      "translations": [
+        {
+          "language": "en",
+          "slug": "jose-pires-de-oliveira-neto",
+          "research_area": "Computational Intelligence and Computational Biology",
+          "biography_html": "<div>Master's student in Bioinformatics at the Federal Rural University of the Amazon (UFRA) and holds a Bachelor's degree in Information Systems from the same institution. He is a member of the Applied Computing Research Center (NPCA), where he works as a scientific researcher on projects focused on developing solutions based on artificial intelligence, computer vision, and data analysis, with applications in agribusiness and bioinformatics. He has experience in software development, integration of emerging technologies, and management of multidisciplinary projects, with experience in technical leadership and team coordination. His focus is on applied research, technology transfer, and the development of intelligent solutions aimed at the challenges of the Amazon, with an emphasis on innovation, scalability, and socioeconomic impact.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "slug": "jose-pires-de-oliveira-neto",
+          "research_area": "Inteligência Computacional e Biologia Computacional",
+          "biography_html": "<div>Mestrando em Bioinformática pela Universidade Federal Rural da Amazônia (UFRA) e formado Bacharel em Sistemas de Informação pela mesma instituição. Integra o Núcleo de Pesquisas em Computação Aplicada (NPCA), onde atua como pesquisador científico em projetos voltados ao desenvolvimento de soluções baseadas em inteligência artificial, visão computacional e análise de dados, com aplicações no agronegócio e na bioinformática. Possui experiência no desenvolvimento de software, integração de tecnologias emergentes e gestão de projetos multidisciplinares, com atuação em liderança técnica e coordenação de equipes. Tem como foco a pesquisa aplicada, a transferência tecnológica e o desenvolvimento de soluções inteligentes voltadas aos desafios da Amazônia, com ênfase em inovação, escalabilidade e impacto socioeconômico.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "photo": "jose-pires-de-oliveira-neto.webp",
+      "photo_cropped": "jose-pires-de-oliveira-neto-cropped.webp"
+    },
+    {
+      "full_name": "Luiz Carlos Aragão Carreira Junior",
+      "academic_category": "masters_student",
+      "is_active": true,
+      "display_order": 2,
+      "public_email": "luiz10junior@gmail.com",
+      "lattes_url": "http://lattes.cnpq.br/2084205024680429",
+      "orcid_url": "",
+      "linkedin_url": "https://linkedin.com/in/aragaoluizcarlos",
+      "photo_crop": {
+        "x": 50,
+        "y": 50,
+        "zoom": 1
+      },
+      "translations": [
+        {
+          "language": "en",
+          "slug": "luiz-carlos-aragao-carreira-junior",
+          "research_area": "Artificial Intelligence",
+          "biography_html": "<div>Holds a Bachelor's degree in Computer Engineering from the Federal University of Pará (UFPA) and is a researcher at the Laboratory of Bioinformatics and Genomics of Microorganisms (LBGM). He has experience in data science, artificial intelligence, and computer vision. His main research focus is on the application of computational intelligence in environmental monitoring. He also has experience in analyzing biomedical signals using artificial neural networks. He also co-created the \"PC Solidário\" initiative, which remains active today, originating as an evaluative project for a technical course at SENAC/PA, focused on the collection, reuse, and responsible disposal of electronic waste.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "slug": "luiz-carlos-aragao-carreira-junior",
+          "research_area": "Inteligência Artificial",
+          "biography_html": "<div>Bacharel em Engenharia da Computação pela Universidade Federal do Pará (UFPA) e pesquisador no Laboratório de Bioinformática e Genômica de Microorganismos (LBGM). Possui experiência em ciência de dados, inteligência artificial e visão computacional. Sua principal linha de pesquisa está relacionada à aplicação de inteligência computacional no monitoramento ambiental. Além disso, possui experiência em análise de sinais biomédicos com redes neurais artificiais. Também co-criou a iniciativa ''PC Solidário'', que continua ativa até hoje, nascida como um projeto avaliativo de curso técnico no SENAC/PA, voltada à coleta, reutilização e descarte responsável de lixo eletrônico.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "photo": "luiz-carlos-aragao-carreira-junior.webp",
+      "photo_cropped": "luiz-carlos-aragao-carreira-junior-cropped.webp"
+    },
+    {
+      "full_name": "Gabriel da Silva Pereira",
+      "academic_category": "masters_student",
+      "is_active": true,
+      "display_order": 3,
+      "public_email": "gabrieldasilvapp@gmail.com",
+      "lattes_url": "http://lattes.cnpq.br/9269085616434122",
+      "orcid_url": "",
+      "linkedin_url": "https://linkedin.com/in/gabrielpereiraplus",
+      "photo_crop": {
+        "x": 50,
+        "y": 50,
+        "zoom": 1.14
+      },
+      "translations": [
+        {
+          "language": "en",
+          "slug": "gabriel-da-silva-pereira",
+          "research_area": "Artificial Intelligence",
+          "biography_html": "<div>Graduated in Information Systems from the Federal Rural University of the Amazon (UFRA). Works at the Center for Applied Computing Research (NPCA), participating in research and development projects related to artificial intelligence, computer vision, and data analysis, with applications focused on agribusiness and animal health. Has experience in software engineering, working on web system development, application architecture, integration of modern technologies, and building scalable solutions. Has experience in multidisciplinary applied research projects, collaborating in the development of technological solutions oriented towards innovation and solving real-world problems. Has an interest in best development practices, software quality, applied computing, and the development of intelligent solutions using artificial intelligence and data analysis. His academic and professional interests include software engineering, artificial intelligence, and the development of technologies with potential social, economic, and scientific impact in the Amazon region.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "slug": "gabriel-da-silva-pereira",
+          "research_area": "Inteligência Artificial",
+          "biography_html": "<div>Graduado em Sistemas de Informação pela Universidade Federal Rural da Amazônia (UFRA). Atua no Núcleo de Pesquisas em Computação Aplicada (NPCA), participando de projetos de pesquisa e desenvolvimento relacionados à inteligência artificial, visão computacional e análise de dados, com aplicações voltadas ao agronegócio e à saúde animal.Possui experiência na área de engenharia de software, com atuação no desenvolvimento de sistemas web, arquitetura de aplicações, integração de tecnologias modernas e construção de soluções escaláveis. Tem vivência em projetos multidisciplinares de pesquisa aplicada, colaborando no desenvolvimento de soluções tecnológicas orientadas à inovação e à resolução de problemas reais.Possui interesse em boas práticas de desenvolvimento, qualidade de software, computação aplicada e desenvolvimento de soluções inteligentes utilizando inteligência artificial e análise de dados. Seus interesses acadêmicos e profissionais incluem engenharia de software, inteligência artificial e desenvolvimento de tecnologias com potencial de impacto social, econômico e científico na região amazônica.</div>",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "photo": "gabriel-da-silva-pereira.webp",
+      "photo_cropped": "gabriel-da-silva-pereira-cropped.webp"
+    },
+    {
+      "full_name": "Carlos Eduardo",
+      "academic_category": "undergraduate_researcher",
+      "is_active": true,
+      "display_order": 0,
+      "public_email": "",
+      "lattes_url": "",
+      "orcid_url": "",
+      "linkedin_url": "",
+      "photo_crop": {
+        "x": 62,
+        "y": 7,
+        "zoom": 1.14
+      },
+      "translations": [
+        {
+          "language": "en",
+          "slug": "carlos-eduardo",
+          "research_area": "",
+          "biography_html": "",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "slug": "carlos-eduardo",
+          "research_area": "",
+          "biography_html": "",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "photo": "carlos-eduardo.webp",
+      "photo_cropped": "carlos-eduardo-cropped.webp"
+    },
+    {
+      "full_name": "Cauã Marchiotto",
+      "academic_category": "undergraduate_researcher",
+      "is_active": true,
+      "display_order": 0,
+      "public_email": "",
+      "lattes_url": "",
+      "orcid_url": "",
+      "linkedin_url": "",
+      "photo_crop": {
+        "x": 50,
+        "y": 50,
+        "zoom": 1.09
+      },
+      "translations": [
+        {
+          "language": "en",
+          "slug": "caua-marchiotto",
+          "research_area": "",
+          "biography_html": "",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "slug": "caua-marchiotto",
+          "research_area": "",
+          "biography_html": "",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "photo": "caua-marchiotto.webp",
+      "photo_cropped": "caua-marchiotto-cropped.webp"
+    }
+  ]
+}

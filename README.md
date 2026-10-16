@@ -57,7 +57,7 @@ uv run poe check
 
 Execute `uv run poe` para listar as tarefas disponíveis. Entre elas estão `format`,
 `lint`, `test`, `migrations`, `migrate`, `superuser`, `seed-labcompap`,
-`seed-courses` e `dev`.
+`seed-courses`, `seed-researchers` e `dev`.
 
 ## Idioma do painel administrativo
 
@@ -102,6 +102,40 @@ uv run poe seed-courses
 
 O comando não sobrescreve uma página existente. `--force` deve ser usado somente quando
 a substituição integral do conteúdo editorial for intencional.
+
+## Carga inicial dos pesquisadores
+
+O cadastro dos 15 pesquisadores fica em `scripts/seed/researchers/data.json`, com
+textos em português e inglês, categorias, links, ordem de exibição e enquadramentos.
+A pasta `photos/` contém versões completas e recortes das fotos, todos em WebP.
+A exportação mantém a resolução e a orientação da foto completa para permitir novos
+enquadramentos e preserva os recortes WebP existentes sem recompressão.
+Não há dependência da pasta local `site/` nem de URLs externas para restaurar as fotos.
+
+Com as migrations aplicadas, execute no ambiente que serve o site:
+
+```bash
+uv run poe docker-seed-researchers
+```
+
+O comando valida os dados e arquivos antes de iniciar a carga, cria somente os
+pesquisadores ausentes e copia as fotos para o `MEDIA_ROOT` configurado. Cadastros
+encontrados pelo nome ou por um dos slugs são preservados, incluindo alterações
+feitas no admin. Conflitos entre cadastros interrompem a carga. Em caso de falha,
+as alterações do banco e os novos arquivos dessa execução são desfeitos.
+
+Para atualizar o pacote versionado com as informações e os enquadramentos atuais
+do admin, execute no Docker de desenvolvimento e revise as alterações no Git:
+
+```bash
+uv run poe docker-export-researchers-seed
+```
+
+Esse comando exporta os dados; não altera os pesquisadores no banco. Ele converte
+JPEG/PNG para WebP e remove as cópias antigas do seed substituídas pela
+exportação. As referências no manifesto são atualizadas junto com as fotos.
+Na execução local do Django, os equivalentes são `uv run poe seed-researchers` e
+`uv run poe export-researchers-seed`. A carga é manual e não roda no startup.
 
 ## Dados de demonstração para testes
 
@@ -150,6 +184,7 @@ uv run poe logs
 uv run poe docker-superuser
 uv run poe docker-seed-labcompap
 uv run poe docker-seed-courses
+uv run poe docker-seed-researchers
 uv run poe docker-seed-demo
 uv run poe down
 ```
@@ -179,6 +214,9 @@ docker compose -f compose.yaml -f compose.production.yaml exec backend \
 
 docker compose -f compose.yaml -f compose.production.yaml exec backend \
   uv run --no-sync python manage.py seed_courses
+
+docker compose -f compose.yaml -f compose.production.yaml exec backend \
+  uv run --no-sync python manage.py seed_researchers
 ```
 
 Ela não é executada automaticamente no startup nem pelo serviço `setup`.

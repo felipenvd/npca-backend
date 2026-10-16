@@ -81,7 +81,8 @@ class ResearcherAdmin(BilingualContentAdmin):
         return super().get_queryset(request).prefetch_related("translations")
 
     def save_model(self, request, obj: Researcher, form, change: bool) -> None:
-        form.prepare_photo_crop()
+        if isinstance(form, ResearcherForm):
+            form.prepare_photo_crop()
         if obj.created_by_id is None:
             obj.created_by = request.user
         obj.updated_by = request.user

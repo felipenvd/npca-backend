@@ -127,7 +127,8 @@ def test_translation_form_explains_activation_requirements() -> None:
     for field_name in ("research_area", "biography_html"):
         field = form.fields[field_name]
         assert field.label.endswith(" *")
-        assert field.help_text == "Obrigatório para ativar."
+        assert "Opcional para graduandos de iniciação científica" in field.help_text
+        assert "Obrigatório para ativar nas demais categorias" in field.help_text
         assert field.required is False
 
     assert "Gerado automaticamente" in form.fields["slug"].help_text

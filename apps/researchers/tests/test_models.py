@@ -143,3 +143,19 @@ def test_academic_category_is_constrained_and_controls_default_ordering() -> Non
             full_name="Categoria inválida",
             academic_category="invalid",
         )
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("category", Researcher.AcademicCategory.values)
+def test_only_undergraduate_researchers_can_activate_without_area_and_biography(category):
+    researcher = Researcher.objects.create(full_name="Ana Silva", academic_category=category)
+    for language in ResearcherTranslation.Language.values:
+        ResearcherTranslation.objects.create(researcher=researcher, language=language)
+
+    if category == Researcher.AcademicCategory.UNDERGRADUATE_RESEARCHER:
+        researcher.validate_for_activation()
+    else:
+        with pytest.raises(ValidationError) as exc:
+            researcher.validate_for_activation()
+        assert "área de pesquisa" in str(exc.value)
+        assert "biografia" in str(exc.value)

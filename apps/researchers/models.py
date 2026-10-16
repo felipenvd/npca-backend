@@ -121,7 +121,7 @@ class Researcher(models.Model):
 
     def validate_for_activation(self) -> None:
         translations = {item.language: item for item in self.translations.all()}
-        errors = activation_errors(translations)
+        errors = activation_errors(translations, self.academic_category)
         if errors:
             raise ValidationError(errors)
 
@@ -180,13 +180,13 @@ class ResearcherTranslation(models.Model):
         return slugify(full_name) if full_name else None
 
 
-def activation_errors(translations: dict[str, ResearcherTranslation]) -> list[str]:
+def activation_errors(
+    translations: dict[str, ResearcherTranslation], academic_category: str
+) -> list[str]:
     errors: list[str] = []
-    required_fields = {
-        "slug": "slug",
-        "research_area": "área de pesquisa",
-        "biography_html": "biografia",
-    }
+    required_fields = {"slug": "slug"}
+    if academic_category != AcademicCategory.UNDERGRADUATE_RESEARCHER:
+        required_fields.update({"research_area": "área de pesquisa", "biography_html": "biografia"})
 
     for language, label in ResearcherTranslation.Language.choices:
         translation = translations.get(language)

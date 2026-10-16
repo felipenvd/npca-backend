@@ -54,6 +54,14 @@ cmd = "python manage.py seed_courses"
 help = "Preenche todas as áreas do admin com dados fictícios para testes locais"
 cmd = "python manage.py seed_demo"
 
+[tool.poe.tasks.seed-researchers]
+help = "Cria os pesquisadores e fotos do acervo inicial sem sobrescrever cadastros"
+cmd = "python manage.py seed_researchers"
+
+[tool.poe.tasks.export-researchers-seed]
+help = "Atualiza o seed com os pesquisadores e fotos do banco atual"
+cmd = "python manage.py export_researchers_seed"
+
 [tool.poe.tasks.compile-translations]
 help = "Compila os catálogos de tradução do projeto (requer GNU gettext)"
 cmd = "python manage.py compilemessages -l pt_BR --ignore=.venv"
@@ -129,6 +137,16 @@ executor = "simple"
 [tool.poe.tasks.docker-seed-demo]
 help = "Preenche todas as áreas do admin com exemplos no Docker de desenvolvimento"
 cmd = "docker compose -f compose.yaml -f compose.dev.yaml exec backend uv run --no-sync python manage.py seed_demo"
+executor = "simple"
+
+[tool.poe.tasks.docker-seed-researchers]
+help = "Cria os pesquisadores e fotos no volume de mídia do Docker"
+cmd = "docker compose -f compose.yaml -f compose.dev.yaml exec backend uv run --no-sync python manage.py seed_researchers"
+executor = "simple"
+
+[tool.poe.tasks.docker-export-researchers-seed]
+help = "Atualiza o seed com os pesquisadores e fotos do Docker"
+cmd = "docker compose -f compose.yaml -f compose.dev.yaml exec backend uv run --no-sync python manage.py export_researchers_seed"
 executor = "simple"
 
 [tool.pytest.ini_options]
