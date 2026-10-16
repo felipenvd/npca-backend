@@ -30,7 +30,6 @@ class PublicationForm(forms.ModelForm):
             "venue",
             "doi",
             "external_url",
-            "document",
             "project",
             "display_order",
         )
@@ -42,10 +41,7 @@ class PublicationForm(forms.ModelForm):
             "year": "Obrigatório para publicar.",
             "venue": "Obrigatório para publicar.",
             "doi": "Opcional. Aceita o identificador ou uma URL doi.org.",
-            "document": (
-                "Opcional. Envie somente quando a distribuição do PDF for permitida; "
-                "limite de 20 MiB."
-            ),
+            "external_url": "Link para o artigo no periódico, repositório ou site da publicação.",
             "display_order": "Desempata publicações do mesmo ano.",
             "cover": "Opcional. Use uma imagem JPEG, PNG ou WebP de até 5 MiB.",
             "cover_credit": "Opcional. Informe a autoria ou a fonte da imagem.",
@@ -62,7 +58,6 @@ class PublicationTranslationForm(forms.ModelForm):
             "language",
             "title",
             "abstract",
-            "cover_alt_text",
             "seo_title",
             "seo_description",
         )
@@ -70,10 +65,6 @@ class PublicationTranslationForm(forms.ModelForm):
         help_texts = {
             "title": "Obrigatório para publicar.",
             "abstract": "Obrigatório para publicar.",
-            "cover_alt_text": (
-                "Descreva a imagem quando ela transmitir informação relevante. "
-                "Deixe vazio quando for apenas decorativa."
-            ),
             "seo_title": "Opcional. Quando vazio, o título da publicação será usado.",
             "seo_description": "Opcional. Quando vazia, o resumo será usado.",
         }
@@ -126,11 +117,27 @@ class PublicationAuthorForm(forms.ModelForm):
         help_texts = {
             "researcher": "Use este campo quando o autor estiver cadastrado no NPCA.",
             "external_name": "Use somente para autores que não estão cadastrados.",
-            "display_order": "Use 1 para o primeiro autor, 2 para o segundo e assim por diante.",
+            "display_order": "Preenchida automaticamente; ajuste para mudar a ordem dos autores.",
         }
+
+    def has_changed(self) -> bool:
+        if not self.instance.pk:
+            # A suggested order alone must not create an otherwise empty author.
+            return any(name != "display_order" for name in self.changed_data)
+        return super().has_changed()
 
 
 class PublicationAuthorInlineFormSet(BaseInlineFormSet):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        if not self.is_bound:
+            next_order = (
+                max((form.instance.display_order for form in self.initial_forms), default=0) + 1
+            )
+            for form in self.extra_forms:
+                form.initial["display_order"] = next_order
+                next_order += 1
+
     def clean(self) -> None:
         super().clean()
         if any(self.errors):

@@ -164,8 +164,8 @@ A quarta fatia vertical está implementada e validada na branch `develop`.
 - título, resumo e SEO localizados em PT-BR e EN;
 - imagem de divulgação opcional com nome UUID, crédito e texto alternativo localizado;
 - DOI opcional normalizado e único sem diferenciar maiúsculas de minúsculas;
-- URL externa, PDF e projeto relacionado opcionais;
-- PDF limitado a 20 MiB, validado por extensão, MIME e assinatura, com nome UUID;
+- acesso ao artigo por DOI ou URL externa, sem upload de PDF;
+- projeto relacionado opcional;
 - projeto só é exposto quando estiver publicado e traduzido no idioma solicitado;
 - `published_at` preservado após arquivamento, rascunho ou republicação;
 - migration `publications.0001_initial` criada e aplicada no PostgreSQL de desenvolvimento;
@@ -186,7 +186,7 @@ GET /api/v1/publications/{id}?lang=pt-br
 - listagem paginada e detalhe por ID em PT-BR e EN;
 - imagem de divulgação nos cards e no detalhe, com fallback visual quando ausente;
 - autoria com links somente para perfis públicos ativos;
-- acesso seguro por DOI, URL externa e PDF quando informados;
+- acesso seguro por DOI e URL externa quando informados;
 - vínculo opcional com projeto público no idioma atual;
 - navegação desktop e mobile atualizada;
 - canonical, `hreflang` e JSON-LD `ScholarlyArticle`.

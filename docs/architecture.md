@@ -50,7 +50,7 @@ O Django será responsável por:
 - autenticação dos administradores;
 - usuários, grupos e permissões;
 - cadastro e edição do conteúdo;
-- upload de imagens e documentos;
+- upload de imagens;
 - persistência no PostgreSQL;
 - API pública com Django Ninja.
 
@@ -409,8 +409,7 @@ Campos editoriais traduzíveis não serão duplicados diretamente no modelo prin
 - ano;
 - periódico ou evento;
 - DOI normalizado e único;
-- URL externa;
-- arquivo PDF, quando sua distribuição for permitida;
+- link externo para o artigo ou repositório;
 - projeto relacionado opcional;
 - ordem de exibição, publicação e auditoria.
 
@@ -524,8 +523,8 @@ ou conter um nome externo, nunca ambos. Pesquisadores relacionados serão proteg
 contra exclusão e somente perfis ativos e traduzidos receberão link na API pública.
 
 O DOI será opcional, normalizado sem o prefixo `doi:` ou a URL `doi.org` e único sem
-diferenciar maiúsculas de minúsculas. URL externa e PDF também serão opcionais. O upload
-aceitará somente PDF validado, com nome UUID e limite de 20 MiB. O projeto relacionado
+diferenciar maiúsculas de minúsculas. O acesso ao artigo será feito pelo DOI ou pela
+URL externa, sem upload de PDF. O projeto relacionado
 será opcional e aparecerá publicamente apenas quando ele próprio estiver publicado e
 traduzido no idioma solicitado. A primeira publicação definirá `published_at`, preservado
 em arquivamentos, retornos a rascunho e republicações.
@@ -662,7 +661,7 @@ GET /api/v1/publications/{id}?lang=pt-br
 
 A listagem priorizará o ano mais recente, seguido da ordem manual, título e ID. Apenas
 publicações com status publicado serão retornadas. O detalhe incluirá autoria ordenada,
-imagem de divulgação, DOI, URL externa, PDF, projeto público relacionado, SEO e idiomas
+imagem de divulgação, DOI, URL externa, projeto público relacionado, SEO e idiomas
 equivalentes. Arquivos continuarão usando caminhos relativos a `/media/`.
 
 Eventos exporá as consultas abaixo:

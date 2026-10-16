@@ -14,7 +14,7 @@ from django.utils import timezone
 from apps.projects.models import Project
 from apps.researchers.models import Researcher
 
-from .validators import validate_publication_cover, validate_publication_file
+from .validators import validate_publication_cover
 
 DOI_PATTERN = re.compile(r"^10\.\d{4,9}/\S+$", re.IGNORECASE)
 DOI_PREFIX_PATTERN = re.compile(
@@ -24,6 +24,7 @@ DOI_PREFIX_PATTERN = re.compile(
 
 
 def publication_file_upload_to(_instance: Publication, filename: str) -> str:
+    """Retained for the historical 0001 migration; new publications have no file field."""
     extension = PurePath(filename).suffix.lower()
     return f"publications/files/{uuid4().hex}{extension}"
 
@@ -68,12 +69,6 @@ class Publication(models.Model):
     venue = models.CharField("periódico ou evento", max_length=300, blank=True)
     doi = models.CharField("DOI", max_length=255, blank=True)
     external_url = models.URLField("URL externa", max_length=500, blank=True)
-    document = models.FileField(
-        "arquivo PDF",
-        upload_to=publication_file_upload_to,
-        validators=[validate_publication_file],
-        blank=True,
-    )
     project = models.ForeignKey(
         Project,
         verbose_name="projeto relacionado",

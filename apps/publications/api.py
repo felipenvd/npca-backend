@@ -149,7 +149,6 @@ def get_publication(request, publication_id: int, lang: Language) -> Publication
             )
     return PublicationDetail(
         **summary.model_dump(),
-        file_url=publication.document.url if publication.document else None,
         project=project_reference,
         seo_title=translation.seo_title or translation.title,
         seo_description=translation.seo_description or translation.abstract[:160],

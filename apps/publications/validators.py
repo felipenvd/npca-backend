@@ -13,6 +13,7 @@ def validate_publication_cover(upload: File) -> None:
 
 
 def validate_publication_file(upload: File) -> None:
+    """Compatibility with the FileField in historical migration 0001 only."""
     if upload.size > MAX_PUBLICATION_FILE_SIZE:
         raise ValidationError(
             "O arquivo da publicação deve ter no máximo 20 MiB.",

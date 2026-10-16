@@ -82,6 +82,9 @@ cada campo em português aparece seguido da versão em inglês. Os idiomas são 
 não é necessário adicionar traduções separadas ou selecionar o idioma.
 Os dados gerais, fotos, links, equipes e autores continuam compartilhados.
 
+Publicações usam DOI ou URL externa para acessar o artigo na fonte original.
+O formulário e a API não recebem nem disponibilizam arquivos PDF.
+
 Slug, SEO e ordem de exibição ficam em **Opções avançadas**, recolhidas por padrão.
 Slugs vazios são gerados automaticamente e os campos de SEO mantêm os valores
 alternativos existentes. A ativação ou publicação fica ao final do formulário;

@@ -26,7 +26,6 @@ class PublicationTranslationInline(BilingualTranslationInline):
                     "language",
                     "title",
                     "abstract",
-                    "cover_alt_text",
                     "seo_title",
                     "seo_description",
                 ),
@@ -47,6 +46,9 @@ class PublicationAuthorInline(TabularInline):
     extra = 1
     verbose_name = "autor"
     verbose_name_plural = "autores"
+
+    class Media:
+        js = ("publications/admin/author_order.js",)
 
 
 @admin.register(Publication)
@@ -77,7 +79,6 @@ class PublicationAdmin(BilingualContentAdmin):
     ordering = ("-year", "display_order", "pk")
     readonly_fields = (
         "cover_preview",
-        "document_link",
         "published_at",
         "created_at",
         "updated_at",
@@ -101,7 +102,7 @@ class PublicationAdmin(BilingualContentAdmin):
         ),
         (
             "Acesso à publicação",
-            {"fields": ("doi", "external_url", "document", "document_link")},
+            {"fields": ("doi", "external_url")},
         ),
         ("Opções avançadas", {"fields": ("display_order",)}),
         (
@@ -136,15 +137,6 @@ class PublicationAdmin(BilingualContentAdmin):
         return format_html(
             '<img src="{}" alt="" style="max-height: 180px; max-width: 320px; object-fit: cover;">',
             obj.cover.url,
-        )
-
-    @admin.display(description="Arquivo atual")
-    def document_link(self, obj: Publication) -> str:
-        if not obj.document:
-            return "Sem arquivo"
-        return format_html(
-            '<a href="{}" target="_blank" rel="noopener noreferrer">Abrir PDF</a>',
-            obj.document.url,
         )
 
     def get_queryset(self, request):

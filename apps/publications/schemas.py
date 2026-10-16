@@ -52,7 +52,6 @@ class PublicationTranslationReference(Schema):
 
 
 class PublicationDetail(PublicationSummary):
-    file_url: str | None
     project: PublicationProject | None
     seo_title: str
     seo_description: str

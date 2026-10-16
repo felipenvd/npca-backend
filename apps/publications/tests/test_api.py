@@ -37,7 +37,6 @@ def create_publication(
     year: int = 2026,
     order: int = 0,
     status: str = Publication.Status.PUBLISHED,
-    document=None,
     cover=None,
     project: Project | None = None,
 ) -> Publication:
@@ -47,7 +46,6 @@ def create_publication(
         venue="Simpósio de Computação Aplicada",
         doi="10.1000/example" if title == "Principal" else "",
         external_url="https://example.com/paper",
-        document=document,
         cover=cover,
         cover_credit="NPCA" if cover else "",
         project=project,
@@ -113,7 +111,7 @@ def test_list_only_published_orders_and_filters_by_year(client) -> None:
 
 
 @pytest.mark.django_db
-def test_detail_returns_authors_access_links_file_project_and_seo(
+def test_detail_returns_authors_external_access_links_project_and_seo(
     client, settings, tmp_path
 ) -> None:
     settings.MEDIA_ROOT = tmp_path
@@ -140,11 +138,6 @@ def test_detail_returns_authors_access_links_file_project_and_seo(
         title="Principal",
         project=project,
         cover=webp_upload(),
-        document=SimpleUploadedFile(
-            "paper.pdf",
-            b"%PDF-1.7\ncontent",
-            content_type="application/pdf",
-        ),
     )
 
     response = client.get(f"/api/v1/publications/{publication.pk}", {"lang": "pt-br"})
@@ -164,7 +157,8 @@ def test_detail_returns_authors_access_links_file_project_and_seo(
         "alt": "Visualização da pesquisa",
         "credit": "NPCA",
     }
-    assert body["file_url"] == f"/media/{publication.document.name}"
+    assert body["external_url"] == "https://example.com/paper"
+    assert "file_url" not in body
     assert body["project"] == {
         "id": project.pk,
         "title": "Projeto relacionado",
@@ -172,6 +166,10 @@ def test_detail_returns_authors_access_links_file_project_and_seo(
     }
     assert body["seo_title"] == "Principal"
     assert body["translations"] == [{"lang": "en"}, {"lang": "pt-br"}]
+    english = client.get(f"/api/v1/publications/{publication.pk}", {"lang": "en"})
+    assert english.status_code == 200
+    assert english.json()["external_url"] == body["external_url"]
+    assert "file_url" not in english.json()
 
 
 @pytest.mark.django_db
