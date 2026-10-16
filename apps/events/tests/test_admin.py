@@ -36,7 +36,6 @@ def event_data(*, published: bool, complete_english: bool = False) -> dict[str, 
         "translations-0-body_html": "<p>Descrição</p>",
         "translations-0-location_name": "",
         "translations-0-location_address": "",
-        "translations-0-cover_alt_text": "",
         "translations-0-seo_title": "",
         "translations-0-seo_description": "",
         "translations-1-language": "en",
@@ -46,7 +45,6 @@ def event_data(*, published: bool, complete_english: bool = False) -> dict[str, 
         "translations-1-body_html": "<p>Description</p>" if complete_english else "",
         "translations-1-location_name": "",
         "translations-1-location_address": "",
-        "translations-1-cover_alt_text": "",
         "translations-1-seo_title": "",
         "translations-1-seo_description": "",
         "_save": "Salvar",
@@ -71,9 +69,36 @@ def test_admin_add_page_exposes_schedule_translations_and_media(client) -> None:
     assert "Evento de dia inteiro" in content
     assert "URL externa de inscrição" in content
     assert "Imagem de divulgação" in content
-    assert "Texto alternativo da imagem" in content
+    assert "Texto alternativo da imagem" not in content
+    assert 'name="translations-0-cover_alt_text"' not in content
+    assert 'name="translations-1-cover_alt_text"' not in content
     assert "unfold/forms/js/trix/trix.js" in content
     assert '<option value="completed">Realizado</option>' in content
+
+
+@pytest.mark.django_db
+def test_editing_event_preserves_previously_registered_alt_text(admin_client):
+    from apps.core.tests.test_bilingual_admin import FormValues
+
+    data = event_data(published=False, complete_english=True)
+    data.pop("_event_date")
+    response = admin_client.post(reverse("admin:events_event_add"), data)
+    assert response.status_code == 302
+    event = Event.objects.get()
+    descriptions = {"pt-br": "Descrição cadastrada", "en": "Existing description"}
+    for language, description in descriptions.items():
+        event.translations.filter(language=language).update(cover_alt_text=description)
+    url = reverse("admin:events_event_change", args=[event.pk])
+    page = admin_client.get(url)
+    values = FormValues(page.content.decode(), "event_form").values
+    assert not any("cover_alt_text" in name for name in values)
+    values["_save"] = "Salvar"
+
+    updated = admin_client.post(url, values)
+
+    assert updated.status_code == 302
+    for language, description in descriptions.items():
+        assert event.translations.get(language=language).cover_alt_text == description
 
 
 @pytest.mark.django_db

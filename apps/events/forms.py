@@ -106,7 +106,6 @@ class EventTranslationForm(forms.ModelForm):
             "body_html",
             "location_name",
             "location_address",
-            "cover_alt_text",
             "seo_title",
             "seo_description",
         )
@@ -126,10 +125,6 @@ class EventTranslationForm(forms.ModelForm):
             "body_html": "Obrigatória para publicar.",
             "location_name": "Obrigatório para eventos presenciais e híbridos.",
             "location_address": "Opcional. Informe endereço ou instruções de chegada.",
-            "cover_alt_text": (
-                "Descreva a imagem quando ela transmitir informação relevante. "
-                "Deixe vazio quando for apenas decorativa."
-            ),
             "seo_title": "Opcional. Quando vazio, o título do evento será usado.",
             "seo_description": "Opcional. Quando vazia, o resumo será usado.",
         }

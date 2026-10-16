@@ -23,7 +23,6 @@ class EventTranslationInline(BilingualTranslationInline):
                     "body_html",
                     "location_name",
                     "location_address",
-                    "cover_alt_text",
                     "seo_title",
                     "seo_description",
                 ),
