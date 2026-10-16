@@ -112,15 +112,25 @@ A terceira fatia vertical está implementada e validada na branch `develop`.
 - app `apps.projects` com Admin, formulários, schemas, API, validações e testes;
 - status editorial independente da situação acadêmica manual;
 - rascunhos incompletos e publicação bilíngue validada;
-- coordenador obrigatório e equipe simples relacionados a Pesquisadores;
+- coordenador obrigatório relacionado a Pesquisadores; equipe aceita pesquisador cadastrado
+  ou nome de integrante externo, com exatamente uma identidade por integrante;
 - pesquisadores relacionados protegidos contra exclusão e sem duplicação entre
   coordenação e equipe;
-- início obrigatório, término validado e obrigatório para projetos concluídos;
+- ano de início obrigatório e ano de término obrigatório para projetos concluídos;
+  somente anos de quatro dígitos, com término igual ou posterior ao início;
 - capa decorativa opcional com nome UUID e validação compartilhada de imagem;
 - descrição em WYSIWYG com sanitização compartilhada;
 - apoio, parceiros, site, repositório, destaque, ordem e auditoria;
+- `seed_projects` com quatro projetos reais destacados, oito traduções e 54 integrantes
+  de equipes, preservando coordenação, anos, ordem e cadastros existentes;
+- `export_projects_seed` atualiza o pacote com o banco atual e exporta eventuais capas
+  em WebP; executar `seed_researchers` antes do seed de projetos;
 - `published_at` preservado após arquivamento, rascunho ou republicação;
 - migration `projects.0001_initial` criada e aplicada no PostgreSQL de desenvolvimento;
+- migration `projects.0002_alter_projectteammember_options_and_more` permite integrantes
+  externos e preserva as equipes existentes;
+- migration `projects.0003_project_years` converte datas existentes em anos e troca os
+  campos da API por `start_year` e `end_year`;
 - endpoints públicos adicionados:
 
 ```text
@@ -216,13 +226,23 @@ A quinta fatia vertical está implementada e validada na branch `develop`.
 - status editorial independente da situação agendada, adiada ou cancelada;
 - estado temporal próximo, em andamento ou passado calculado em `America/Belem`;
 - tipos fixos e modalidades presencial, online e híbrida;
-- datas inicial e final, eventos de dia inteiro ou com horários opcionais;
-- regras de local físico e URL de acesso de acordo com a modalidade;
+- datas inicial e final, eventos de dia inteiro ou com horários opcionais e independentes;
+  sem hora de término, o evento encerra ao final da data final e pode ser marcado como
+  realizado a partir do dia seguinte;
+- nome do local obrigatório em eventos presenciais e híbridos; endereço e URL de acesso
+  online opcionais em todas as modalidades;
 - rascunhos incompletos e publicação bilíngue validada;
 - título, slug estável, resumo, descrição sanitizada, localização, texto alternativo e SEO
   localizados em PT-BR e EN;
 - imagem opcional com nome UUID, validação compartilhada, crédito e fallback no frontend;
+- capas preenchidas com recorte, zoom de 100% a 300% e posição ajustável no admin; card, detalhe e suas
+  prévias usam a proporção 16:9 e o mesmo enquadramento;
 - inscrição somente por link externo;
+- `seed_events` restaura os quatro eventos reais (oito traduções PT-BR/EN e quatro capas
+  WebP), preservando horários opcionais, status, links, posição e zoom. Usa
+  `scripts/seed/events/data.json`, cria somente ausentes e não sobrescreve o admin;
+- `export_events_seed` atualiza o pacote a partir dos eventos atuais, com tarefas Poe
+  locais e Docker (`seed-events`, `export-events-seed` e os equivalentes `docker-*`);
 - cancelados e adiados permanecem públicos com sua situação explícita;
 - `published_at` preservado após arquivamento, rascunho ou republicação;
 - migration `events.0001_initial` criada e aplicada no PostgreSQL de desenvolvimento;

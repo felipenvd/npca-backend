@@ -67,7 +67,13 @@ class NewsAdmin(BilingualContentAdmin):
             (item for item in obj.translations.all() if item.language == "pt-br"),
             None,
         )
-        return translation.title if translation and translation.title else f"Notícia #{obj.pk}"
+        title = translation.title if translation and translation.title else f"Notícia #{obj.pk}"
+        return format_html(
+            '<span title="{}" style="display: block; max-width: 20rem; overflow: hidden; '
+            'text-overflow: ellipsis; white-space: nowrap;">{}</span>',
+            title,
+            title,
+        )
 
     @admin.display(description="Prévia da capa")
     def cover_preview(self, obj: News) -> str:

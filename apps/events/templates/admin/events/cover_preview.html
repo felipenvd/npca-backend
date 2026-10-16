@@ -1,0 +1,19 @@
+<div class="event-cover-editor" data-event-cover-editor style="--cover-zoom: {{ zoom }}; --cover-position: {{ position_x }}% {{ position_y }}%;">
+    <div class="event-cover-editor__previews" data-cover-previews{% if not cover_url %} hidden{% endif %}>
+        <div>
+            <h3>Prévia do card</h3>
+            <div class="event-cover-editor__card" data-cover-card>
+                <img data-cover-image{% if cover_url %} src="{{ cover_url }}"{% endif %} alt="Prévia do enquadramento no card" draggable="false">
+            </div>
+            <p>Ajuste o zoom e arraste a imagem ou use os controles para posicionar o recorte. Salve o cadastro para aplicar.</p>
+        </div>
+        <div>
+            <h3>Imagem na página do evento</h3>
+            <div class="event-cover-editor__detail">
+                <img data-cover-detail{% if cover_url %} src="{{ cover_url }}"{% endif %} alt="Prévia do enquadramento na página do evento" draggable="false">
+            </div>
+            <p>O mesmo recorte do card será usado na página do evento.</p>
+        </div>
+    </div>
+    <p data-cover-status role="status">{% if not cover_url %}Selecione uma imagem para visualizar as prévias.{% endif %}</p>
+</div>

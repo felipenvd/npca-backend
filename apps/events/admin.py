@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.template.loader import render_to_string
 from django.utils.html import format_html
 
 from apps.core.admin import BilingualContentAdmin, BilingualTranslationInline
@@ -85,14 +86,22 @@ class EventAdmin(BilingualContentAdmin):
                     ("start_time", "end_time"),
                 ),
                 "description": (
-                    "Tipo, modalidade e agenda completa são obrigatórios para publicar. "
-                    "Eventos de dia inteiro não usam horários."
+                    "Tipo, modalidade e datas são obrigatórios para publicar. "
+                    "Horários são opcionais. Eventos de dia inteiro não usam horários."
                 ),
             },
         ),
         (
             "Apresentação",
-            {"fields": ("cover", "cover_preview", "cover_credit")},
+            {
+                "fields": (
+                    "cover",
+                    "cover_zoom",
+                    ("cover_position_x", "cover_position_y"),
+                    "cover_preview",
+                    "cover_credit",
+                )
+            },
         ),
         (
             "Acesso e inscrição",
@@ -122,15 +131,24 @@ class EventAdmin(BilingualContentAdmin):
             (item for item in obj.translations.all() if item.language == "pt-br"),
             None,
         )
-        return translation.title if translation and translation.title else f"Evento #{obj.pk}"
+        title = translation.title if translation and translation.title else f"Evento #{obj.pk}"
+        return format_html(
+            '<span title="{}" style="display: block; max-width: 20rem; overflow: hidden; '
+            'text-overflow: ellipsis; white-space: nowrap;">{}</span>',
+            title,
+            title,
+        )
 
     @admin.display(description="Prévia da imagem")
     def cover_preview(self, obj: Event) -> str:
-        if not obj.cover:
-            return "Sem imagem"
-        return format_html(
-            '<img src="{}" alt="" style="max-height: 180px; max-width: 320px; object-fit: cover;">',
-            obj.cover.url,
+        return render_to_string(
+            "admin/events/cover_preview.html",
+            {
+                "cover_url": obj.cover.url if obj.cover else "",
+                "position_x": obj.cover_position_x,
+                "position_y": obj.cover_position_y,
+                "zoom": obj.cover_zoom,
+            },
         )
 
     def get_queryset(self, request):

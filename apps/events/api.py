@@ -46,6 +46,9 @@ def serialize_summary(
                 url=event.cover.url,
                 alt=translation.cover_alt_text,
                 credit=event.cover_credit or None,
+                position_x=event.cover_position_x,
+                position_y=event.cover_position_y,
+                zoom=event.cover_zoom,
             )
             if event.cover
             else None
@@ -70,6 +73,7 @@ def temporal_conditions(reference: datetime) -> tuple[Q, Q, Q]:
     upcoming = (
         Q(event__end_date__gt=today)
         | Q(event__end_date=today, event__is_all_day=True)
+        | Q(event__end_date=today, event__end_time__isnull=True)
         | Q(
             event__end_date=today,
             event__is_all_day=False,
@@ -79,6 +83,7 @@ def temporal_conditions(reference: datetime) -> tuple[Q, Q, Q]:
     started = (
         Q(event__start_date__lt=today)
         | Q(event__start_date=today, event__is_all_day=True)
+        | Q(event__start_date=today, event__start_time__isnull=True)
         | Q(
             event__start_date=today,
             event__is_all_day=False,

@@ -117,7 +117,7 @@ def test_detail_returns_authors_external_access_links_project_and_seo(
     settings.MEDIA_ROOT = tmp_path
     project = Project.objects.create(
         status=Project.Status.PUBLISHED,
-        start_date="2025-01-01",
+        start_year=2025,
         coordinator=create_researcher("Coordenadora"),
     )
     ProjectTranslation.objects.create(

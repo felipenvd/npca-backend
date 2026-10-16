@@ -4,7 +4,7 @@ from ninja import Query, Router
 
 from apps.researchers.models import Researcher, ResearcherTranslation
 
-from .models import Project, ProjectTranslation, project_situation_ordering
+from .models import Project, ProjectTeamMember, ProjectTranslation, project_situation_ordering
 from .schemas import (
     Language,
     ProjectCover,
@@ -54,24 +54,17 @@ def serialize_summary(
     lang: Language,
 ) -> ProjectSummary:
     project = translation.project
-    if project.coordinator is None or project.start_date is None:
-        raise RuntimeError("Projeto publicado sem coordenador ou data de início.")
+    if project.coordinator is None or project.start_year is None:
+        raise RuntimeError("Projeto publicado sem coordenador ou ano de início.")
     return ProjectSummary(
         slug=translation.slug or "",
         title=translation.title,
         summary=translation.summary,
         situation=project.situation,
-        start_date=project.start_date,
-        end_date=project.end_date,
+        start_year=project.start_year,
+        end_year=project.end_year,
         cover=serialize_cover(project),
         coordinator=serialize_person(project.coordinator, lang),
-    )
-
-
-def people_translation_prefetch() -> Prefetch:
-    return Prefetch(
-        "translations",
-        queryset=ResearcherTranslation.objects.only("researcher_id", "language", "slug"),
     )
 
 
@@ -133,8 +126,15 @@ def get_project(request, slug: str, lang: Language) -> ProjectDetail:
     translation = get_object_or_404(
         project_queryset().prefetch_related(
             Prefetch(
-                "project__team",
-                queryset=Researcher.objects.prefetch_related(people_translation_prefetch()),
+                "project__team_memberships",
+                queryset=ProjectTeamMember.objects.select_related("researcher").prefetch_related(
+                    Prefetch(
+                        "researcher__translations",
+                        queryset=ResearcherTranslation.objects.only(
+                            "researcher_id", "language", "slug"
+                        ),
+                    )
+                ),
             )
         ),
         language=lang,
@@ -153,7 +153,12 @@ def get_project(request, slug: str, lang: Language) -> ProjectDetail:
     return ProjectDetail(
         **summary.model_dump(),
         body_html=translation.body_html,
-        team=[serialize_person(person, lang) for person in project.team.all()],
+        team=[
+            serialize_person(member.researcher, lang)
+            if member.researcher_id
+            else ProjectPerson(name=member.external_name, slug=None, photo=None)
+            for member in project.team_memberships.all()
+        ],
         funding=project.funding or None,
         partners=partners,
         links=ProjectLinks(

@@ -58,6 +58,22 @@ cmd = "python manage.py export_courses_seed"
 help = "Cria as publicações iniciais com autores, traduções e capas"
 cmd = "python manage.py seed_publications"
 
+[tool.poe.tasks.seed-projects]
+help = "Cria os projetos iniciais com traduções, equipes e destaques"
+cmd = "python manage.py seed_projects"
+
+[tool.poe.tasks.seed-events]
+help = "Cria os eventos iniciais com traduções, capas e enquadramento"
+cmd = "python manage.py seed_events"
+
+[tool.poe.tasks.export-events-seed]
+help = "Atualiza o seed com os eventos, capas, posição e zoom do banco atual"
+cmd = "python manage.py export_events_seed"
+
+[tool.poe.tasks.export-projects-seed]
+help = "Atualiza o seed com os projetos, equipes e capas do banco atual"
+cmd = "python manage.py export_projects_seed"
+
 [tool.poe.tasks.export-publications-seed]
 help = "Atualiza o seed com as publicações, autores e capas do banco atual"
 cmd = "python manage.py export_publications_seed"
@@ -154,6 +170,26 @@ executor = "simple"
 [tool.poe.tasks.docker-seed-publications]
 help = "Cria as publicações iniciais no Docker após seed-researchers"
 cmd = "docker compose -f compose.yaml -f compose.dev.yaml exec backend uv run --no-sync python manage.py seed_publications"
+executor = "simple"
+
+[tool.poe.tasks.docker-seed-projects]
+help = "Cria os projetos iniciais no Docker após seed-researchers"
+cmd = "docker compose -f compose.yaml -f compose.dev.yaml exec backend uv run --no-sync python manage.py seed_projects"
+executor = "simple"
+
+[tool.poe.tasks.docker-seed-events]
+help = "Cria os eventos iniciais no ambiente Docker de desenvolvimento"
+cmd = "docker compose -f compose.yaml -f compose.dev.yaml exec backend uv run --no-sync python manage.py seed_events"
+executor = "simple"
+
+[tool.poe.tasks.docker-export-events-seed]
+help = "Atualiza o seed com os eventos, capas, posição e zoom do Docker"
+cmd = "docker compose -f compose.yaml -f compose.dev.yaml exec backend uv run --no-sync python manage.py export_events_seed"
+executor = "simple"
+
+[tool.poe.tasks.docker-export-projects-seed]
+help = "Atualiza o seed com os projetos, equipes e capas do Docker"
+cmd = "docker compose -f compose.yaml -f compose.dev.yaml exec backend uv run --no-sync python manage.py export_projects_seed"
 executor = "simple"
 
 [tool.poe.tasks.docker-export-publications-seed]

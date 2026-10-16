@@ -1,4 +1,3 @@
-from datetime import date
 from io import BytesIO
 
 import pytest
@@ -47,8 +46,8 @@ def create_project(
         status=status,
         situation=situation,
         coordinator=coordinator,
-        start_date=date(2025, 1, 1),
-        end_date=date(2026, 6, 1) if situation == Project.Situation.COMPLETED else None,
+        start_year=2025,
+        end_year=2026 if situation == Project.Situation.COMPLETED else None,
         display_order=order,
         is_featured=featured,
         funding="CNPq",
@@ -143,6 +142,10 @@ def test_detail_returns_team_support_links_seo_and_translation_slugs(client) -> 
     assert response.status_code == 200
     body = response.json()
     assert body["body_html"] == "<p>Descrição</p>"
+    assert body["start_year"] == 2025
+    assert body["end_year"] is None
+    assert "start_date" not in body
+    assert "end_date" not in body
     assert body["funding"] == "CNPq"
     assert body["partners"] == ["UFRA", "Embrapa"]
     assert body["links"] == {
@@ -179,6 +182,28 @@ def test_detail_hides_unpublished_and_wrong_language_slug(client) -> None:
     assert wrong_language.status_code == 404
     assert hidden.status_code == 404
     assert hidden["Content-Type"] == "application/problem+json"
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("language", ["pt-br", "en"])
+def test_detail_includes_external_members_without_profile_or_photo(client, language):
+    project = create_project(title="Equipe mista")
+    ProjectTeamMember.objects.create(project=project, external_name="Pesquisadora externa")
+    person = create_researcher("Pesquisador NPCA")
+    ProjectTeamMember.objects.create(project=project, researcher=person)
+    slug = project.translations.get(language=language).slug
+
+    response = client.get(f"/api/v1/projects/{slug}", {"lang": language})
+
+    assert response.status_code == 200
+    assert response.json()["team"] == [
+        {"name": "Pesquisadora externa", "slug": None, "photo": None},
+        {
+            "name": person.full_name,
+            "slug": person.translations.get(language=language).slug,
+            "photo": None,
+        },
+    ]
 
 
 @pytest.mark.django_db

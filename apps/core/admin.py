@@ -1,5 +1,6 @@
 from django import forms
 from django.conf import settings
+from django.templatetags.static import static
 from unfold.admin import ModelAdmin, StackedInline
 
 from .admin_labels import style_required_labels
@@ -14,14 +15,14 @@ class NPCAAdmin(ModelAdmin):
             f"admin/js/vendor/jquery/jquery{extra}.js",
             "admin/js/vendor/select2/select2.full.js",
             "admin/js/jquery.init.js",
-            "core/admin/select.js",
+            f"{static('core/admin/select.js')}?v=2",
             "core/admin/required_labels.js",
         )
         css = {
             "screen": (
                 "admin/css/vendor/select2/select2.css",
                 "admin/css/autocomplete.css",
-                "core/admin/select.css",
+                f"{static('core/admin/select.css')}?v=2",
                 "core/admin/required_labels.css",
             ),
         }

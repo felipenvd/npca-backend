@@ -226,8 +226,8 @@ class Command(BaseCommand):
                 {"translations__language": "pt-br", "translations__slug": slug},
                 {
                     "situation": Project.Situation.values[(number - 1) % 3],
-                    "start_date": self.today - timedelta(days=180),
-                    "end_date": self.today - timedelta(days=30) if number == 3 else None,
+                    "start_year": (self.today - timedelta(days=180)).year,
+                    "end_year": (self.today - timedelta(days=30)).year if number == 3 else None,
                     "coordinator": researchers[0],
                     "funding": "Financiamento fictício de teste",
                     "partners": "[DEMO] Parceiro acadêmico\n[DEMO] Parceiro tecnológico",

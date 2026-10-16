@@ -246,12 +246,42 @@ docker compose -f compose.yaml -f compose.production.yaml exec backend \
   uv run --no-sync python manage.py seed_researchers
 
 docker compose -f compose.yaml -f compose.production.yaml exec backend \
+  uv run --no-sync python manage.py seed_projects
+
+docker compose -f compose.yaml -f compose.production.yaml exec backend \
   uv run --no-sync python manage.py seed_publications
+
+docker compose -f compose.yaml -f compose.production.yaml exec backend \
+  uv run --no-sync python manage.py seed_events
 ```
 
 Ela não é executada automaticamente no startup nem pelo serviço `setup`.
 
-Execute `seed_researchers` antes de `seed_publications` para vincular os autores cadastrados.
+Execute `seed_researchers` antes de `seed_projects` e `seed_publications` para vincular
+os pesquisadores cadastrados. Se houver publicações vinculadas a projetos, execute
+`seed_projects` antes de `seed_publications`.
+
+O seed de projetos inclui os quatro projetos reais destacados, oito traduções PT-BR/EN
+e 54 integrantes de equipes (12 vínculos com pesquisadores e 42 nomes externos), em
+`scripts/seed/projects/data.json`. Preserva coordenação, anos, descrições, financiamento,
+destaques e ordem de exibição. Os projetos atuais não têm capas; futuras capas serão
+exportadas em WebP. Reexecuções criam somente projetos ausentes e preservam os existentes.
+Em desenvolvimento, use `uv run poe docker-seed-projects` e, para atualizar o pacote
+com os dados do admin, `uv run poe docker-export-projects-seed`. Fora do Docker, use
+`python manage.py seed_projects` e `python manage.py export_projects_seed`.
+
+O seed de eventos inclui os quatro eventos reais cadastrados: Tech Zone e Green Zone
+da COP30, GOFEAT-AI no ISMB/ECCB 2025 e o curso de Visão Computacional. O pacote em
+`scripts/seed/events/` contém oito traduções PT-BR/EN, quatro capas WebP, datas,
+horários opcionais, locais, links, créditos, status, ordem, posição e zoom das imagens.
+Execute `python manage.py seed_events` ou `uv run poe docker-seed-events` após as
+migrations; não depende de outros seeds. Reexecuções criam somente os eventos ausentes
+e preservam os cadastros existentes, identificados por idioma/slug ou título.
+Para atualizar o pacote com as alterações salvas no admin, execute
+`python manage.py export_events_seed` ou `uv run poe docker-export-events-seed`.
+A exportação preserva o banco e substitui o manifesto com os dados atuais;
+não inclua rascunhos ou outros cadastros que não devam fazer parte do acervo inicial.
+
 O seed de publicações inclui quatro artigos reais, traduções PT-BR/EN, 36 autorias,
 links DOI/externos e quatro capas WebP em `scripts/seed/publications/`. Reexecuções
 criam somente publicações ausentes e preservam as existentes. Para atualizar o pacote

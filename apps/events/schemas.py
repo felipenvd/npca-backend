@@ -2,6 +2,7 @@ from datetime import date, time
 from typing import Literal
 
 from ninja import Schema
+from pydantic import Field
 
 Language = Literal["pt-br", "en"]
 EventPeriod = Literal["upcoming", "past", "all"]
@@ -24,6 +25,9 @@ class EventCover(Schema):
     url: str
     alt: str
     credit: str | None
+    position_x: int = Field(ge=0, le=100)
+    position_y: int = Field(ge=0, le=100)
+    zoom: int = Field(ge=100, le=300)
 
 
 class EventLocation(Schema):

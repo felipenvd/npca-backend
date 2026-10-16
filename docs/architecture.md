@@ -502,18 +502,30 @@ nome e o ID. Os rótulos serão localizados pelo frontend.
 
 Projetos serão a terceira implementação do padrão bilíngue. O status editorial será
 independente da situação acadêmica, que será alterada manualmente. Rascunhos poderão
-ficar incompletos; a publicação exigirá coordenador, início e traduções PT-BR e EN com
-título, slug, resumo e descrição. Projetos concluídos também exigirão término, sempre
-igual ou posterior ao início. A primeira publicação definirá `published_at`, preservado
+ficar incompletos; a publicação exigirá coordenador, ano de início e traduções PT-BR e EN
+com título, slug, resumo e descrição. O período usará somente anos de quatro dígitos,
+sem mês ou dia. Projetos concluídos também exigirão ano de término, sempre igual ou
+posterior ao ano de início. Datas de cadastros anteriores serão convertidas para seus
+anos correspondentes. A primeira publicação definirá `published_at`, preservado
 em arquivamentos, retornos a rascunho e republicações.
 
-Coordenador e equipe serão relacionados a Pesquisadores com proteção contra exclusão,
-sem papéis ou ordem individuais. O coordenador não poderá ser repetido na equipe.
+O coordenador será relacionado a um Pesquisador com proteção contra exclusão. Cada
+integrante da equipe poderá apontar para um Pesquisador cadastrado ou conter um nome
+externo, nunca ambos, sem papéis ou ordem individuais. O coordenador não poderá ser
+repetido na equipe. Integrantes externos aparecerão pelo nome, sem perfil ou foto.
 Pesquisadores inativos permanecerão identificados pelo nome na resposta pública, mas
 sem URL de perfil ou foto. A capa será decorativa e validada pelo mecanismo compartilhado
 de imagens. A descrição usará o editor visual limitado e a sanitização já adotada pelos
 outros módulos. Financiamento e parceiros serão textos globais simples; não haverá
-taxonomias, participantes externos, anexos ou mudança automática de situação nesta fase.
+taxonomias, anexos ou mudança automática de situação nesta fase.
+
+O acervo inicial de projetos será versionado em `scripts/seed/projects/data.json`,
+com traduções, anos, coordenação, equipes internas e externas, destaques e ordem.
+`seed_projects` criará somente projetos ausentes, identificados por idioma/slug ou
+título, preservando os existentes. As referências usarão nomes de pesquisadores,
+sem IDs do banco de origem; execute `seed_researchers` primeiro. A importação validará
+as referências antes das gravações e usará uma transação. `export_projects_seed`
+atualizará o pacote a partir do banco, convertendo eventuais capas para WebP.
 
 Publicações serão a quarta implementação do padrão bilíngue. Rascunhos poderão ficar
 incompletos; a publicação exigirá ano, periódico ou evento, ao menos um autor e traduções
@@ -546,23 +558,41 @@ DOI ou, quando ausente, por título, ano e periódico/evento.
 
 Eventos serão a quinta implementação do padrão bilíngue. Rascunhos poderão permanecer
 incompletos; a publicação exigirá tipo, modalidade, período válido e traduções PT-BR e EN
-com título, slug, resumo e descrição. Eventos presenciais exigirão local e endereço;
-eventos online exigirão URL de acesso; híbridos exigirão ambos. A primeira publicação
+com título, slug, resumo e descrição. Eventos presenciais e híbridos exigirão o nome
+do local; endereço e URL de acesso online serão opcionais. O link poderá ser divulgado
+quando estiver disponível, inclusive em eventos online e híbridos. A primeira publicação
 definirá `published_at`, preservado em arquivamentos, retornos a rascunho e republicações.
 
-O calendário aceitará eventos de dia inteiro ou com horário, sempre interpretados e
-exibidos em `America/Belem`. A situação de agendado, adiado, cancelado ou realizado será editorial,
+O calendário aceitará eventos de dia inteiro ou com horários opcionais e independentes,
+sempre interpretados e exibidos em `America/Belem`. Sem hora de início, o estado temporal
+considerará o começo da data inicial; sem hora de término, considerará o fim da data final.
+O frontend mostrará apenas as datas quando ambos os horários estiverem vazios e indicará
+"a partir de" ou "até" quando somente um deles estiver informado. A situação de agendado,
+adiado, cancelado ou realizado será editorial,
 enquanto o estado de próximo, em andamento ou passado será calculado automaticamente a
 partir dos limites inicial e final. Eventos cancelados e adiados permanecerão públicos
 com avisos; adiados somente aparecerão na home quando tiverem nova data futura.
 Realizado confirma manualmente que o evento aconteceu e só poderá ser selecionado
-após o término informado; em eventos de dia inteiro, a partir do dia seguinte.
+após o término informado; sem hora de término ou em eventos de dia inteiro, a partir
+do dia seguinte à data final.
 O frontend exibirá Realizado/Completed, sem aviso de adiamento ou inscrição ativa.
 O estado Encerrado continuará sendo calculado pelas datas, sem confirmar realização.
 Novos seeds de demonstração incluirão um evento realizado; os existentes serão preservados.
 
 A imagem seguirá a validação compartilhada, receberá nome UUID e será opcional, com
-crédito global e texto alternativo localizado. A inscrição será apenas um link externo e
+crédito global e texto alternativo localizado. As capas preencherão a área com recorte.
+A posição horizontal e vertical será salva
+em percentuais de 0 a 100, com zoom de 100% a 300% (padrão 100%), sem modificar o arquivo
+original. O admin oferecerá prévias do card e do detalhe, controles de zoom, posição e
+arraste para ajustar o recorte. Ambos usarão a proporção 16:9, a mesma posição e o mesmo
+zoom, reproduzindo o mesmo enquadramento nas duas páginas.
+`seed_events` restaurará o acervo real em `scripts/seed/events/`, incluindo traduções
+PT-BR/EN, capas WebP, créditos, datas, horários opcionais, locais, links, estado editorial,
+ordem, posição e zoom. Será incremental por idioma/slug ou título, preservará eventos
+existentes e validará todo o pacote antes de gravar. As gravações usarão uma transação,
+com limpeza das novas capas se houver falha. `export_events_seed` atualizará o pacote
+com os eventos atuais do admin, sem alterar os registros nem os arquivos originais.
+A inscrição será apenas um link externo e
 o frontend só exibirá seu CTA para eventos agendados que ainda não terminaram. Não haverá
 recorrência, palestrantes relacionados, inscrição interna, capacidade, cobrança ou
 notificações nesta versão.

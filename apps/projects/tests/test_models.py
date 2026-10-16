@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import timedelta
 
 import pytest
 from django.core.exceptions import ValidationError
@@ -99,33 +99,46 @@ def test_publication_requires_coordinator_start_and_complete_translations() -> N
     with pytest.raises(ValidationError) as error:
         project.validate_for_publication()
     assert "coordenador" in str(error.value)
-    assert "data de início" in str(error.value)
+    assert "ano de início" in str(error.value)
     assert "Português" in str(error.value)
     assert "English" in str(error.value)
 
     project.coordinator = researcher()
-    project.start_date = date(2026, 1, 1)
+    project.start_year = 2026
     project.save()
     complete_translations(project)
     project.validate_for_publication()
 
 
 @pytest.mark.django_db
-def test_dates_and_completed_publication_are_validated() -> None:
+def test_years_and_completed_publication_are_validated() -> None:
     coordinator = researcher()
     project = Project(
         coordinator=coordinator,
-        start_date=date(2026, 2, 1),
-        end_date=date(2026, 1, 31),
+        start_year=2026,
+        end_year=2025,
     )
     with pytest.raises(ValidationError, match="posterior"):
         project.full_clean()
 
-    project.end_date = None
+    project.end_year = None
     project.status = Project.Status.PUBLISHED
     project.situation = Project.Situation.COMPLETED
-    with pytest.raises(ValidationError, match="data de término"):
+    with pytest.raises(ValidationError, match="ano de término"):
         project.full_clean()
+
+    project.end_year = project.start_year
+    project.full_clean()
+    project.save()
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("year", [999, 10000])
+def test_project_years_require_four_digits(year):
+    project = Project(start_year=year, end_year=year)
+    with pytest.raises(ValidationError) as error:
+        project.full_clean()
+    assert {"start_year", "end_year"} <= error.value.message_dict.keys()
 
 
 @pytest.mark.django_db
@@ -145,11 +158,38 @@ def test_coordinator_cannot_be_a_team_member_and_related_researchers_are_protect
 
 
 @pytest.mark.django_db
+def test_external_member_has_one_identity_and_does_not_create_a_researcher():
+    project = Project.objects.create()
+    member = ProjectTeamMember(project=project, external_name="  Colaboradora externa  ")
+    member.full_clean()
+    member.save()
+
+    assert member.external_name == "Colaboradora externa"
+    assert str(member) == "Colaboradora externa"
+    assert member.researcher is None
+    assert not Researcher.objects.exists()
+    assert not project.team.exists()
+    assert project.team_memberships.get() == member
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("both", [False, True])
+def test_model_and_database_reject_missing_or_conflicting_member_identity(both):
+    project = Project.objects.create()
+    person = researcher() if both else None
+    values = {"project": project, "researcher": person, "external_name": "Externo" if both else ""}
+    with pytest.raises(ValidationError, match="integrante externo"):
+        ProjectTeamMember(**values).full_clean()
+    with pytest.raises(IntegrityError), transaction.atomic():
+        ProjectTeamMember.objects.create(**values)
+
+
+@pytest.mark.django_db
 def test_first_publication_date_is_preserved() -> None:
     project = Project.objects.create(
         status=Project.Status.PUBLISHED,
         coordinator=researcher(),
-        start_date=date(2026, 1, 1),
+        start_year=2026,
     )
     first_publication = project.published_at
     project.status = Project.Status.ARCHIVED

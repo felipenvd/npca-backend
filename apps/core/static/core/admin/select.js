@@ -9,8 +9,20 @@
     loadingMore: () => "Carregando mais opções…",
     inputTooShort: ({ minimum, input }) =>
       `Digite mais ${minimum - input.length} caracteres para buscar.`,
+    removeAllItems: () => "Limpar seleção",
   };
   $.fn.select2.defaults.set("language", language);
+
+  function labelClearButtons() {
+    document
+      .querySelectorAll(".select2-selection--single .select2-selection__clear")
+      .forEach((button) => {
+        button.title = "Limpar seleção";
+        button.setAttribute("aria-label", "Limpar seleção");
+        button.setAttribute("role", "button");
+        button.tabIndex = 0;
+      });
+  }
 
   function enhance(root) {
     root.querySelectorAll("select").forEach((select) => {
@@ -64,6 +76,7 @@
     },
     sync(select) {
       $(select).trigger("change.select2");
+      labelClearButtons();
     },
     closeWithin(root) {
       const select = [...root.querySelectorAll("select")].find((item) =>
@@ -86,9 +99,28 @@
   $(() => {
     document.body.classList.add("npca-admin-selects");
     document.querySelectorAll("form").forEach(enhance);
+    // Django initializes remote autocompletes in its own ready callback.
+    setTimeout(labelClearButtons, 0);
+    $(document).on("change", "select", () => {
+      // Select2 may rebuild the selection after observing a newly added option.
+      setTimeout(labelClearButtons, 0);
+    });
+    $(document).on(
+      "keydown",
+      ".select2-selection--single .select2-selection__clear",
+      (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        event.stopPropagation();
+        event.currentTarget.dispatchEvent(
+          new MouseEvent("mousedown", { bubbles: true, button: 0 }),
+        );
+      },
+    );
     document.addEventListener("formset:added", (event) => {
       // The added row is inside a form; include its selects without reinitializing others.
       enhance(event.target.closest("form") || document);
+      setTimeout(labelClearButtons, 0);
     });
     $(document).on("select2:open", () => {
       const search = document.querySelector(
@@ -110,13 +142,12 @@
     );
     $(document).on("reset", "form", (event) => {
       // Wait for the browser to restore the select's original value.
-      setTimeout(
-        () =>
-          $(event.target)
-            .find("select.select2-hidden-accessible")
-            .trigger("change.select2"),
-        0,
-      );
+      setTimeout(() => {
+        $(event.target)
+          .find("select.select2-hidden-accessible")
+          .trigger("change.select2");
+        labelClearButtons();
+      }, 0);
     });
   });
 })();

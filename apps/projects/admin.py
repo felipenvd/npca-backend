@@ -90,11 +90,11 @@ class ProjectAdmin(BilingualContentAdmin):
                 "fields": (
                     "situation",
                     "coordinator",
-                    ("start_date", "end_date"),
+                    ("start_year", "end_year"),
                 ),
                 "description": (
-                    "Coordenador e data de início são obrigatórios para publicar. "
-                    "Projetos concluídos também exigem data de término."
+                    "Coordenador e ano de início são obrigatórios para publicar. "
+                    "Projetos concluídos também exigem ano de término."
                 ),
             },
         ),
@@ -137,7 +137,13 @@ class ProjectAdmin(BilingualContentAdmin):
             (item for item in obj.translations.all() if item.language == "pt-br"),
             None,
         )
-        return translation.title if translation and translation.title else f"Projeto #{obj.pk}"
+        title = translation.title if translation and translation.title else f"Projeto #{obj.pk}"
+        return format_html(
+            '<span title="{}" style="display: block; max-width: 20rem; overflow: hidden; '
+            'text-overflow: ellipsis; white-space: nowrap;">{}</span>',
+            title,
+            title,
+        )
 
     @admin.display(description="Prévia da capa")
     def cover_preview(self, obj: Project) -> str:

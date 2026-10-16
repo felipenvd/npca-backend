@@ -1,6 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.models import BaseInlineFormSet
+from django.templatetags.static import static
 from django.utils.text import slugify
 from unfold.contrib.forms.widgets import WysiwygWidget
 from unfold.widgets import UnfoldAdminURLInputWidget
@@ -12,6 +13,10 @@ from .models import Event, EventTranslation, event_publication_errors
 
 
 class EventForm(forms.ModelForm):
+    class Media:
+        js = (f"{static('events/admin/cover_editor.js')}?v=3",)
+        css = {"screen": (f"{static('events/admin/cover_editor.css')}?v=3",)}
+
     start_date = forms.DateField(
         label="Data de início *",
         required=False,
@@ -28,25 +33,34 @@ class EventForm(forms.ModelForm):
         label="Hora de início",
         required=False,
         widget=EnhancedAdminTimeWidget(),
-        help_text="Obrigatória para publicar quando não for um evento de dia inteiro.",
+        help_text="Opcional. Informe a hora de início quando conhecida.",
     )
     end_time = forms.TimeField(
         label="Hora de término",
         required=False,
         widget=EnhancedAdminTimeWidget(),
-        help_text="Obrigatória para publicar quando não for um evento de dia inteiro.",
+        help_text="Opcional. Sem horário de término, o evento encerra ao final da data informada.",
     )
     online_url = forms.URLField(
         label="URL de acesso online",
         required=False,
         assume_scheme="https",
         widget=UnfoldAdminURLInputWidget(),
+        help_text="Opcional. Informe o link de acesso quando estiver disponível para divulgação.",
     )
     registration_url = forms.URLField(
         label="URL externa de inscrição",
         required=False,
         assume_scheme="https",
         widget=UnfoldAdminURLInputWidget(),
+    )
+    cover_zoom = forms.IntegerField(
+        label="Zoom da imagem",
+        min_value=100,
+        max_value=300,
+        initial=100,
+        widget=forms.NumberInput(attrs={"type": "range", "step": 5}),
+        help_text="De 100% a 300%. Aproxime a imagem e ajuste a posição nas prévias.",
     )
 
     class Meta:
@@ -63,6 +77,9 @@ class EventForm(forms.ModelForm):
             "end_time",
             "cover",
             "cover_credit",
+            "cover_position_x",
+            "cover_position_y",
+            "cover_zoom",
             "online_url",
             "registration_url",
             "display_order",
@@ -71,18 +88,24 @@ class EventForm(forms.ModelForm):
             "event_type": "Tipo *",
             "modality": "Modalidade *",
         }
+        widgets = {
+            "cover_position_x": forms.NumberInput(attrs={"type": "range", "min": 0, "max": 100}),
+            "cover_position_y": forms.NumberInput(attrs={"type": "range", "min": 0, "max": 100}),
+        }
         help_texts = {
             "schedule_status": (
                 "Selecione Realizado para confirmar que o evento aconteceu, após o término "
-                "informado. Em eventos de dia inteiro, aguarde o dia seguinte à data de término. "
+                "informado. Sem horário de término ou em eventos de dia inteiro, aguarde "
+                "o dia seguinte à data de término. "
                 "Encerrado é calculado automaticamente pelas datas e não confirma a realização."
             ),
             "event_type": "Obrigatório para publicar.",
             "modality": "Obrigatória para publicar.",
-            "is_all_day": "Marque para eventos sem horário específico.",
+            "is_all_day": "Marque quando o evento durar o dia inteiro. Os horários são opcionais.",
             "cover": "Opcional. Use uma imagem JPEG, PNG ou WebP de até 5 MiB.",
             "cover_credit": "Opcional. Informe a autoria ou a fonte da imagem.",
-            "online_url": "Obrigatória para eventos online e híbridos.",
+            "cover_position_x": "Da esquerda (0) à direita (100). Também pode arrastar a prévia.",
+            "cover_position_y": "Do topo (0) à base (100). Também pode arrastar a prévia.",
             "registration_url": "Opcional. A inscrição continuará em um serviço externo.",
             "display_order": "Desempata eventos com a mesma data e horário.",
         }

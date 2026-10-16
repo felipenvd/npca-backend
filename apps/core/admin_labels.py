@@ -2,13 +2,10 @@ from django.utils.html import format_html
 
 CONDITIONAL_REQUIRED = {
     "events.event": {
-        "start_time": ("is_all_day", "unchecked"),
-        "end_time": ("is_all_day", "unchecked"),
-        "online_url": ("modality", "online,hybrid"),
         "location_name": ("modality", "in_person,hybrid"),
     },
     "projects.project": {
-        "end_date": ("situation", "completed"),
+        "end_year": ("situation", "completed"),
     },
     "researchers.researcher": {
         "research_area": ("academic_category", "doctor,doctoral_student,master,masters_student"),

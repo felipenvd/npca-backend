@@ -3,27 +3,31 @@ from django.core.exceptions import ValidationError
 from django.forms.models import BaseInlineFormSet
 from django.utils.text import slugify
 from unfold.contrib.forms.widgets import WysiwygWidget
-from unfold.widgets import UnfoldAdminURLInputWidget
+from unfold.widgets import UnfoldAdminIntegerFieldWidget, UnfoldAdminURLInputWidget
 
 from apps.core.sanitizers import sanitize_rich_text
-from apps.core.widgets import EnhancedAdminDateWidget
 
 from .models import Project, ProjectTeamMember, ProjectTranslation, publication_errors
 
 
 class ProjectForm(forms.ModelForm):
-    start_date = forms.DateField(
-        label="Data de início *",
+    start_year = forms.IntegerField(
+        label="Ano de início *",
         required=False,
-        widget=EnhancedAdminDateWidget(),
-        help_text="Obrigatória para publicar. Clique no campo para selecionar a data.",
+        min_value=1000,
+        max_value=9999,
+        widget=UnfoldAdminIntegerFieldWidget(attrs={"placeholder": "Ex.: 2025"}),
+        help_text="Obrigatório para publicar. Informe somente o ano, com quatro dígitos.",
     )
-    end_date = forms.DateField(
-        label="Data de término",
+    end_year = forms.IntegerField(
+        label="Ano de término",
         required=False,
-        widget=EnhancedAdminDateWidget(),
+        min_value=1000,
+        max_value=9999,
+        widget=UnfoldAdminIntegerFieldWidget(attrs={"placeholder": "Ex.: 2026"}),
         help_text=(
-            "Obrigatória para publicar projetos concluídos. Clique no campo para selecionar a data."
+            "Obrigatório para publicar projetos concluídos. "
+            "Deixe vazio enquanto não houver término."
         ),
     )
     website_url = forms.URLField(
@@ -45,8 +49,8 @@ class ProjectForm(forms.ModelForm):
             "status",
             "situation",
             "coordinator",
-            "start_date",
-            "end_date",
+            "start_year",
+            "end_year",
             "cover",
             "cover_credit",
             "funding",
@@ -151,11 +155,19 @@ class ProjectTeamMemberInlineFormSet(BaseInlineFormSet):
             return
 
         seen: set[int] = set()
+        seen_external: set[str] = set()
         for form in self.forms:
             if not hasattr(form, "cleaned_data") or form.cleaned_data.get("DELETE"):
                 continue
             researcher = form.cleaned_data.get("researcher")
             if researcher is None:
+                external_name = (form.cleaned_data.get("external_name") or "").strip().casefold()
+                if external_name:
+                    if external_name in seen_external:
+                        raise ValidationError(
+                            "Cada integrante externo deve aparecer apenas uma vez."
+                        )
+                    seen_external.add(external_name)
                 continue
             if researcher.pk in seen:
                 raise ValidationError("Cada pesquisador deve aparecer apenas uma vez na equipe.")
@@ -167,4 +179,8 @@ class ProjectTeamMemberInlineFormSet(BaseInlineFormSet):
 class ProjectTeamMemberForm(forms.ModelForm):
     class Meta:
         model = ProjectTeamMember
-        fields = ("researcher",)
+        fields = ("researcher", "external_name")
+        help_texts = {
+            "researcher": "Selecione quando o integrante estiver cadastrado no NPCA.",
+            "external_name": "Preencha somente para integrantes que não estão cadastrados.",
+        }

@@ -5,6 +5,7 @@ from uuid import uuid4
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
@@ -69,8 +70,18 @@ class Project(models.Model):
         blank=True,
     )
     cover_credit = models.CharField("crédito da imagem", max_length=200, blank=True)
-    start_date = models.DateField("data de início", null=True, blank=True)
-    end_date = models.DateField("data de término", null=True, blank=True)
+    start_year = models.PositiveSmallIntegerField(
+        "ano de início",
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(1000), MaxValueValidator(9999)],
+    )
+    end_year = models.PositiveSmallIntegerField(
+        "ano de término",
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(1000), MaxValueValidator(9999)],
+    )
     coordinator = models.ForeignKey(
         Researcher,
         verbose_name="coordenador",
@@ -126,26 +137,26 @@ class Project(models.Model):
         ordering = (project_situation_ordering(), "display_order", "pk")
         constraints = [
             models.CheckConstraint(
-                condition=models.Q(end_date__isnull=True)
-                | models.Q(start_date__isnull=True)
-                | models.Q(end_date__gte=models.F("start_date")),
-                name="project_end_not_before_start",
+                condition=models.Q(end_year__isnull=True)
+                | models.Q(start_year__isnull=True)
+                | models.Q(end_year__gte=models.F("start_year")),
+                name="project_end_year_not_before_start_year",
             ),
             models.CheckConstraint(
                 condition=~models.Q(status="published") | models.Q(coordinator__isnull=False),
                 name="published_project_has_coordinator",
             ),
             models.CheckConstraint(
-                condition=~models.Q(status="published") | models.Q(start_date__isnull=False),
-                name="published_project_has_start_date",
+                condition=~models.Q(status="published") | models.Q(start_year__isnull=False),
+                name="published_project_has_start_year",
             ),
             models.CheckConstraint(
                 condition=~models.Q(
                     status="published",
                     situation="completed",
                 )
-                | models.Q(end_date__isnull=False),
-                name="completed_published_project_has_end",
+                | models.Q(end_year__isnull=False),
+                name="completed_published_project_has_end_year",
             ),
         ]
 
@@ -166,15 +177,15 @@ class Project(models.Model):
     def clean(self) -> None:
         super().clean()
         errors: dict[str, str] = {}
-        if self.start_date and self.end_date and self.end_date < self.start_date:
-            errors["end_date"] = "A data de término deve ser igual ou posterior ao início."
+        if self.start_year and self.end_year and self.end_year < self.start_year:
+            errors["end_year"] = "O ano de término deve ser igual ou posterior ao ano de início."
         if self.status == self.Status.PUBLISHED:
             if self.coordinator_id is None:
                 errors["coordinator"] = "Informe o coordenador antes de publicar."
-            if self.start_date is None:
-                errors["start_date"] = "Informe a data de início antes de publicar."
-            if self.situation == self.Situation.COMPLETED and self.end_date is None:
-                errors["end_date"] = "Projetos concluídos precisam de uma data de término."
+            if self.start_year is None:
+                errors["start_year"] = "Informe o ano de início antes de publicar."
+            if self.situation == self.Situation.COMPLETED and self.end_year is None:
+                errors["end_year"] = "Projetos concluídos precisam de um ano de término."
         if errors:
             raise ValidationError(errors)
 
@@ -184,10 +195,10 @@ class Project(models.Model):
         )
         if self.coordinator_id is None:
             errors.append("Informe o coordenador antes de publicar.")
-        if self.start_date is None:
-            errors.append("Informe a data de início antes de publicar.")
-        if self.situation == self.Situation.COMPLETED and self.end_date is None:
-            errors.append("Projetos concluídos precisam de uma data de término.")
+        if self.start_year is None:
+            errors.append("Informe o ano de início antes de publicar.")
+        if self.situation == self.Situation.COMPLETED and self.end_year is None:
+            errors.append("Projetos concluídos precisam de um ano de término.")
         if self.pk and self.coordinator_id and self.team.filter(pk=self.coordinator_id).exists():
             errors.append("O coordenador não pode aparecer também na equipe.")
         if errors:
@@ -246,26 +257,42 @@ class ProjectTeamMember(models.Model):
     )
     researcher = models.ForeignKey(
         Researcher,
-        verbose_name="pesquisador",
+        verbose_name="pesquisador cadastrado",
         related_name="project_memberships",
         on_delete=models.PROTECT,
+        null=True,
+        blank=True,
     )
+    external_name = models.CharField("nome do integrante externo", max_length=200, blank=True)
 
     class Meta:
         verbose_name = "integrante da equipe"
         verbose_name_plural = "integrantes da equipe"
+        ordering = ("pk",)
         constraints = [
+            models.CheckConstraint(
+                condition=(
+                    models.Q(researcher__isnull=False, external_name="")
+                    | (models.Q(researcher__isnull=True) & ~models.Q(external_name=""))
+                ),
+                name="project_member_has_exactly_one_identity",
+            ),
             models.UniqueConstraint(
                 fields=("project", "researcher"),
                 name="unique_project_team_member",
-            )
+            ),
         ]
 
     def __str__(self) -> str:
-        return f"{self.project} — {self.researcher}"
+        return self.researcher.full_name if self.researcher_id else self.external_name
 
     def clean(self) -> None:
         super().clean()
+        self.external_name = self.external_name.strip()
+        if bool(self.researcher_id) == bool(self.external_name):
+            raise ValidationError(
+                "Selecione um pesquisador cadastrado ou informe um integrante externo, nunca ambos."
+            )
         if self.project_id and self.researcher_id:
             coordinator_id = (
                 Project.objects.filter(pk=self.project_id)

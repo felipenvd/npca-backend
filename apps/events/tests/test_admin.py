@@ -22,6 +22,9 @@ def event_data(*, published: bool, complete_english: bool = False) -> dict[str, 
         "start_time": "",
         "end_time": "",
         "cover_credit": "",
+        "cover_position_x": "50",
+        "cover_position_y": "50",
+        "cover_zoom": "100",
         "online_url": "",
         "registration_url": "",
         "display_order": "0",
@@ -74,6 +77,15 @@ def test_admin_add_page_exposes_schedule_translations_and_media(client) -> None:
     assert 'name="translations-1-cover_alt_text"' not in content
     assert "unfold/forms/js/trix/trix.js" in content
     assert '<option value="completed">Realizado</option>' in content
+    online_field = response.context["adminform"].form.fields["online_url"]
+    assert not online_field.required
+    assert "*" not in str(online_field.label)
+    assert "Opcional" in online_field.help_text
+    for field_name in ("start_time", "end_time"):
+        field = response.context["adminform"].form.fields[field_name]
+        assert not field.required
+        assert "*" not in str(field.label)
+        assert "Opcional" in field.help_text
 
 
 @pytest.mark.django_db
@@ -153,6 +165,38 @@ def test_admin_blocks_incomplete_publication_and_accepts_complete_hybrid_event(c
 
 
 @pytest.mark.django_db
+@pytest.mark.parametrize("modality", [Event.Modality.ONLINE, Event.Modality.HYBRID])
+def test_admin_publishes_without_online_access_url_and_still_validates_provided_urls(
+    admin_client, modality
+):
+    data = event_data(published=True, complete_english=True)
+    event_date = data.pop("_event_date")
+    data.update(
+        event_type=Event.EventType.COURSE,
+        modality=modality,
+        start_date=event_date,
+        end_date=event_date,
+        online_url="invalid-url",
+    )
+    if modality == Event.Modality.HYBRID:
+        data["translations-0-location_name"] = "Auditório"
+        data["translations-1-location_name"] = "Auditorium"
+    invalid = admin_client.post(reverse("admin:events_event_add"), data)
+    assert invalid.status_code == 200
+    assert "online_url" in invalid.context["adminform"].form.errors
+    assert not Event.objects.exists()
+
+    data["online_url"] = ""
+    response = admin_client.post(reverse("admin:events_event_add"), data)
+
+    assert response.status_code == 302
+    event = Event.objects.get()
+    assert event.status == Event.Status.PUBLISHED
+    assert event.online_url == ""
+    event.validate_for_publication()
+
+
+@pytest.mark.django_db
 def test_admin_can_confirm_completed_event_and_rejects_future_event(admin_client) -> None:
     data = event_data(published=False)
     future_date = data.pop("_event_date")
@@ -176,6 +220,39 @@ def test_admin_can_confirm_completed_event_and_rejects_future_event(admin_client
 
     assert response.status_code == 302
     assert Event.objects.get().schedule_status == Event.ScheduleStatus.COMPLETED
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(("start_time", "end_time"), [("", ""), ("09:00", ""), ("", "11:00")])
+def test_admin_publishes_completed_event_without_requiring_times_or_all_day(
+    admin_client, start_time, end_time
+):
+    data = event_data(published=True, complete_english=True)
+    data.pop("_event_date")
+    data.pop("is_all_day")
+    past_date = (timezone.localdate() - timedelta(days=1)).strftime("%d/%m/%Y")
+    data.update(
+        event_type=Event.EventType.CONFERENCE,
+        modality=Event.Modality.IN_PERSON,
+        schedule_status=Event.ScheduleStatus.COMPLETED,
+        start_date=past_date,
+        end_date=past_date,
+        start_time=start_time,
+        end_time=end_time,
+    )
+    data["translations-0-location_name"] = "Auditório"
+    data["translations-1-location_name"] = "Auditorium"
+
+    response = admin_client.post(reverse("admin:events_event_add"), data)
+
+    assert response.status_code == 302
+    event = Event.objects.get()
+    assert not event.is_all_day
+    assert event.status == Event.Status.PUBLISHED
+    assert event.schedule_status == Event.ScheduleStatus.COMPLETED
+    assert event.start_time == (time.fromisoformat(start_time) if start_time else None)
+    assert event.end_time == (time.fromisoformat(end_time) if end_time else None)
+    event.validate_for_publication()
 
 
 @pytest.mark.django_db

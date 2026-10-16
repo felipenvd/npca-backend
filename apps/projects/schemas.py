@@ -1,4 +1,3 @@
-from datetime import date
 from typing import Literal
 
 from ninja import Schema
@@ -28,8 +27,8 @@ class ProjectSummary(Schema):
     title: str
     summary: str
     situation: ProjectSituation
-    start_date: date
-    end_date: date | None
+    start_year: int
+    end_year: int | None
     cover: ProjectCover | None
     coordinator: ProjectPerson
 

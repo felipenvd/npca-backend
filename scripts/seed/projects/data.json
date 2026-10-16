@@ -1,0 +1,372 @@
+{
+  "projects": [
+    {
+      "status": "published",
+      "situation": "ongoing",
+      "start_year": 2024,
+      "end_year": null,
+      "is_featured": true,
+      "display_order": 0,
+      "published_at": "2026-10-16T18:10:19.080816+00:00",
+      "cover_credit": "",
+      "funding": "Universidade Federal Rural da Amazônia (UFRA) — Auxílio financeiro.",
+      "partners": "",
+      "website_url": "",
+      "repository_url": "",
+      "translations": [
+        {
+          "language": "en",
+          "title": "Monitoring floods and waterlogging in Paragominas, Pará, using historical georeferencing data and real-time sensors (PVPG929-2024)",
+          "slug": "monitoring-floods-and-waterlogging-in-paragominas-para-using-historical-georeferencing-data-and-real-time-sensors-pvpg929-2024",
+          "summary": "Identification of factors associated with flooding in Paragominas and development of a two-stage warning system using precipitation forecasts and real-time monitoring of river levels and other environmental parameters.",
+          "body_html": "<p>Monitoring flood and waterlogging events using data intelligence methods applied to historical georeferencing data and evaluation of real-time sensors in the city of Paragominas, Pará (PVPG929-2024)The municipality of Paragominas, Pará, experiences flooding, particularly during rainy periods. Rising river levels inundate urban and rural areas and sometimes interrupt transport routes used for daily travel and agricultural distribution, as well as water supplies when pipelines rupture. Reports also describe sudden rises in the Uraim River level without local rainfall, highlighting the need for continuous monitoring of these patterns to issue warnings and better manage the effects of extreme events.This project proposes identifying variables associated with flooding in Paragominas and establishing a two-stage warning system. The first stage will use publicly available precipitation forecasts to make longer-range predictions that give the relevant agencies time to mobilize. The second stage will use sensors to assess changes in river levels, precipitation, and other measurable parameters, enabling a computational environment to determine the probability of an extreme event in real time.</p><h2>Project information</h2><ul><li>Period: 2024 — Present</li><li>Status: Ongoing</li><li>Nature: Research</li></ul><h2>Student participation</h2><p>Undergraduate: (0) / Specialization: (0) / Academic master’s: (4) / Professional master’s: (0) / Doctoral: (8).</p><h2>Funding</h2><p>Federal Rural University of the Amazon (UFRA) — Financial support.</p>",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "title": "Monitoramento de Eventos de Enchentes e Alagamentos por Métodos de Inteligência de Dados Históricos de Georreferenciamento e Avaliação de Sensores em Tempo Real em Paragominas/PA (PVPG929-2024)",
+          "slug": "monitoramento-de-eventos-de-enchentes-e-alagamentos-por-metodos-de-inteligencia-de-dados-historicos-de-georreferenciamento-e-avaliacao-de-sensores-em-tempo-real-em-paragominaspa-pvpg929-2024",
+          "summary": "Identificação das variáveis associadas às enchentes em Paragominas e desenvolvimento de um sistema de alerta em duas etapas, com previsão de precipitação e monitoramento em tempo real do nível dos rios e de outros parâmetros ambientais.",
+          "body_html": "<p>Monitoramento de Eventos de Enchentes e Alagamentos por Métodos de Inteligência de Dados Históricos de Georreferenciamento e Avaliação de Sensores em Tempo Real na Cidade de Paragominas/PA (PVPG929-2024)No Pará, o município de Paragominas passa por eventos de enchentes, principalmente nos períodos chuvosos, gerando o aumento do nível do rio, que inunda regiões urbanas, rurais e algumas vezes causa a interdição de vias de transporte utilizadas pela população para a locomoção e escoamento da produção agrícola, além da interrupção de fornecimento de água por rompimento das adutoras. Além disso, é importante destacar que há relatos de aumento repentino do nível do rio Uraim sem a ocorrência de chuvas na região, o que torna necessário monitoramento constante destes padrões de aumento dos níveis do rio para emissão de alertas e melhor controle dos efeitos causados por eventos extremos. Nesse contexto, este projeto propõe identificar as variáveis associadas às enchentes na região de Paragominas e estabelecer um sistema de alerta em duas fases: na primeira, utilizar dados públicos de previsão de precipitação para realizar predições com prazos maiores para mobilização dos órgãos competentes; na segunda, utilizar sensores para avaliar a mudança no nível dos rios, precipitação e outros parâmetros monitoráveis para que em tempo real, a partir de um ambiente computacional determine-se a probabilidade de um evento extremo ocorrer.</p><h2>Informações do projeto</h2><ul><li>Período: 2024 — Atual</li><li>Situação: Em andamento</li><li>Natureza: Pesquisa</li></ul><h2>Participação discente</h2><p>Graduação: (0) / Especialização: (0) / Mestrado acadêmico: (4) / Mestrado profissional: (0) / Doutorado: (8).</p><h2>Financiamento</h2><p>Universidade Federal Rural da Amazônia (UFRA) — Auxílio financeiro.</p>",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "coordinator": "Marcus de Barros Braga",
+      "team": [
+        {
+          "researcher": "Rommel Thiago Juca Ramos",
+          "external_name": ""
+        },
+        {
+          "researcher": "Allan Douglas Bento da Costa",
+          "external_name": ""
+        },
+        {
+          "researcher": "Jailton Wagner Rodrigues Tavares",
+          "external_name": ""
+        },
+        {
+          "researcher": "Fabricio Almeida Araujo",
+          "external_name": ""
+        },
+        {
+          "researcher": "Gilberto Nerino de Souza Junior",
+          "external_name": ""
+        },
+        {
+          "researcher": null,
+          "external_name": "Gustavo Antonio Ruffeil Alves"
+        },
+        {
+          "researcher": null,
+          "external_name": "Isadora Mendes dos Santos"
+        },
+        {
+          "researcher": null,
+          "external_name": "Carlos Jean Ferreira de Quadros"
+        },
+        {
+          "researcher": null,
+          "external_name": "Diego Cardoso Estumano"
+        },
+        {
+          "researcher": null,
+          "external_name": "Juliana Minuzzi Niederauer"
+        },
+        {
+          "researcher": null,
+          "external_name": "Jhenifer Rayane Ramos Farias"
+        }
+      ],
+      "cover": null
+    },
+    {
+      "status": "published",
+      "situation": "ongoing",
+      "start_year": 2024,
+      "end_year": null,
+      "is_featured": true,
+      "display_order": 1,
+      "published_at": "2026-10-16T18:10:23.020606+00:00",
+      "cover_credit": "",
+      "funding": "",
+      "partners": "",
+      "website_url": "",
+      "repository_url": "",
+      "translations": [
+        {
+          "language": "en",
+          "title": "Study of emerging deep learning methods and techniques (PVPG851-2024)",
+          "slug": "study-of-emerging-deep-learning-methods-and-techniques-pvpg851-2024",
+          "summary": "Study of emerging deep learning methods and techniques, focusing on Transformer architectures, large language models, and GPU-accelerated processing for applications involving text, images, audio, and video.",
+          "body_html": "<p>AI systems with human-like reasoning capabilities have existed since the 1950s, but they only achieved widespread adoption with the advent of large language models (LLMs). According to the Forbes article cited in the project description, “Transformers Revolutionized AI. What Will Replace Them?”, an important advance occurred in 2017 when the Google Brain team introduced the Transformer algorithm architecture. This deep learning model replaced traditional recurrent and convolutional structures with an architecture particularly effective at understanding and contextualizing language and generating text, images, audio, and computer code.LLMs based on Transformer architectures have enabled new areas of AI capability. A well-known example is OpenAI's ChatGPT, described in the source as “Chatbot Generative Pretrained Transformer.” The CNN article cited in the project description, “Microsoft confirms it is investing billions in the creator of ChatGPT,” illustrates support for developing increasingly large LLMs, some of which may incorporate hundreds of billions of parameters to generate coherent and contextually relevant responses.Another important factor in the evolution of AI is the emergence of accelerated hardware systems known as graphics processing units (GPUs). While central processing units (CPUs) are designed for general-purpose computing, GPUs were initially developed for graphics rendering and have proved well suited to machine learning because of their architecture. GPUs have many cores capable of processing multiple tasks simultaneously.Transformers use GPUs to process multiple information pathways in parallel, accelerating the training of AI models that handle text, images, audio, and video. This parallel processing capability is crucial for computationally intensive machine learning calculations, such as matrix operations. GPUs can perform these calculations much faster than CPUs, reducing training and inference times and improving the overall performance of machine learning algorithms.</p><h2>Project information</h2><ul><li>Period: 2024 — Present</li><li>Status: Ongoing</li><li>Nature: Research</li></ul><h2>Student participation</h2><p>Undergraduate: (4) / Academic master’s: (1).</p>",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "title": "Estudo de Métodos e Técnicas Emergentes de Aprendizado Profundo (PVPG851-2024)",
+          "slug": "estudo-de-metodos-e-tecnicas-emergentes-de-aprendizado-profundo-pvpg851-2024",
+          "summary": "Estudo de métodos e técnicas emergentes de aprendizado profundo, com foco em arquiteturas Transformer, grandes modelos de linguagem e processamento acelerado por GPUs para aplicações em texto, imagens, áudio e vídeo.",
+          "body_html": "<p>Sistemas de IA com capacidades de raciocínio semelhantes aos humanos existem desde a década de 1950, mas somente com o advento dos LLMs eles ganharam ampla adoção. De acordo com um artigo recente da Forbes chamado Transformers Revolucionaram a IA. O que irá substituí-los? um avanço importante ocorreu em 2017, quando a equipe do Google Brain apresentou a arquitetura do algoritmo transformador (Transformer), um modelo de aprendizagem profunda que substituiu as tradicionais estruturas recorrentes e convolucionais por um novo tipo de arquitetura que é particularmente eficaz na compreensão e contextualização da linguagem, bem como na geração de texto, imagens, áudio e código de computador.LLMs baseadas na arquitetura do transformador permitiram novos domínios das capacidades de IA. Talvez o exemplo mais conhecido seja o ChatGPT da OpenAI, que significa Chatbot Generative Pretrained Transformer. Um artigo da CNN, Microsoft confirma que está investindo bilhões no criador do ChatGPT, mostra apoio ao desenvolvimento de LLMs cada vez maiores, algumas das quais podem incorporar centenas de bilhões de parâmetros para gerar respostas coerentes e contextualmente relevantes.Outro fator importante na evolução da IA é o advento de sistemas de hardware acelerados conhecidos como unidades de processamento gráfico (Graphic Processing Unit, GPU). Embora as unidades centrais de processamento (CPUs) sejam projetadas para tarefas de computação de uso geral, GPUs, inicialmente desenvolvidas para renderização gráfica, são processadores especializados que provaram ser adequadas para tarefas de ML devido à sua arquitetura exclusiva. As GPUs possuem um grande número de núcleos que podem processar várias tarefas simultaneamente. Os transformadores usam GPUs para processar vários caminhos em paralelo de informações, levando a um treinamento mais rápido de modelos de IA que lidam efetivamente não apenas com texto, mas também com imagens, áudio e conteúdo de vídeo. Esta capacidade de processamento paralelo é crucial para cálculos computacionalmente intensivos envolvidos em ML, como operações matriciais. GPUs podem realizar esses cálculos muito mais rápido que CPUs, acelerando os tempos de treinamento e inferência e melhorando o desempenho geral dos algoritmos de ML.</p><h2>Informações do projeto</h2><ul><li>Período: 2024 — Atual</li><li>Situação: Em andamento</li><li>Natureza: Pesquisa</li></ul><h2>Participação discente</h2><p>Graduação: (4) / Mestrado acadêmico: (1).</p>",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "coordinator": "Marcus de Barros Braga",
+      "team": [
+        {
+          "researcher": "Daniel Leal Souza",
+          "external_name": ""
+        },
+        {
+          "researcher": "Fabricio Almeida Araujo",
+          "external_name": ""
+        },
+        {
+          "researcher": "Gilberto Nerino de Souza Junior",
+          "external_name": ""
+        },
+        {
+          "researcher": null,
+          "external_name": "Fábio de Lima Bezerra"
+        },
+        {
+          "researcher": null,
+          "external_name": "Carlos Jean Ferreira de Quadros"
+        }
+      ],
+      "cover": null
+    },
+    {
+      "status": "published",
+      "situation": "ongoing",
+      "start_year": 2025,
+      "end_year": null,
+      "is_featured": true,
+      "display_order": 2,
+      "published_at": "2026-10-16T18:10:11.277642+00:00",
+      "cover_credit": "",
+      "funding": "Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq) — Auxílio financeiro.",
+      "partners": "",
+      "website_url": "",
+      "repository_url": "",
+      "translations": [
+        {
+          "language": "en",
+          "title": "Bioprospecting microorganisms to characterize their biotechnological potential in impacted environments and implications for sustainability in the Caeté River estuary, Bragança, Pará",
+          "slug": "bioprospecting-microorganisms-to-characterize-their-biotechnological-potential-in-impacted-environments-and-implications-for-sustainability-in-the-caete-river-estuary-braganca-para",
+          "summary": "Monitoring microbial diversity and biotechnological potential in the Caeté River estuary through DNA sequencing, physicochemical analyses, georeferencing, and computer vision to assess human impacts and support sustainability.",
+          "body_html": "<p>Northern Brazil has low levels of basic sanitation and limited public policies supporting water quality. Its water bodies therefore continually experience the effects of urban pollution and economic activities such as mining, agriculture, and livestock farming, whose waste ultimately reaches rivers. Rivers nevertheless provide livelihoods for riverside and traditional populations and serve as recreational areas, exposing these communities to unsuitable water and potential public health problems.Microbial communities in these impacted environments may also contain biotechnological mechanisms that enable microorganisms to survive stressful conditions. Estuarine areas around Bragança, Pará, are affected by inadequate sanitation, while fishing and crustacean harvesting are part of everyday life. Human impacts on these habitats may compromise community livelihoods. The biotechnological potential of local microorganisms and their adaptability to environmental impacts remain poorly explored.This project aims to monitor the estuarine region of Bragança through georeferencing, DNA sequencing of water and sediment samples to assess diversity, physicochemical analyses, and evaluation of the biotechnological potential of microorganisms and possible relationships with human impacts associated with waste pollution. These data will be evaluated using computer vision alongside images of sampling areas to assess the effects of human activity in an Amazonian mangrove region. The goal is to identify and monitor factors contributing to these effects and support government decision-making. CNPq/MMA/CONFAP/FAPs Call No. 15/2025 — SinBiose.</p><h2>Project information</h2><ul><li>Period: 2025 — Present</li><li>Status: Ongoing</li><li>Nature: Research</li></ul><h2>Student participation</h2><p>Undergraduate: (0) / Specialization: (0) / Academic master’s: (0) / Professional master’s: (0) / Doctoral: (11).</p><h2>Funding</h2><p>National Council for Scientific and Technological Development (CNPq) — Financial support.</p>",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "title": "Bioprospecção dos microrganismos para a caracterização do potencial biotecnológico em ambientes impactados e seu reflexo na sustentabilidade no Estuário do Rio Caeté em Bragança-PA",
+          "slug": "bioprospeccao-dos-microrganismos-para-a-caracterizacao-do-potencial-biotecnologico-em-ambientes-impactados-e-seu-reflexo-na-sustentabilidade-no-estuario-do-rio-caete-em-braganca-pa",
+          "summary": "Monitoramento da diversidade microbiana e do potencial biotecnológico no estuário do Rio Caeté, integrando sequenciamento de DNA, análises físico-químicas, georreferenciamento e visão computacional para avaliar impactos ambientais e apoiar a sustentabilidade.",
+          "body_html": "<p>A região norte possui baixos índices de saneamento básico e políticas públicas em prol da qualidade das águas, assim, seus corpos hídricos sofrem constantemente dos efeitos da poluição urbana e das atividades econômicas, como exploração mineral, agricultura e pecuária que geram resíduos que têm como destino os rios. Contudo, os rios são fonte de subsistência para as populações ribeirinhas e tradicionais e também são os locais para as atividades recreativas, deixando estas comunidades sujeitas a contato com águas impróprias para uso, que podem gerar problemas de saúde pública. Além disto, estes ambientes impactados podem conter em suas comunidades microbianas mecanismos biotecnológicos capazes de garantir a sobrevivência destes microrganismos em condições de estresse. As áreas estuarinas da região de Bragança-PA são impactadas pela falta de saneamento básico, e atividades com a pesca e coleta de crustáceos estão presentes no cotidiano da população, assim o impacto antropogênico nestes habitats pode comprometer a subsistência das comunidades, além disto o potencial biotecnológico dos microrganismos desta região e sua adaptabilidade aos impactos ambientais é pouco explorado. Assim, este projeto tem por objetivo o monitoramento da região estuarina de Bragança-PA, através de georreferenciamento, do sequenciamento de DNA de amostras de água e sedimento para avaliação da diversidade, de análises físico-químicas, e da avaliação do potencial biotecnológico dos microrganismos e possíveis relações com impactos antropogênicos relacionados a poluição com lixo. Esses dados serão avaliados por meio de técnicas de visão computacional em conjunto com análises das imagens da região da coleta para avaliar reflexos do impacto antropogênico, em uma região de mangue da amazônia, de maneira a buscar formas de monitorar e identificar os fatores que podem estar gerando estes efeitos, a fim de dar suporte à tomada de decisões do Estado. Chamada CNPq/MMA/CONFAP/FAPs N 15/2025 - SinBiose.</p><h2>Informações do projeto</h2><ul><li>Período: 2025 — Atual</li><li>Situação: Em andamento</li><li>Natureza: Pesquisa</li></ul><h2>Participação discente</h2><p>Graduação: (0) / Especialização: (0) / Mestrado acadêmico: (0) / Mestrado profissional: (0) / Doutorado: (11).</p><h2>Financiamento</h2><p>Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq) — Auxílio financeiro.</p>",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "coordinator": "Rommel Thiago Juca Ramos",
+      "team": [
+        {
+          "researcher": "Marcus de Barros Braga",
+          "external_name": ""
+        },
+        {
+          "researcher": null,
+          "external_name": "Vasco Ariston de Carvalho Azevedo"
+        },
+        {
+          "researcher": null,
+          "external_name": "Edian Franklin Franco de Los Santos"
+        },
+        {
+          "researcher": null,
+          "external_name": "Diego Cardoso Estumano"
+        },
+        {
+          "researcher": null,
+          "external_name": "Mateus Matiuzzi da Costa"
+        },
+        {
+          "researcher": null,
+          "external_name": "Paulo Rógenes Monteiro Pontes"
+        },
+        {
+          "researcher": null,
+          "external_name": "Aristoteles Goes-Neto"
+        },
+        {
+          "researcher": null,
+          "external_name": "Alexandre S. Rosado"
+        },
+        {
+          "researcher": null,
+          "external_name": "Carlos Renato Lisboa Frances"
+        },
+        {
+          "researcher": null,
+          "external_name": "Juliana Araripe Gomes da Silva"
+        }
+      ],
+      "cover": null
+    },
+    {
+      "status": "published",
+      "situation": "ongoing",
+      "start_year": 2025,
+      "end_year": null,
+      "is_featured": true,
+      "display_order": 3,
+      "published_at": "2026-10-16T18:10:15.262451+00:00",
+      "cover_credit": "",
+      "funding": "Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq) — Auxílio financeiro.",
+      "partners": "",
+      "website_url": "",
+      "repository_url": "",
+      "translations": [
+        {
+          "language": "en",
+          "title": "Bioprospecting Amazonian biodiversity in the Tembé community and its biotechnological potential for sustainable development and environmental preservation",
+          "slug": "bioprospecting-amazonian-biodiversity-in-the-tembe-community-and-its-biotechnological-potential-for-sustainable-development-and-environmental-preservation",
+          "summary": "Investigation of microorganisms in river water, sediments, soils, and fish associated with the Tembé Indigenous community, combining traditional knowledge, metagenomics, culturomics, and machine learning to support sustainability and the bioeconomy.",
+          "body_html": "<p>Bacteria, fungi, viruses, and small animals play fundamental roles in maintaining ecosystem balance. These microscopic organisms may also have biotechnological potential for bioremediation, antimicrobial production, and the production of other molecules for diverse applications. They may also indicate environmental impacts that compromise ecosystem health.This proposal takes a transdisciplinary approach to describing microorganism diversity in representative samples from the Amazonian ecosystem, including river water, forest and agricultural soils, and fish consumed by the Tembé Indigenous community. The Uraim River, which flows near the village, is affected by upstream urban areas. The microbiota will therefore be assessed alongside measurements of human impacts through physicochemical and biological analyses of river water and sediment, fish, and soils, as well as georeferencing to document land-use indicators.Traditional knowledge will guide the choice of sampling sites to assess environmental diversity and prospect for microorganisms with biotechnological potential. The approach includes metagenomics, culturomics for viruses, bacteria, and fungi, phenotypic, genotypic, and structural characterization of identified organisms, and integration of results through computational approaches based on machine learning. This comprehensive study will support the identification of solutions encouraging sustainable practices to maintain or restore natural capital, promote the bioeconomy, and identify potential indicators of environmental impacts in the region. CNPq/CONFAP Call No. 34/2023 — Scientific Expeditions — Amazon +10 Initiative.</p><h2>Project information</h2><ul><li>Period: 2025 — Present</li><li>Status: Ongoing</li><li>Nature: Research</li></ul><h2>Student participation</h2><p>Undergraduate: (6) / Specialization: (0) / Academic master’s: (4) / Professional master’s: (0) / Doctoral: (19).</p><h2>Funding</h2><p>National Council for Scientific and Technological Development (CNPq) — Financial support.</p>",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "title": "Bioprospecção da biodiversidade Amazônica na comunidade Tembé e seu potencial biotecnológico no contexto do desenvolvimento sustentável e preservação do meio ambiente",
+          "slug": "bioprospeccao-da-biodiversidade-amazonica-na-comunidade-tembe-e-seu-potencial-biotecnologico-no-contexto-do-desenvolvimento-sustentavel-e-preservacao-do-meio-ambiente",
+          "summary": "Investigação da diversidade de microrganismos em águas, sedimentos, solos e peixes relacionados à comunidade indígena Tembé, combinando conhecimento tradicional, metagenômica, culturômica e aprendizado de máquina para apoiar a sustentabilidade e a bioeconomia.",
+          "body_html": "<p>Bactérias, fungos, vírus e pequenos animais desempenham papeis fundamentais na manutenção do equilíbrio dos ecossistemas. Esses organismos microscópicos podem, ainda, apresentar potencial biotecnológico para aplicações em biorremediação, produção de antimicrobianos e de outras moléculas para aplicação nos mais diversos setores, além de indicar possíveis impactos ambientais que podem comprometer a saúde do sistema. A presente proposta visa descrever, de forma transdisciplinar, a diversidade de microrganismos em amostras representativas do ecossistema amazônico, incluindo águas fluviais, solos de mata e de produção agrícola, e de peixes consumidos pela comunidade indígena Tembé. O rio Uraim, que banha as imediações da aldeia, é impactado pelas regiões urbanizadas à montante e, assim, a avaliação da microbiota será realizada frente à mensuração do impacto antropogênico por meio de diversas análises físico-químicas e biológicas, de amostras de água e sedimento do rio, peixes e solos, além de georreferenciamento para registro dos índices de uso de solos. O conhecimento tradicional será capitalizado para guiar a escolha dos pontos de amostragem, visando avaliar a diversidade de ambientes e prospectar microrganismos com potencial biotecnológico. A abordagem envolverá técnicas como metagenômica, culturômica para vírus, bactérias e fungos, caracterização fenotípica, genotípica e estrutural dos organismos identificados, e integração dos resultados com abordagens computacionais baseadas em aprendizado de máquina. Esse estudo abrangente nos permitirá prospectar e apontar soluções para estimular práticas sustentáveis de manutenção ou recuperação do capital natural, promover a bioeconomia, e identificar potenciais indicadores de impactos ambientais na região. Chamada CNPq/CONFAP n 34/2023 - Expedições Científicas - Iniciativa Amazônia +10.</p><h2>Informações do projeto</h2><ul><li>Período: 2025 — Atual</li><li>Situação: Em andamento</li><li>Natureza: Pesquisa</li></ul><h2>Participação discente</h2><p>Graduação: (6) / Especialização: (0) / Mestrado acadêmico: (4) / Mestrado profissional: (0) / Doutorado: (19).</p><h2>Financiamento</h2><p>Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq) — Auxílio financeiro.</p>",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "coordinator": "Rommel Thiago Juca Ramos",
+      "team": [
+        {
+          "researcher": "Marcus de Barros Braga",
+          "external_name": ""
+        },
+        {
+          "researcher": "Jailton Wagner Rodrigues Tavares",
+          "external_name": ""
+        },
+        {
+          "researcher": "Fabricio Almeida Araujo",
+          "external_name": ""
+        },
+        {
+          "researcher": null,
+          "external_name": "Vasco Ariston de Carvalho Azevedo"
+        },
+        {
+          "researcher": null,
+          "external_name": "Adriana Ribeiro Carneiro"
+        },
+        {
+          "researcher": null,
+          "external_name": "Marilia Danyelle Nunes Rodrigues"
+        },
+        {
+          "researcher": null,
+          "external_name": "Liliane Afonso de Oliveira"
+        },
+        {
+          "researcher": null,
+          "external_name": "Joana Montezano Marques"
+        },
+        {
+          "researcher": null,
+          "external_name": "Ana Roberta Fusco da Costa"
+        },
+        {
+          "researcher": null,
+          "external_name": "Siomar Castro Soares"
+        },
+        {
+          "researcher": null,
+          "external_name": "Mateus Matiuzzi da Costa"
+        },
+        {
+          "researcher": null,
+          "external_name": "Oscar Victor Cardenas Alegria"
+        },
+        {
+          "researcher": null,
+          "external_name": "Paulo Rógenes Monteiro Pontes"
+        },
+        {
+          "researcher": null,
+          "external_name": "Rosane Barbosa Lopes Cavalcante"
+        },
+        {
+          "researcher": null,
+          "external_name": "Renata Cristina Picao"
+        },
+        {
+          "researcher": null,
+          "external_name": "André Luis Souza dos Santos"
+        },
+        {
+          "researcher": null,
+          "external_name": "Eloiza Helena Campana"
+        },
+        {
+          "researcher": null,
+          "external_name": "Gabriela Bergiante Kraychete"
+        },
+        {
+          "researcher": null,
+          "external_name": "Gilmar Perbiche Neves"
+        },
+        {
+          "researcher": null,
+          "external_name": "Juliana Reis Cortines"
+        },
+        {
+          "researcher": null,
+          "external_name": "Raquel Regina Bonelli"
+        },
+        {
+          "researcher": null,
+          "external_name": "René Jean Marie Poccard Chapuis"
+        },
+        {
+          "researcher": null,
+          "external_name": "Ricardo Jorge Amorim de Deus"
+        },
+        {
+          "researcher": null,
+          "external_name": "Ana Judith Pires Garcia Quaresma"
+        },
+        {
+          "researcher": null,
+          "external_name": "Dennys Monteiro Girao"
+        },
+        {
+          "researcher": null,
+          "external_name": "Larissa Alvarenga Batista Botelho"
+        },
+        {
+          "researcher": null,
+          "external_name": "Nayara Andreo"
+        },
+        {
+          "researcher": null,
+          "external_name": "Wellington Felipe da Costa"
+        }
+      ],
+      "cover": null
+    }
+  ]
+}

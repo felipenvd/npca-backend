@@ -61,7 +61,7 @@ def test_translation_generates_stable_slug_sanitizes_html_and_enforces_uniquenes
 
 
 @pytest.mark.django_db
-def test_publication_requires_schedule_modality_urls_and_translations() -> None:
+def test_publication_requires_schedule_modality_and_translations() -> None:
     event = Event.objects.create()
     with pytest.raises(ValidationError) as error:
         event.validate_for_publication()
@@ -80,6 +80,28 @@ def test_publication_requires_schedule_modality_urls_and_translations() -> None:
     event.save()
     complete_translations(event)
     event.validate_for_publication()
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("modality", [Event.Modality.ONLINE, Event.Modality.HYBRID])
+def test_online_and_hybrid_events_can_be_published_without_access_url(modality) -> None:
+    event = Event(
+        status=Event.Status.PUBLISHED,
+        event_type=Event.EventType.COURSE,
+        modality=modality,
+        start_date=date(2025, 4, 12),
+        end_date=date(2025, 7, 5),
+        start_time=time(15),
+        end_time=time(18),
+        online_url="",
+    )
+    event.full_clean()
+    event.save()
+    complete_translations(event, with_location=modality == Event.Modality.HYBRID)
+    event.validate_for_publication()
+    event.refresh_from_db()
+    assert event.online_url == ""
+    assert event.published_at is not None
 
 
 @pytest.mark.django_db
@@ -195,12 +217,57 @@ def test_completed_all_day_requires_day_to_end_and_does_not_mark_other_events() 
 
 
 @pytest.mark.django_db
-def test_completed_draft_requires_complete_schedule() -> None:
+def test_completed_draft_requires_dates_but_not_times() -> None:
     event = Event(schedule_status=Event.ScheduleStatus.COMPLETED)
 
     with pytest.raises(ValidationError, match="Informe as datas"):
         event.full_clean()
 
     event.start_date = event.end_date = timezone.localdate() - timedelta(days=1)
-    with pytest.raises(ValidationError, match="Informe as datas"):
+    event.full_clean()
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    ("start_time", "end_time", "states"),
+    [
+        (None, None, ["ongoing", "ongoing", "ongoing", "ongoing", "ongoing"]),
+        (time(9), None, ["upcoming", "ongoing", "ongoing", "ongoing", "ongoing"]),
+        (None, time(11), ["ongoing", "ongoing", "ongoing", "past", "past"]),
+        (time(9), time(11), ["upcoming", "ongoing", "ongoing", "past", "past"]),
+    ],
+)
+def test_optional_times_define_independent_temporal_boundaries_and_completion(
+    start_time, end_time, states
+):
+    event = Event.objects.create(
+        status=Event.Status.PUBLISHED,
+        event_type=Event.EventType.CONFERENCE,
+        modality=Event.Modality.IN_PERSON,
+        start_date=date(2025, 7, 20),
+        end_date=date(2025, 7, 20),
+        start_time=start_time,
+        end_time=end_time,
+    )
+    complete_translations(event)
+    event.full_clean()
+    event.validate_for_publication()
+    event.schedule_status = Event.ScheduleStatus.COMPLETED
+    belem = ZoneInfo("America/Belem")
+    for hour, expected in zip([8, 9, 10, 11, 23], states, strict=True):
+        reference = datetime(2025, 7, 20, hour, tzinfo=belem)
+        with patch("apps.events.models.timezone.now", return_value=reference):
+            assert event.temporal_state() == expected
+            if expected == "past":
+                event.full_clean()
+                event.validate_for_publication()
+            else:
+                with pytest.raises(ValidationError, match="após o término"):
+                    event.full_clean()
+                with pytest.raises(ValidationError, match="após o término"):
+                    event.validate_for_publication()
+    assert event.temporal_state(datetime(2025, 7, 19, 23, 59, tzinfo=belem)) == "upcoming"
+    with patch("apps.events.models.timezone.now", return_value=datetime(2025, 7, 21, tzinfo=belem)):
+        assert event.temporal_state() == "past"
         event.full_clean()
+        event.validate_for_publication()

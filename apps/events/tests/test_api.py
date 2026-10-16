@@ -1,5 +1,7 @@
-from datetime import timedelta
+from datetime import datetime, time, timedelta
 from io import BytesIO
+from unittest.mock import patch
+from zoneinfo import ZoneInfo
 
 import pytest
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -152,11 +154,32 @@ def test_detail_returns_schedule_location_registration_cover_and_translations(
         "url": f"/media/{event.cover.name}",
         "alt": "Pessoas em um auditório",
         "credit": "NPCA",
+        "position_x": 50,
+        "position_y": 50,
+        "zoom": 100,
     }
     assert body["translations"] == [
         {"lang": "en", "slug": "seminario-en"},
         {"lang": "pt-br", "slug": "seminario"},
     ]
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("modality", [Event.Modality.ONLINE, Event.Modality.HYBRID])
+def test_published_event_without_online_url_returns_null_in_both_languages(client, modality):
+    event = create_event(title="Sem link público", day_offset=-1)
+    event.modality = modality
+    event.online_url = ""
+    event.save()
+
+    for language in ("pt-br", "en"):
+        slug = event.translations.get(language=language).slug
+        listing = client.get("/api/v1/events", {"lang": language, "period": "past"})
+        detail = client.get(f"/api/v1/events/{slug}", {"lang": language})
+        assert listing.status_code == detail.status_code == 200
+        assert listing.json()["total"] == 1
+        assert listing.json()["items"][0]["location"]["online_url"] is None
+        assert detail.json()["location"]["online_url"] is None
 
 
 @pytest.mark.django_db
@@ -174,6 +197,45 @@ def test_detail_hides_draft_and_wrong_language_slug(client) -> None:
     assert wrong_language.status_code == 404
     assert hidden.status_code == 404
     assert hidden["Content-Type"] == "application/problem+json"
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("start_time", [None, time(9)])
+@pytest.mark.parametrize("end_time", [None, time(11)])
+@pytest.mark.parametrize("hour", [8, 9, 11, 23])
+def test_filters_and_details_agree_with_optional_time_boundaries(
+    client, start_time, end_time, hour
+):
+    event = create_event(title="Horários opcionais", day_offset=0)
+    event.is_all_day = False
+    event.start_time = start_time
+    event.end_time = end_time
+    event.full_clean()
+    event.save()
+    reference = datetime.combine(event.start_date, time(hour), tzinfo=ZoneInfo("America/Belem"))
+    expected = (
+        "past"
+        if end_time and hour >= end_time.hour
+        else "upcoming"
+        if start_time and hour < start_time.hour
+        else "ongoing"
+    )
+    with patch("apps.events.api.timezone.now", return_value=reference):
+        for language in ("pt-br", "en"):
+            slug = event.translations.get(language=language).slug
+            for period in ("upcoming", "past", "all"):
+                response = client.get("/api/v1/events", {"lang": language, "period": period})
+                assert response.status_code == 200
+                included = period == "all" or (period == "past") == (expected == "past")
+                assert response.json()["total"] == int(included)
+                if included:
+                    assert response.json()["items"][0]["temporal_state"] == expected
+            detail = client.get(f"/api/v1/events/{slug}", {"lang": language})
+            assert detail.status_code == 200
+            assert detail.json()["temporal_state"] == expected
+            assert detail.json()["is_all_day"] is False
+            assert detail.json()["start_time"] == (start_time.isoformat() if start_time else None)
+            assert detail.json()["end_time"] == (end_time.isoformat() if end_time else None)
 
 
 @pytest.mark.django_db

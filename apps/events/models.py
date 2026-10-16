@@ -6,6 +6,7 @@ from uuid import uuid4
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
@@ -91,6 +92,17 @@ class Event(models.Model):
         blank=True,
     )
     cover_credit = models.CharField("crédito da imagem", max_length=200, blank=True)
+    cover_position_x = models.PositiveSmallIntegerField(
+        "posição horizontal", default=50, validators=[MaxValueValidator(100)]
+    )
+    cover_position_y = models.PositiveSmallIntegerField(
+        "posição vertical", default=50, validators=[MaxValueValidator(100)]
+    )
+    cover_zoom = models.PositiveSmallIntegerField(
+        "zoom da imagem",
+        default=100,
+        validators=[MinValueValidator(100), MaxValueValidator(300)],
+    )
     online_url = models.URLField("URL de acesso online", max_length=500, blank=True)
     registration_url = models.URLField("URL externa de inscrição", max_length=500, blank=True)
     display_order = models.PositiveIntegerField("ordem de exibição", default=0)
@@ -124,6 +136,14 @@ class Event(models.Model):
         ordering = ("start_date", "start_time", "display_order", "pk")
         constraints = [
             models.CheckConstraint(
+                condition=models.Q(cover_zoom__gte=100, cover_zoom__lte=300),
+                name="event_cover_zoom_within_bounds",
+            ),
+            models.CheckConstraint(
+                condition=models.Q(cover_position_x__lte=100, cover_position_y__lte=100),
+                name="event_cover_position_within_bounds",
+            ),
+            models.CheckConstraint(
                 condition=models.Q(end_date__isnull=True)
                 | models.Q(start_date__isnull=True)
                 | models.Q(end_date__gte=models.F("start_date")),
@@ -143,14 +163,6 @@ class Event(models.Model):
                     & ~models.Q(modality="")
                 ),
                 name="published_event_has_core_schedule",
-            ),
-            models.CheckConstraint(
-                condition=~models.Q(
-                    status="published",
-                    modality__in=("online", "hybrid"),
-                )
-                | ~models.Q(online_url=""),
-                name="published_online_event_has_url",
             ),
         ]
 
@@ -196,16 +208,6 @@ class Event(models.Model):
                 errors["start_date"] = "Informe a data de início antes de publicar."
             if self.end_date is None:
                 errors["end_date"] = "Informe a data de término antes de publicar."
-            if not self.is_all_day:
-                if self.start_time is None:
-                    errors["start_time"] = "Informe a hora de início antes de publicar."
-                if self.end_time is None:
-                    errors["end_time"] = "Informe a hora de término antes de publicar."
-            if (
-                self.modality in {self.Modality.ONLINE, self.Modality.HYBRID}
-                and not (self.online_url or "").strip()
-            ):
-                errors["online_url"] = "Informe a URL de acesso para esta modalidade."
         if errors:
             raise ValidationError(errors)
 
@@ -222,13 +224,6 @@ class Event(models.Model):
             errors.append("Informe a modalidade antes de publicar.")
         if self.start_date is None or self.end_date is None:
             errors.append("Informe as datas de início e término antes de publicar.")
-        if not self.is_all_day and (self.start_time is None or self.end_time is None):
-            errors.append("Informe os horários de início e término antes de publicar.")
-        if (
-            self.modality in {self.Modality.ONLINE, self.Modality.HYBRID}
-            and not (self.online_url or "").strip()
-        ):
-            errors.append("Informe a URL de acesso para esta modalidade.")
         if errors:
             raise ValidationError(errors)
 
@@ -238,7 +233,7 @@ class Event(models.Model):
         try:
             temporal_state = self.temporal_state()
         except ValueError:
-            return "Informe as datas e os horários aplicáveis antes de marcar como realizado."
+            return "Informe as datas de início e término antes de marcar como realizado."
         if temporal_state != self.TemporalState.PAST:
             return "O evento só pode ser marcado como realizado após o término informado."
         return None
@@ -247,28 +242,22 @@ class Event(models.Model):
         if self.start_date is None or self.end_date is None:
             raise ValueError("Evento sem datas completas.")
         local_reference = timezone.localtime(reference or timezone.now())
-        if self.is_all_day:
-            if local_reference.date() < self.start_date:
-                return self.TemporalState.UPCOMING
-            if local_reference.date() > self.end_date:
-                return self.TemporalState.PAST
-            return self.TemporalState.ONGOING
-
-        if self.start_time is None or self.end_time is None:
-            raise ValueError("Evento com horário incompleto.")
-        current_timezone = timezone.get_current_timezone()
-        starts_at = timezone.make_aware(
-            datetime.combine(self.start_date, self.start_time),
-            current_timezone,
-        )
-        ends_at = timezone.make_aware(
-            datetime.combine(self.end_date, self.end_time),
-            current_timezone,
-        )
-        if local_reference < starts_at:
-            return self.TemporalState.UPCOMING
-        if local_reference >= ends_at:
+        today = local_reference.date()
+        current_time = local_reference.time().replace(tzinfo=None)
+        if today > self.end_date or (
+            today == self.end_date
+            and not self.is_all_day
+            and self.end_time is not None
+            and current_time >= self.end_time
+        ):
             return self.TemporalState.PAST
+        if today < self.start_date or (
+            today == self.start_date
+            and not self.is_all_day
+            and self.start_time is not None
+            and current_time < self.start_time
+        ):
+            return self.TemporalState.UPCOMING
         return self.TemporalState.ONGOING
 
 

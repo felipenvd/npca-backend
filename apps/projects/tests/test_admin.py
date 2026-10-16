@@ -1,5 +1,3 @@
-from datetime import date
-
 import pytest
 from django.urls import reverse
 from django.utils.html import strip_tags
@@ -14,8 +12,8 @@ def project_data(*, published: bool, complete_english: bool = False) -> dict[str
         "status": Project.Status.PUBLISHED if published else Project.Status.DRAFT,
         "situation": Project.Situation.ONGOING,
         "coordinator": "",
-        "start_date": "",
-        "end_date": "",
+        "start_year": "",
+        "end_year": "",
         "cover_credit": "",
         "funding": "",
         "partners": "",
@@ -45,6 +43,7 @@ def project_data(*, published: bool, complete_english: bool = False) -> dict[str
         "team_memberships-MIN_NUM_FORMS": "0",
         "team_memberships-MAX_NUM_FORMS": "1000",
         "team_memberships-0-researcher": "",
+        "team_memberships-0-external_name": "",
         "_save": "Salvar",
     }
 
@@ -65,15 +64,97 @@ def test_admin_add_page_exposes_editorial_fields_and_two_languages(client) -> No
     assert "Resumo *" in strip_tags(content)
     assert "Descrição *" in strip_tags(content)
     assert "Coordenador *" in strip_tags(content)
-    assert "Data de início *" in strip_tags(content)
-    assert content.count("npca-enhanced-date-field") == 2
-    assert "core/admin/date_time_picker.js" in content
-    assert "core/admin/date_time_picker.css" in content
-    assert "dd/mm/aaaa" in content
+    assert "Ano de início *" in strip_tags(content)
+    assert "Ano de término" in strip_tags(content)
+    assert 'name="start_year"' in content
+    assert 'name="end_year"' in content
+    assert 'name="start_date"' not in content
+    assert 'name="end_date"' not in content
+    assert "npca-enhanced-date-field" not in content
     assert "Gerado automaticamente a partir do título" in content
     assert "Texto alternativo" not in content
     assert "Site do projeto" in content
     assert "Repositório" in content
+    assert "Pesquisador cadastrado" in content
+    assert "Nome do integrante externo" in content
+
+
+@pytest.mark.django_db
+def test_admin_saves_mixed_team_and_can_change_a_member_to_external(admin_client):
+    from apps.core.tests.test_bilingual_admin import FormValues
+
+    researcher = Researcher.objects.create(
+        full_name="Integrante NPCA", academic_category=Researcher.AcademicCategory.DOCTOR
+    )
+    data = project_data(published=False)
+    data.update(
+        {
+            "team_memberships-TOTAL_FORMS": "3",
+            "team_memberships-0-researcher": str(researcher.pk),
+            "team_memberships-1-researcher": "",
+            "team_memberships-1-external_name": "Colaboradora externa",
+            "team_memberships-2-researcher": "",
+            "team_memberships-2-external_name": "",
+        }
+    )
+
+    response = admin_client.post(reverse("admin:projects_project_add"), data)
+
+    assert response.status_code == 302
+    project = Project.objects.get()
+    assert project.team_memberships.count() == 2
+    assert project.team_memberships.get(researcher=None).external_name == "Colaboradora externa"
+    url = reverse("admin:projects_project_change", args=[project.pk])
+    page = admin_client.get(url)
+    values = FormValues(page.content.decode(), "project_form").values
+    values.update(
+        {
+            "team_memberships-0-researcher": "",
+            "team_memberships-0-external_name": "Outro colaborador externo",
+            "_save": "Salvar",
+        }
+    )
+
+    updated = admin_client.post(url, values)
+
+    assert updated.status_code == 302
+    assert not project.team.exists()
+    assert project.team_memberships.count() == 2
+    assert Researcher.objects.count() == 1
+
+
+@pytest.mark.django_db
+def test_admin_rejects_both_member_identities(admin_client):
+    researcher = Researcher.objects.create(
+        full_name="Integrante NPCA", academic_category=Researcher.AcademicCategory.DOCTOR
+    )
+    data = project_data(published=False)
+    data["team_memberships-0-researcher"] = str(researcher.pk)
+    data["team_memberships-0-external_name"] = "Colaborador externo"
+
+    response = admin_client.post(reverse("admin:projects_project_add"), data)
+
+    assert response.status_code == 200
+    assert "nunca ambos" in response.content.decode()
+    assert not Project.objects.exists()
+
+
+@pytest.mark.django_db
+def test_admin_rejects_duplicate_external_members(admin_client):
+    data = project_data(published=False)
+    data.update(
+        {
+            "team_memberships-TOTAL_FORMS": "2",
+            "team_memberships-0-external_name": "Colaboradora externa",
+            "team_memberships-1-external_name": "colaboradora externa",
+        }
+    )
+
+    response = admin_client.post(reverse("admin:projects_project_add"), data)
+
+    assert response.status_code == 200
+    assert "Cada integrante externo deve aparecer apenas uma vez" in response.content.decode()
+    assert not Project.objects.exists()
 
 
 @pytest.mark.django_db
@@ -111,7 +192,7 @@ def test_admin_blocks_incomplete_publication_and_accepts_complete_project(client
     data.update(
         {
             "coordinator": str(coordinator.pk),
-            "start_date": "01/01/2026",
+            "start_year": "2026",
             "translations-1-title": "Amazon Project",
             "translations-1-summary": "Summary",
             "translations-1-body_html": "<p>Description</p>",
@@ -122,7 +203,8 @@ def test_admin_blocks_incomplete_publication_and_accepts_complete_project(client
     assert valid_response.status_code == 302
     project = Project.objects.get()
     assert project.status == Project.Status.PUBLISHED
-    assert project.start_date == date(2026, 1, 1)
+    assert project.start_year == 2026
+    assert project.end_year is None
     assert project.published_at is not None
 
 
@@ -143,3 +225,14 @@ def test_admin_blocks_coordinator_in_team(client) -> None:
     assert response.status_code == 200
     assert not Project.objects.exists()
     assert "não pode aparecer também na equipe" in response.content.decode()
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("start_year", ["999", "10000", "2025-01-01", "2025.5"])
+def test_admin_rejects_invalid_years(admin_client, start_year):
+    data = project_data(published=False)
+    data["start_year"] = start_year
+    response = admin_client.post(reverse("admin:projects_project_add"), data)
+    assert response.status_code == 200
+    assert "start_year" in response.context["adminform"].form.errors
+    assert not Project.objects.exists()

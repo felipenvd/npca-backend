@@ -1,0 +1,188 @@
+{
+  "events": [
+    {
+      "status": "published",
+      "schedule_status": "completed",
+      "event_type": "course",
+      "modality": "online",
+      "start_date": "2025-04-12",
+      "end_date": "2025-07-05",
+      "is_all_day": false,
+      "start_time": "15:00:00",
+      "end_time": "18:00:00",
+      "online_url": "",
+      "registration_url": "",
+      "display_order": 3,
+      "published_at": "2026-10-16T18:41:03.582818+00:00",
+      "cover_credit": "Fonte: NPCA/UFRA (@npca.ufra), Instagram",
+      "cover_position_x": 50,
+      "cover_position_y": 0,
+      "cover_zoom": 105,
+      "translations": [
+        {
+          "language": "en",
+          "title": "Computer Vision: Concepts, Techniques and Applications",
+          "slug": "computer-vision-concepts-techniques-and-applications",
+          "summary": "A 65-hour online extension course coordinated by Marcus Braga, covering computer vision, deep learning and practical applications.",
+          "body_html": "<p>UFRA extension course coordinated by Marcus de Barros Braga, scheduled for 12 April–5 July 2025. The 65-hour online programme covers images and videos, deep learning, generative models, ethics and practical applications.The timetable lists Saturday sessions from 3 to 6 pm. The official course record is available in SIGAA.</p><h2>Sources</h2><p><a href=\"https://sigaa.ufra.edu.br/sigaa/link/public/extensao/visualizacaoAcaoExtensao/4074\" rel=\"noopener noreferrer\">Official SIGAA/UFRA course record</a><a href=\"https://www.instagram.com/npca.ufra/p/DGvol66uB8_/\" rel=\"noopener noreferrer\">Original image on Instagram</a></p>",
+          "location_name": "UFRA virtual learning environment",
+          "location_address": "",
+          "cover_alt_text": "",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "title": "Visão Computacional: Conceitos, Técnicas e Aplicações",
+          "slug": "visao-computacional-conceitos-tecnicas-e-aplicacoes",
+          "summary": "Curso de extensão remoto de 65 horas, coordenado por Marcus Braga, com conteúdos de visão computacional, aprendizado profundo e aplicações práticas.",
+          "body_html": "<p>Curso de extensão da UFRA, coordenado por Marcus de Barros Braga e previsto de 12 de abril a 5 de julho de 2025. A formação remota tem 65 horas e aborda imagens e vídeos, aprendizado profundo, modelos generativos, ética e aplicações práticas.O cronograma prevê encontros aos sábados, das 15h às 18h. O cadastro oficial está disponível no SIGAA.</p><h2>Fontes</h2><p><a href=\"https://sigaa.ufra.edu.br/sigaa/link/public/extensao/visualizacaoAcaoExtensao/4074\" rel=\"noopener noreferrer\">Cadastro oficial no SIGAA/UFRA</a><a href=\"https://www.instagram.com/npca.ufra/p/DGvol66uB8_/\" rel=\"noopener noreferrer\">Imagem original no Instagram</a></p>",
+          "location_name": "Ambiente virtual — UFRA",
+          "location_address": "",
+          "cover_alt_text": "",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "cover": "visao-computacional-conceitos-tecnicas-e-aplicacoes-4.webp"
+    },
+    {
+      "status": "published",
+      "schedule_status": "completed",
+      "event_type": "conference",
+      "modality": "in_person",
+      "start_date": "2025-07-20",
+      "end_date": "2025-07-24",
+      "is_all_day": false,
+      "start_time": null,
+      "end_time": null,
+      "online_url": "",
+      "registration_url": "",
+      "display_order": 2,
+      "published_at": "2026-10-16T18:44:20.239667+00:00",
+      "cover_credit": "Fonte: Marcus Braga (@marcus_b_braga), Instagram",
+      "cover_position_x": 50,
+      "cover_position_y": 22,
+      "cover_zoom": 100,
+      "translations": [
+        {
+          "language": "en",
+          "title": "NPCA presents GOFEAT-AI at ISMB/ECCB 2025",
+          "slug": "npca-presents-gofeat-ai-at-ismbeccb-2025",
+          "summary": "Marcus Braga and Fabrício Araújo presented GOFEAT-AI in Liverpool, a generative artificial intelligence tool for functional annotation analysis.",
+          "body_html": "<p>UFRA researchers Marcus Braga and Fabrício Araújo presented GOFEAT-AI at ISMB/ECCB 2025 in Liverpool. The tool uses generative artificial intelligence to support functional annotation analysis and forms part of NPCA research funded by Fapespa.The dates shown refer to the conference, 20–24 July. The source does not specify the presentation date.</p><h2>Sources</h2><p><a href=\"https://www.fapespa.pa.gov.br/2025/07/28/pesquisadores-apoiados-pela-fapespa-apresentam-trabalhos-na-inglaterra/\" rel=\"noopener noreferrer\">Fapespa news report</a> · <a href=\"https://www.iscb.org/ismbeccb2025/home?tmpl=component\" rel=\"noopener noreferrer\">Official conference website</a><a href=\"https://www.instagram.com/marcus_b_braga/p/DMYwSfttL-f/\" rel=\"noopener noreferrer\">Original image on Instagram</a></p>",
+          "location_name": "ACC Liverpool, Liverpool, United Kingdom",
+          "location_address": "King's Dock, Port of Liverpool, Kings Dock St, Liverpool L3 4FP, United Kingdom",
+          "cover_alt_text": "",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "title": "NPCA apresenta GOFEAT-AI no ISMB/ECCB 2025",
+          "slug": "npca-apresenta-gofeat-ai-no-ismbeccb-2025",
+          "summary": "Marcus Braga e Fabrício Araújo apresentaram o GOFEAT-AI em Liverpool, ferramenta de inteligência artificial generativa para análise de anotação funcional.",
+          "body_html": "<p>Marcus Braga e Fabrício Araújo, da UFRA, apresentaram o GOFEAT-AI no ISMB/ECCB 2025, em Liverpool. A ferramenta usa inteligência artificial generativa para apoiar a análise de resultados de anotação funcional e integra pesquisas do NPCA apoiadas pela Fapespa.O período cadastrado corresponde ao congresso, de 20 a 24 de julho. A fonte não informa o dia específico da apresentação.</p><h2>Fontes</h2><p><a href=\"https://www.fapespa.pa.gov.br/2025/07/28/pesquisadores-apoiados-pela-fapespa-apresentam-trabalhos-na-inglaterra/\" rel=\"noopener noreferrer\">Notícia da Fapespa</a> · <a href=\"https://www.iscb.org/ismbeccb2025/home?tmpl=component\" rel=\"noopener noreferrer\">Site oficial do congresso</a><a href=\"https://www.instagram.com/marcus_b_braga/p/DMYwSfttL-f/\" rel=\"noopener noreferrer\">Imagem original no Instagram</a></p>",
+          "location_name": "ACC Liverpool, Liverpool, Reino Unido",
+          "location_address": "King's Dock, Port of Liverpool, Kings Dock St, Liverpool L3 4FP, Reino Unido",
+          "cover_alt_text": "",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "cover": "npca-apresenta-gofeat-ai-no-ismbeccb-2025-3.webp"
+    },
+    {
+      "status": "published",
+      "schedule_status": "completed",
+      "event_type": "other",
+      "modality": "in_person",
+      "start_date": "2025-11-10",
+      "end_date": "2025-11-13",
+      "is_all_day": false,
+      "start_time": "14:00:00",
+      "end_time": "18:00:00",
+      "online_url": "",
+      "registration_url": "",
+      "display_order": 0,
+      "published_at": "2026-10-16T18:44:42.383950+00:00",
+      "cover_credit": "Fonte: NPCA/UFRA (@npca.ufra), Instagram",
+      "cover_position_x": 52,
+      "cover_position_y": 72,
+      "cover_zoom": 100,
+      "translations": [
+        {
+          "language": "en",
+          "title": "NPCA at the COP30 Tech Zone",
+          "slug": "npca-at-the-cop30-tech-zone",
+          "summary": "LabCompAp/NPCA programme at the COP30 Tech Zone, featuring artificial intelligence projects for agriculture, health and flood monitoring.",
+          "body_html": "<p>LabCompAp/NPCA coordinated project presentations at PCT Guamá. Sessions were announced for 10, 11 and 13 November 2025, from 2 to 6 pm.</p><ul><li>10–11 November: cocoa disease diagnosis (CIDD).</li><li>10 and 13 November: flood monitoring in Paragominas.</li><li>11 November: poultry pododermatitis identification.</li><li>13 November: screening for developmental delays in children (SDIA).</li></ul><h2>Sources</h2><p><a href=\"https://cop30.ufra.edu.br/index.php/component/content/article/ufra-esta-na-tech-zone-da-cop-30?catid=9\" rel=\"noopener noreferrer\">Official UFRA programme</a><a href=\"https://www.instagram.com/npca.ufra/p/DRCxzLRAFhw/\" rel=\"noopener noreferrer\">Original image on Instagram</a></p>",
+          "location_name": "Tech Zone — Guamá Science and Technology Park, Belém, Brazil",
+          "location_address": "Avenida Perimetral da Ciência, km 01, s/n, Guamá, Belém, Pará, Brazil",
+          "cover_alt_text": "",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "title": "NPCA na Tech Zone da COP30",
+          "slug": "npca-na-tech-zone-da-cop30",
+          "summary": "Programação do LabCompAp/NPCA na Tech Zone da COP30, com projetos de inteligência artificial voltados à agricultura, saúde e monitoramento de enchentes.",
+          "body_html": "<p>O LabCompAp/NPCA coordenou a programação de projetos na Tech Zone, no PCT Guamá. As apresentações foram anunciadas para 10, 11 e 13 de novembro de 2025, das 14h às 18h.</p><ul><li>10 e 11/11: diagnóstico de doenças do cacau (CIDD).</li><li>10 e 13/11: monitoramento de enchentes em Paragominas.</li><li>11/11: identificação de pododermatite em frangos.</li><li>13/11: rastreamento de atraso no desenvolvimento infantil (SDIA).</li></ul><h2>Fontes</h2><p><a href=\"https://cop30.ufra.edu.br/index.php/component/content/article/ufra-esta-na-tech-zone-da-cop-30?catid=9\" rel=\"noopener noreferrer\">Programação oficial da UFRA</a><a href=\"https://www.instagram.com/npca.ufra/p/DRCxzLRAFhw/\" rel=\"noopener noreferrer\">Imagem original no Instagram</a></p>",
+          "location_name": "Tech Zone — Parque de Ciência e Tecnologia Guamá, Belém (PA)",
+          "location_address": "Avenida Perimetral da Ciência, km 01, s/n, Guamá, Belém — PA",
+          "cover_alt_text": "",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "cover": "npca-na-tech-zone-da-cop30-1.webp"
+    },
+    {
+      "status": "published",
+      "schedule_status": "completed",
+      "event_type": "lecture",
+      "modality": "in_person",
+      "start_date": "2025-11-13",
+      "end_date": "2025-11-13",
+      "is_all_day": false,
+      "start_time": null,
+      "end_time": null,
+      "online_url": "",
+      "registration_url": "",
+      "display_order": 1,
+      "published_at": "2026-10-16T18:44:48.863736+00:00",
+      "cover_credit": "Fonte: NPCA/UFRA (@npca.ufra), Instagram",
+      "cover_position_x": 39,
+      "cover_position_y": 5,
+      "cover_zoom": 100,
+      "translations": [
+        {
+          "language": "en",
+          "title": "NPCA artificial intelligence and bioinformatics at the COP30 Green Zone",
+          "slug": "npca-artificial-intelligence-and-bioinformatics-at-the-cop30-green-zone",
+          "summary": "Marcus Braga presented NPCA research in artificial intelligence and bioinformatics at the engineering panel in the COP30 Green Zone.",
+          "body_html": "<p>On 13 November 2025, NPCA leader Marcus de Barros Braga presented the group's research at the COP30 Green Zone, at the invitation of Confea/Crea/Mútua.The engineering panel featured work in artificial intelligence and bioinformatics. The researcher's account includes photographs of the activity.</p><h2>Sources</h2><p><a href=\"https://pt.linkedin.com/posts/marcus-de-barros-braga-331500183_ufra-na-cop30-flashes-da-participa%C3%A7%C3%A3o-do-activity-7396164317622034434-m6f9\" rel=\"noopener noreferrer\">Marcus Braga's account and photographs</a><a href=\"https://www.instagram.com/npca.ufra/p/DRH0fkVAJwm/\" rel=\"noopener noreferrer\">Original image on Instagram</a></p>",
+          "location_name": "COP30 Green Zone, Belém, Brazil",
+          "location_address": "",
+          "cover_alt_text": "",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "title": "Inteligência artificial e bioinformática do NPCA na Green Zone da COP30",
+          "slug": "inteligencia-artificial-e-bioinformatica-do-npca-na-green-zone-da-cop30",
+          "summary": "Marcus Braga apresentou pesquisas de inteligência artificial e bioinformática do NPCA no painel das engenharias da Green Zone da COP30.",
+          "body_html": "<p>Em 13 de novembro de 2025, Marcus de Barros Braga, líder do NPCA, apresentou pesquisas do núcleo na Green Zone da COP30, a convite do sistema Confea/Crea/Mútua.A participação ocorreu no painel das engenharias, com trabalhos de inteligência artificial e bioinformática. O relato do pesquisador reúne registros fotográficos da atividade.</p><h2>Fontes</h2><p><a href=\"https://pt.linkedin.com/posts/marcus-de-barros-braga-331500183_ufra-na-cop30-flashes-da-participa%C3%A7%C3%A3o-do-activity-7396164317622034434-m6f9\" rel=\"noopener noreferrer\">Relato e registros de Marcus Braga</a><a href=\"https://www.instagram.com/npca.ufra/p/DRH0fkVAJwm/\" rel=\"noopener noreferrer\">Imagem original no Instagram</a></p>",
+          "location_name": "Green Zone da COP30, Belém (PA)",
+          "location_address": "",
+          "cover_alt_text": "",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "cover": "inteligencia-artificial-e-bioinformatica-do-npca-na-green-zone-da-cop30-2.webp"
+    }
+  ]
+}
