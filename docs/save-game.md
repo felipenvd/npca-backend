@@ -324,8 +324,9 @@ reprodução de vídeo no portal.
 - destaque na home, ordem manual e auditoria;
 - Cursos aparece após Publicações e antes do LabCompAp na barra administrativa;
 - migration `courses.0001_initial` criada e aplicada no PostgreSQL de desenvolvimento;
-- `seed_courses` lê `scripts/seed/courses/data.json`, cria quatro destaques bilíngues
-  como rascunhos e preserva qualquer conteúdo editorial já existente;
+- `seed_courses` lê `scripts/seed/courses/data.json`, restaura os quatro conteúdos
+  reais com traduções, status, ordem e capas WebP, e preserva conteúdo já existente;
+- `export_courses_seed` atualiza o manifesto e as capas com os dados atuais do admin;
 - URLs do YouTube foram normalizadas sem parâmetros de rastreamento;
 - endpoint público somente de listagem:
 

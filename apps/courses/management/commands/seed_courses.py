@@ -2,20 +2,32 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.files import File
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
 from ...models import Course, CourseTranslation, course_publication_errors
+from ...validators import validate_course_cover
 
 SEED_ROOT = settings.BASE_DIR / "scripts" / "seed" / "courses"
 MANIFEST_PATH = SEED_ROOT / "data.json"
 
 ROOT_FIELDS = {"courses"}
-COURSE_FIELDS = {"course_type", "external_url", "is_featured", "translations"}
+MODEL_FIELDS = (
+    "status",
+    "course_type",
+    "external_url",
+    "is_featured",
+    "display_order",
+    "published_at",
+    "cover_credit",
+)
+COURSE_FIELDS = {*MODEL_FIELDS, "cover", "translations"}
 TRANSLATION_FIELDS = {"language", "title", "summary", "cover_alt_text"}
 
 
@@ -23,6 +35,7 @@ TRANSLATION_FIELDS = {"language", "title", "summary", "cover_alt_text"}
 class SeedCourse:
     values: dict[str, Any]
     translations: list[dict[str, str]]
+    cover: Path | None
 
 
 def _require_mapping(value: Any, label: str) -> dict[str, Any]:
@@ -50,7 +63,7 @@ def _validation_error(label: str, error: ValidationError) -> CommandError:
     return CommandError(f"{label}: {'; '.join(error.messages)}")
 
 
-def _normalize_translations(raw: Any, label: str) -> list[dict[str, str]]:
+def _normalize_translations(raw: Any, label: str, *, published: bool) -> list[dict[str, str]]:
     translations: list[dict[str, str]] = []
     seen_languages: set[str] = set()
     for index, raw_translation in enumerate(_require_list(raw, f"{label}.translations")):
@@ -74,7 +87,7 @@ def _normalize_translations(raw: Any, label: str) -> list[dict[str, str]]:
     publication_errors = course_publication_errors(
         {translation["language"]: CourseTranslation(**translation) for translation in translations}
     )
-    if publication_errors:
+    if published and publication_errors:
         raise CommandError(f"{label}: {'; '.join(publication_errors)}")
     return translations
 
@@ -97,14 +110,9 @@ def load_seed_payload() -> list[SeedCourse]:
         _require_exact_fields(values, COURSE_FIELDS, label)
         if not isinstance(values["is_featured"], bool):
             raise CommandError(f"{label}.is_featured deve ser booleano.")
-        translations = _normalize_translations(values["translations"], label)
-        instance = Course(
-            status=Course.Status.DRAFT,
-            course_type=values["course_type"],
-            external_url=values["external_url"],
-            is_featured=values["is_featured"],
-            display_order=order,
-        )
+        if type(values["display_order"]) is not int:
+            raise CommandError(f"{label}.display_order deve ser inteiro.")
+        instance = Course(**{field: values[field] for field in MODEL_FIELDS})
         try:
             instance.full_clean(validate_constraints=False)
         except ValidationError as error:
@@ -112,23 +120,35 @@ def load_seed_payload() -> list[SeedCourse]:
         if instance.external_url in seen_urls:
             raise CommandError(f"courses contém a URL duplicada {instance.external_url}.")
         seen_urls.add(instance.external_url)
+        translations = _normalize_translations(
+            values["translations"], label, published=instance.status == Course.Status.PUBLISHED
+        )
+        cover = None
+        filename = values["cover"]
+        if filename is not None:
+            if not isinstance(filename, str) or not filename or Path(filename).name != filename:
+                raise CommandError(f"{label}.cover deve conter somente o nome do arquivo.")
+            directory = (MANIFEST_PATH.parent / "covers").resolve()
+            cover = (directory / filename).resolve()
+            if not cover.is_relative_to(directory):
+                raise CommandError(f"{label}.cover está fora da pasta de seed.")
+            try:
+                with cover.open("rb") as source:
+                    validate_course_cover(File(source, name=filename))
+            except (OSError, ValidationError) as exc:
+                raise CommandError(f"Não foi possível carregar a capa {filename}: {exc}") from exc
         payload.append(
             SeedCourse(
-                values={
-                    "status": instance.status,
-                    "course_type": instance.course_type,
-                    "external_url": instance.external_url,
-                    "is_featured": instance.is_featured,
-                    "display_order": instance.display_order,
-                },
+                values={field: getattr(instance, field) for field in MODEL_FIELDS},
                 translations=translations,
+                cover=cover,
             )
         )
     return payload
 
 
 class Command(BaseCommand):
-    help = "Cria os cursos e tutoriais externos iniciais como rascunhos."
+    help = "Restaura os cursos e tutoriais iniciais com seus dados, capas e status."
 
     def handle(self, *args, **options) -> None:
         payload = load_seed_payload()
@@ -140,16 +160,36 @@ class Command(BaseCommand):
             )
             return
 
-        with transaction.atomic():
-            for item in payload:
-                course = Course.objects.create(**item.values)
-                CourseTranslation.objects.bulk_create(
-                    CourseTranslation(course=course, **translation)
-                    for translation in item.translations
-                )
+        created_files = []
+        try:
+            with transaction.atomic():
+                for item in payload:
+                    course = Course(**item.values)
+                    if item.cover:
+                        with item.cover.open("rb") as source:
+                            course.cover.save(item.cover.name, File(source), save=False)
+                        created_files.append((course.cover.storage, course.cover.name))
+                    course.save()
+                    CourseTranslation.objects.bulk_create(
+                        CourseTranslation(course=course, **translation)
+                        for translation in item.translations
+                    )
+                    if course.status == Course.Status.PUBLISHED:
+                        course.validate_for_publication()
+        except Exception as exc:
+            for storage, name in created_files:
+                try:
+                    storage.delete(name)
+                except OSError as cleanup_error:
+                    self.stderr.write(f"Não foi possível remover a capa {name}: {cleanup_error}.")
+            if isinstance(exc, OSError):
+                raise CommandError(
+                    f"Não foi possível gravar as capas em MEDIA_ROOT: {exc}"
+                ) from exc
+            raise
 
         self.stdout.write(
             self.style.SUCCESS(
-                f"Carga inicial criada: {len(payload)} cursos e tutoriais em rascunho."
+                f"Carga inicial criada: {len(payload)} cursos e tutoriais com seus status e capas."
             )
         )

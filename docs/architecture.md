@@ -592,8 +592,10 @@ e traduções PT-BR/EN com título e resumo. A primeira publicação definirá
 
 A capa será opcional, validada pelo mecanismo compartilhado e armazenada com nome UUID.
 Sem capa, o frontend exibirá um fallback próprio para cada formato. O seed inicial ficará
-em `scripts/seed/courses/data.json`, criará quatro destaques como rascunhos e não
-sobrescreverá conteúdo editorial existente. Eventos do tipo curso continuarão
+em `scripts/seed/courses/data.json`, restaurará os quatro conteúdos reais com status,
+ordem e capas WebP em `scripts/seed/courses/covers/`, sem sobrescrever conteúdo
+editorial existente. `export_courses_seed` atualizará esse pacote a partir do admin.
+Eventos do tipo curso continuarão
 representando agenda; este módulo representa materiais externos permanentes.
 
 ## 9. API

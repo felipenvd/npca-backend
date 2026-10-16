@@ -1,80 +1,100 @@
 {
   "courses": [
     {
+      "status": "published",
       "course_type": "channel",
       "external_url": "https://www.youtube.com/@nucleodepesquisasemcomputa1776",
       "is_featured": true,
+      "display_order": 0,
+      "published_at": "2026-10-16T02:21:52.345318+00:00",
+      "cover_credit": "",
       "translations": [
         {
-          "language": "pt-br",
-          "title": "Canal oficial do NPCA",
-          "summary": "Acesse aulas, transmissões e conteúdos educativos produzidos pelo núcleo.",
-          "cover_alt_text": ""
+          "cover_alt_text": "",
+          "language": "en",
+          "summary": "The Applied Computing Research Group (NPCA) at the Federal Rural University of the Amazon (UFRA) was created as a unifying force for the development of research in various areas of computer science, such as Computational Intelligence, Computational Biology, Technology, Innovation and Education, Computer Networks, Agricultural Informatics, as well as Health Informatics and Green Computing. Research professors from various UFRA campuses, as well as other external collaborators from partner institutions such as UFPA, IFPA, Uninassau, etc., concentrate their efforts in this direction.",
+          "title": "Applied Computing Research Center"
         },
         {
-          "language": "en",
-          "title": "Official NPCA channel",
-          "summary": "Access classes, broadcasts, and educational content produced by the research center.",
-          "cover_alt_text": ""
+          "cover_alt_text": "",
+          "language": "pt-br",
+          "summary": "O Grupo de Pesquisa Núcleo de Pesquisas em Computação Aplicada (NPCA) da Universidade Federal Rural da Amazônia (UFRA) foi criado como meio aglutinador para desenvolvimento de pesquisas em diversas áreas da ciência da computação, tais como Inteligência Computacional - Biologia Computacional - Tecnologia, Inovação e Educação - Redes de Computadores - Informática Agrária, bem como Informática na Saúde e Computação Verde. Professores Pesquisadores dos diversos campi da UFRA, bem como outros colaboradores externos de Instituições Parceiras, como UFPA, IFPA, Uninassau, etc., concentram esforços nesta direção.",
+          "title": "Núcleo de Pesquisas em Computação Aplicada"
         }
-      ]
+      ],
+      "cover": "nucleo-de-pesquisas-em-computacao-aplicada.webp"
     },
     {
+      "status": "published",
+      "course_type": "course",
+      "external_url": "https://www.youtube.com/playlist?list=PLN2C2-5Bqwx7bdplXiGGx-4KZq__m1TXC",
+      "is_featured": true,
+      "display_order": 1,
+      "published_at": "2026-10-16T02:44:14.170023+00:00",
+      "cover_credit": "",
+      "translations": [
+        {
+          "cover_alt_text": "",
+          "language": "en",
+          "summary": "General Concepts of Machine Learning: Theory and Practice\r\nPROEX/UFRA - CR004-2022\r\nPeriod: April 2, 2022 to June 4, 2022\r\nWorkload: 60 hours",
+          "title": "General Machine Learning Course: Theory and Practice"
+        },
+        {
+          "cover_alt_text": "",
+          "language": "pt-br",
+          "summary": "Noções Gerais de Machine Learning: Teoria e Prática\r\nPROEX/UFRA - CR004-2022\r\nPeríodo: 02/04/2022 a 04/06/2022\r\nCarga Horária: 60h",
+          "title": "Curso de Noções Gerais de Machine Learning: Teoria e Prática"
+        }
+      ],
+      "cover": "curso-de-nocoes-gerais-de-machine-learning-teoria-e-pratica.webp"
+    },
+    {
+      "status": "published",
       "course_type": "course",
       "external_url": "https://www.youtube.com/playlist?list=PLN2C2-5Bqwx4GCCN9Ub7WbocW4FP9GJk8",
       "is_featured": true,
+      "display_order": 2,
+      "published_at": "2026-10-16T02:36:50.521325+00:00",
+      "cover_credit": "",
       "translations": [
         {
-          "language": "pt-br",
-          "title": "Introdução a Machine Learning",
-          "summary": "Fundamentos de aprendizagem de máquina e aplicações práticas.",
-          "cover_alt_text": ""
+          "cover_alt_text": "",
+          "language": "en",
+          "summary": "Introduction to Machine Learning Course: Theoretical and Practical Aspects\r\nPeriod: October 3, 2020 to December 19, 2020\r\nWorkload: 72 hours\r\nUFRA | UFPA",
+          "title": "Introduction to Machine Learning Course: Theoretical and Practical Aspects"
         },
         {
-          "language": "en",
-          "title": "Introduction to Machine Learning",
-          "summary": "Machine learning fundamentals and practical applications.",
-          "cover_alt_text": ""
+          "cover_alt_text": "",
+          "language": "pt-br",
+          "summary": "Curso de Introdução a Machine Learning: Aspectos Teóricos e Práticos\r\nPeríodo: 03/10/2020 a 19/12/2020\r\nCarga Horária: 72h\r\nUFRA | UFPA",
+          "title": "Curso de Introdução a Machine Learning: Aspectos Teóricos e Práticos"
         }
-      ]
+      ],
+      "cover": "curso-de-introducao-a-machine-learning-aspectos-teoricos-e-praticos.webp"
     },
     {
+      "status": "published",
       "course_type": "playlist",
       "external_url": "https://www.youtube.com/playlist?list=PLN2C2-5Bqwx4uaMKP0lZ5xfIWO7-rxyy-",
       "is_featured": true,
+      "display_order": 3,
+      "published_at": "2026-10-16T02:39:59.125173+00:00",
+      "cover_credit": "",
       "translations": [
         {
-          "language": "pt-br",
-          "title": "Redes Neurais Artificiais",
-          "summary": "Conceitos, arquiteturas e aplicações de redes neurais artificiais.",
-          "cover_alt_text": ""
+          "cover_alt_text": "",
+          "language": "en",
+          "summary": "Subject: Artificial Neural Networks\r\n\r\nInstructor: Dr. Marcus de Barros Braga\r\n\r\nCOURSE CONTENT\r\nUnit I – Introduction.\r\n\r\n- Initial concepts. Biological Neuron. Artificial Neuron. Activation Functions.\r\n\r\nHyperparameters.\r\n\r\nUnit II – Architectures.\r\n\r\n- Main Architectures. Machine Learning. Training.\r\n\r\nUnit III – Classical Neural Networks.\r\n\r\n- Perceptron. Multilayer Perceptron. Adaline. RBF. Hopfield. Kohonen.\r\n\r\nUnit IV – Deep Neural Networks.\r\n\r\n- Deep Learning. Deep Learning Algorithms.\r\n\r\nUnit V – Problems and Applications of ANNs.\r\n\r\nFederal Rural University of the Amazon\r\nBachelor's Degree in Information Systems\r\nResearch Center in Applied Computing",
+          "title": "Artificial Neural Networks"
         },
         {
-          "language": "en",
-          "title": "Artificial Neural Networks",
-          "summary": "Concepts, architectures, and applications of artificial neural networks.",
-          "cover_alt_text": ""
-        }
-      ]
-    },
-    {
-      "course_type": "recorded_live",
-      "external_url": "https://www.youtube.com/live/QUFYxlbVK1w",
-      "is_featured": true,
-      "translations": [
-        {
+          "cover_alt_text": "",
           "language": "pt-br",
-          "title": "Visão Computacional",
-          "summary": "Aula gravada sobre fundamentos e técnicas de processamento de imagens.",
-          "cover_alt_text": ""
-        },
-        {
-          "language": "en",
-          "title": "Computer Vision",
-          "summary": "Recorded class on image processing fundamentals and techniques.",
-          "cover_alt_text": ""
+          "summary": "Disciplina: Redes Neurais Artificiais\r\n\r\nDocente: Dr. Marcus de Barros Braga\r\n\r\nCONTEÚDO PROGRAMÁTICO\r\nUnidade I – Introdução.\r\n- Conceitos iniciais. Neurônio Biológico. Neurônio Artificial. Funções de Ativação.\r\nHiperparâmetros.\r\n\r\nUnidade II – Arquiteturas.\r\n- Principais Arquiteturas. Aprendizado de Máquina. Treinamento.\r\n\r\nUnidade III – Redes Neurais Clássicas.\r\n- Perceptron. Multilayer Perceptron. Adaline. RBF. Hopfield. Kohonen.\r\n\r\nUnidade IV – Redes Neurais Profundas.\r\n -Deep Learning. Algoritmos de Deep Learning.\r\n\r\nUnidade V – Problemas e Aplicações de RNAs.\r\n\r\n\r\nUniversidade Federal Rural da Amazônia\r\nBacharelado em Sistemas de Informação\r\nNúcleo de Pesquisa em Computação Aplicada",
+          "title": "Redes Neurais Artificiais"
         }
-      ]
+      ],
+      "cover": "redes-neurais-artificiais.webp"
     }
   ]
 }

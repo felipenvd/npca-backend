@@ -97,11 +97,35 @@ imagens do hero são estáticos e versionados no frontend:
 
 ```bash
 uv run poe seed-labcompap
-uv run poe seed-courses
 ```
 
 O comando não sobrescreve uma página existente. `--force` deve ser usado somente quando
 a substituição integral do conteúdo editorial for intencional.
+
+## Carga inicial dos cursos e tutoriais
+
+O manifesto `scripts/seed/courses/data.json` contém os quatro conteúdos atuais do
+admin, com títulos e resumos bilíngues, links, tipos, destaque, ordem, status e data
+de publicação. As capas WebP ficam em `scripts/seed/courses/covers/`.
+Os dados anteriores foram substituídos pelos cadastros reais do NPCA.
+
+```bash
+uv run poe docker-seed-courses
+```
+
+O comando valida os dados e as capas antes de gravar. Em um banco sem cursos, ele
+restaura os quatro conteúdos, seus status e suas imagens no volume de mídia. Se já
+houver cursos cadastrados, não faz alterações. Uma falha desfaz os novos registros
+e remove as capas criadas por essa execução.
+
+Para atualizar o pacote com os dados do admin no Docker de desenvolvimento:
+
+```bash
+uv run poe docker-export-courses-seed
+```
+
+A exportação gera capas WebP e não modifica os cursos no banco. Os comandos locais
+equivalentes são `uv run poe seed-courses` e `uv run poe export-courses-seed`.
 
 ## Carga inicial dos pesquisadores
 

@@ -21,11 +21,9 @@ def course_data(*, published: bool, complete_english: bool = False) -> dict[str,
         "translations-0-language": "pt-br",
         "translations-0-title": "Introdução à IA",
         "translations-0-summary": "Fundamentos e aplicações.",
-        "translations-0-cover_alt_text": "",
         "translations-1-language": "en",
         "translations-1-title": "Introduction to AI" if complete_english else "",
         "translations-1-summary": "Fundamentals and applications." if complete_english else "",
-        "translations-1-cover_alt_text": "",
         "_save": "Salvar",
     }
 
@@ -45,6 +43,9 @@ def test_admin_exposes_external_link_translations_and_optional_cover(client) -> 
     assert "Imagem de divulgação" in content
     assert "Título *" in strip_tags(content)
     assert "Resumo *" in strip_tags(content)
+    assert "Texto alternativo da imagem" not in content
+    assert 'name="translations-0-cover_alt_text"' not in content
+    assert 'name="translations-1-cover_alt_text"' not in content
     assert "upload de vídeo" not in content.lower()
 
 
@@ -100,3 +101,32 @@ def test_admin_rejects_http_url(client) -> None:
     assert response.status_code == 200
     assert not Course.objects.exists()
     assert "https://" in response.content.decode()
+
+
+@pytest.mark.django_db
+def test_editing_course_preserves_previously_registered_alt_text(admin_client):
+    from apps.core.tests.test_bilingual_admin import FormValues
+
+    created = admin_client.post(
+        reverse("admin:courses_course_add"),
+        course_data(published=True, complete_english=True),
+    )
+    assert created.status_code == 302
+    course = Course.objects.get()
+    course.translations.filter(language="pt-br").update(cover_alt_text="Descrição já cadastrada")
+    course.translations.filter(language="en").update(
+        cover_alt_text="Previously registered description"
+    )
+    url = reverse("admin:courses_course_change", args=[course.pk])
+    page = admin_client.get(url)
+    values = FormValues(page.content.decode(), "course_form").values
+    assert not any("cover_alt_text" in name for name in values)
+    values["_save"] = "Salvar"
+
+    response = admin_client.post(url, values)
+
+    assert response.status_code == 302
+    assert course.translations.get(language="pt-br").cover_alt_text == "Descrição já cadastrada"
+    assert (
+        course.translations.get(language="en").cover_alt_text == "Previously registered description"
+    )

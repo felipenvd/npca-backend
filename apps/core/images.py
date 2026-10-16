@@ -1,8 +1,9 @@
+from io import BytesIO
 from pathlib import PurePath
 
 from django.core.exceptions import ValidationError
 from django.core.files import File
-from PIL import Image, UnidentifiedImageError
+from PIL import Image, ImageCms, ImageOps, UnidentifiedImageError
 
 MAX_IMAGE_SIZE = 5 * 1024 * 1024
 MAX_IMAGE_PIXELS = 20_000_000
@@ -16,6 +17,31 @@ FORMAT_MIME_TYPES = {
     "PNG": "image/png",
     "WEBP": "image/webp",
 }
+
+
+def webp_image(content):
+    """Export a full-size, upright WebP without recompressing existing WebP assets."""
+    with Image.open(BytesIO(content)) as original:
+        if original.format == "WEBP":
+            return content
+        image = ImageOps.exif_transpose(original)
+        mode = "RGBA" if "A" in image.getbands() or "transparency" in image.info else "RGB"
+        profile = original.info.get("icc_profile")
+        if profile:
+            try:
+                image = ImageCms.profileToProfile(
+                    image,
+                    ImageCms.ImageCmsProfile(BytesIO(profile)),
+                    ImageCms.createProfile("sRGB"),
+                    outputMode=mode,
+                )
+            except ImageCms.PyCMSError:
+                image = image.convert(mode)
+        else:
+            image = image.convert(mode)
+        output = BytesIO()
+        image.save(output, "WEBP", quality=90, method=6)
+        return output.getvalue()
 
 
 def validate_content_image(upload: File, *, label: str) -> None:

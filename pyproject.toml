@@ -50,6 +50,10 @@ cmd = "python manage.py seed_labcompap"
 help = "Cria os cursos e tutoriais externos iniciais"
 cmd = "python manage.py seed_courses"
 
+[tool.poe.tasks.export-courses-seed]
+help = "Atualiza o seed com os cursos e capas do banco atual"
+cmd = "python manage.py export_courses_seed"
+
 [tool.poe.tasks.seed-demo]
 help = "Preenche todas as áreas do admin com dados fictícios para testes locais"
 cmd = "python manage.py seed_demo"
@@ -132,6 +136,11 @@ executor = "simple"
 [tool.poe.tasks.docker-seed-courses]
 help = "Cria os cursos e tutoriais iniciais no ambiente Docker de desenvolvimento"
 cmd = "docker compose -f compose.yaml -f compose.dev.yaml exec backend uv run --no-sync python manage.py seed_courses"
+executor = "simple"
+
+[tool.poe.tasks.docker-export-courses-seed]
+help = "Atualiza o seed com os cursos e capas do Docker"
+cmd = "docker compose -f compose.yaml -f compose.dev.yaml exec backend uv run --no-sync python manage.py export_courses_seed"
 executor = "simple"
 
 [tool.poe.tasks.docker-seed-demo]

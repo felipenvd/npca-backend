@@ -19,7 +19,7 @@ class CourseTranslationInline(BilingualTranslationInline):
         (
             None,
             {
-                "fields": ("language", "title", "summary", "cover_alt_text"),
+                "fields": ("language", "title", "summary"),
                 "description": (
                     "Título e resumo são obrigatórios nos dois idiomas para publicar, "
                     "mas podem ficar vazios enquanto o registro for um rascunho."

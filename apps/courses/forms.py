@@ -44,15 +44,11 @@ class CourseForm(forms.ModelForm):
 class CourseTranslationForm(forms.ModelForm):
     class Meta:
         model = CourseTranslation
-        fields = ("language", "title", "summary", "cover_alt_text")
+        fields = ("language", "title", "summary")
         labels = {"title": "Título *", "summary": "Resumo *"}
         help_texts = {
             "title": "Obrigatório para publicar.",
             "summary": "Obrigatório para publicar.",
-            "cover_alt_text": (
-                "Descreva a imagem quando ela transmitir informação relevante. "
-                "Deixe vazio quando for apenas decorativa."
-            ),
         }
 
     def __init__(self, *args, **kwargs) -> None:

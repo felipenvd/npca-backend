@@ -1,39 +1,14 @@
 import json
-from io import BytesIO
 from pathlib import Path
 
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from django.utils.text import slugify
-from PIL import Image, ImageCms, ImageOps
 
+from apps.core.images import webp_image
 from apps.researchers.models import Researcher
 
 from .seed_researchers import PHOTO_FIELDS, RESEARCHER_FIELDS, SEED_ROOT, TRANSLATION_FIELDS
-
-
-def webp_image(content):
-    with Image.open(BytesIO(content)) as original:
-        if original.format == "WEBP":
-            return content
-        image = ImageOps.exif_transpose(original)
-        mode = "RGBA" if "A" in image.getbands() or "transparency" in image.info else "RGB"
-        profile = original.info.get("icc_profile")
-        if profile:
-            try:
-                image = ImageCms.profileToProfile(
-                    image,
-                    ImageCms.ImageCmsProfile(BytesIO(profile)),
-                    ImageCms.createProfile("sRGB"),
-                    outputMode=mode,
-                )
-            except ImageCms.PyCMSError:
-                image = image.convert(mode)
-        else:
-            image = image.convert(mode)
-        output = BytesIO()
-        image.save(output, "WEBP", quality=90, method=6)
-        return output.getvalue()
 
 
 def previous_photo_names(root):
