@@ -166,6 +166,12 @@ A quarta fatia vertical está implementada e validada na branch `develop`.
 - DOI opcional normalizado e único sem diferenciar maiúsculas de minúsculas;
 - acesso ao artigo por DOI ou URL externa, sem upload de PDF;
 - projeto relacionado opcional;
+- `seed_publications` restaura quatro publicações reais com oito traduções, 36 autorias
+  ordenadas e quatro capas WebP de `scripts/seed/publications/`;
+- executar `seed_researchers` primeiro para resolver os autores cadastrados por nome;
+  autores externos permanecem externos e publicações existentes não são sobrescritas;
+- `export_publications_seed` atualiza esse pacote com os dados e imagens atuais do admin;
+- tarefas Poe locais e Docker disponíveis para os dois comandos;
 - projeto só é exposto quando estiver publicado e traduzido no idioma solicitado;
 - `published_at` preservado após arquivamento, rascunho ou republicação;
 - migration `publications.0001_initial` criada e aplicada no PostgreSQL de desenvolvimento;

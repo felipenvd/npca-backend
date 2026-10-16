@@ -54,6 +54,14 @@ cmd = "python manage.py seed_courses"
 help = "Atualiza o seed com os cursos e capas do banco atual"
 cmd = "python manage.py export_courses_seed"
 
+[tool.poe.tasks.seed-publications]
+help = "Cria as publicações iniciais com autores, traduções e capas"
+cmd = "python manage.py seed_publications"
+
+[tool.poe.tasks.export-publications-seed]
+help = "Atualiza o seed com as publicações, autores e capas do banco atual"
+cmd = "python manage.py export_publications_seed"
+
 [tool.poe.tasks.seed-demo]
 help = "Preenche todas as áreas do admin com dados fictícios para testes locais"
 cmd = "python manage.py seed_demo"
@@ -141,6 +149,16 @@ executor = "simple"
 [tool.poe.tasks.docker-export-courses-seed]
 help = "Atualiza o seed com os cursos e capas do Docker"
 cmd = "docker compose -f compose.yaml -f compose.dev.yaml exec backend uv run --no-sync python manage.py export_courses_seed"
+executor = "simple"
+
+[tool.poe.tasks.docker-seed-publications]
+help = "Cria as publicações iniciais no Docker após seed-researchers"
+cmd = "docker compose -f compose.yaml -f compose.dev.yaml exec backend uv run --no-sync python manage.py seed_publications"
+executor = "simple"
+
+[tool.poe.tasks.docker-export-publications-seed]
+help = "Atualiza o seed com as publicações, autores e capas do Docker"
+cmd = "docker compose -f compose.yaml -f compose.dev.yaml exec backend uv run --no-sync python manage.py export_publications_seed"
 executor = "simple"
 
 [tool.poe.tasks.docker-seed-demo]

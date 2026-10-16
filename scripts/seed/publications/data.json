@@ -1,0 +1,312 @@
+{
+  "publications": [
+    {
+      "status": "published",
+      "year": 2023,
+      "venue": "PLoS ONE 18(11): e0291138.",
+      "doi": "10.1371/journal.pone.0291138",
+      "external_url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0291138#:~:text=Google%20Scholar-,Download%20PDF,-Print",
+      "display_order": 0,
+      "published_at": "2026-10-16T12:58:58.570112+00:00",
+      "cover_credit": "",
+      "translations": [
+        {
+          "language": "en",
+          "title": "Deep learning framework for epidemiological forecasting: A study on COVID-19 cases and deaths in the Amazon state of Pará, Brazil",
+          "abstract": "Modeling time series has been a particularly challenging aspect due to the need for constant\r\nadjustments in a rapidly changing environment, data uncertainty, dependencies between\r\nvariables, volatile fluctuations, and the need to identify ideal hyperparameters. The present\r\nstudy presents a Framework capable of making projections from time series related to\r\ncases and deaths by COVID-19 in the Amazonian state of Para´, in Brazil. For the first time,\r\ndeep learning models such as TCN, TRANSFORMER, TFT, N-BEATS, and N-HiTS were\r\nassessed for this purpose. The ARIMA statistical model was also used in post-processing\r\nfor residual adjustment and short-term smoothing of the generated forecasts. The Framework generates probabilistic forecasts, with multivariate support, considering the following\r\nvariables: daily cases per day of the first symptom, cases published daily, the occurrence of\r\ndeaths, deaths published daily, and percentage of daily vaccination. The generated predictions are statistically evaluated by determining the best model for 7-day moving average\r\nprojections using evaluating metrics such as MSE, RMSE, MAPE, sMAPE, r\r\n2\r\n, Coefficient of\r\nVariation, and residual analysis. As a result, the generated projections showed an average\r\nerror of 5.4% for Cases Publication, 8.0% for Cases Symptoms, 11.12% for Deaths Publication, and 4.6% for Deaths Occurrence, with the N-HiTS and N-BEATS models obtaining better results. In general terms, the use of deep learning models to predict cases and deaths\r\nfrom COVID-19 has proven to be a valuable practice for analyzing the spread of the virus,\r\nwhich allows health managers to better understand and respond to this kind of pandemic\r\noutbreak.",
+          "cover_alt_text": "",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "title": "Deep learning framework for epidemiological forecasting: A study on COVID-19 cases and deaths in the Amazon state of Pará, Brazil",
+          "abstract": "Modeling time series has been a particularly challenging aspect due to the need for constant\r\nadjustments in a rapidly changing environment, data uncertainty, dependencies between\r\nvariables, volatile fluctuations, and the need to identify ideal hyperparameters. The present\r\nstudy presents a Framework capable of making projections from time series related to\r\ncases and deaths by COVID-19 in the Amazonian state of Para´, in Brazil. For the first time,\r\ndeep learning models such as TCN, TRANSFORMER, TFT, N-BEATS, and N-HiTS were\r\nassessed for this purpose. The ARIMA statistical model was also used in post-processing\r\nfor residual adjustment and short-term smoothing of the generated forecasts. The Framework generates probabilistic forecasts, with multivariate support, considering the following\r\nvariables: daily cases per day of the first symptom, cases published daily, the occurrence of\r\ndeaths, deaths published daily, and percentage of daily vaccination. The generated predictions are statistically evaluated by determining the best model for 7-day moving average\r\nprojections using evaluating metrics such as MSE, RMSE, MAPE, sMAPE, r\r\n2\r\n, Coefficient of\r\nVariation, and residual analysis. As a result, the generated projections showed an average\r\nerror of 5.4% for Cases Publication, 8.0% for Cases Symptoms, 11.12% for Deaths Publication, and 4.6% for Deaths Occurrence, with the N-HiTS and N-BEATS models obtaining better results. In general terms, the use of deep learning models to predict cases and deaths\r\nfrom COVID-19 has proven to be a valuable practice for analyzing the spread of the virus,\r\nwhich allows health managers to better understand and respond to this kind of pandemic\r\noutbreak.",
+          "cover_alt_text": "",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "authors": [
+        {
+          "researcher": "Gilberto Nerino de Souza Junior",
+          "external_name": "",
+          "display_order": 0
+        },
+        {
+          "researcher": null,
+          "external_name": "Alícia Graziella Balbino Mendes",
+          "display_order": 1
+        },
+        {
+          "researcher": null,
+          "external_name": "Joaquim dos Santos Costa",
+          "display_order": 2
+        },
+        {
+          "researcher": null,
+          "external_name": "Mikeias dos Santos Oliveira",
+          "display_order": 3
+        },
+        {
+          "researcher": null,
+          "external_name": "Paulo Victor Cunha Lima",
+          "display_order": 4
+        },
+        {
+          "researcher": null,
+          "external_name": "Vitor Nunes de Moraes",
+          "display_order": 5
+        },
+        {
+          "researcher": null,
+          "external_name": "David Costa Correia Silva",
+          "display_order": 6
+        },
+        {
+          "researcher": null,
+          "external_name": "Jonas Elias Castro da Rocha",
+          "display_order": 7
+        },
+        {
+          "researcher": null,
+          "external_name": "Marcel do Nascimento Botelho",
+          "display_order": 8
+        },
+        {
+          "researcher": null,
+          "external_name": "Fabricio Almeida Araujo",
+          "display_order": 9
+        },
+        {
+          "researcher": null,
+          "external_name": "Rafael da Silva Fernandes",
+          "display_order": 10
+        },
+        {
+          "researcher": null,
+          "external_name": "Daniel Leal Souza",
+          "display_order": 11
+        },
+        {
+          "researcher": null,
+          "external_name": "Marcus de Barros Braga",
+          "display_order": 12
+        }
+      ],
+      "project": null,
+      "cover": "deep-learning-framework-for-epidemiological-forecasting-a-study-on-covid-19-cases-and-deaths-in-the--1.webp"
+    },
+    {
+      "status": "published",
+      "year": 2023,
+      "venue": "REVISTA OBSERVATORIO DE LA ECONOMIA LATINOAMERICANA  Curitiba, v.21, n.12, p. 25917-25937. 2023.",
+      "doi": "10.55905/oelv21n12-133",
+      "external_url": "https://ojs.observatoriolatinoamericano.com/ojs/index.php/olel/article/view/2277/1759",
+      "display_order": 0,
+      "published_at": "2026-10-16T13:35:14.555545+00:00",
+      "cover_credit": "",
+      "translations": [
+        {
+          "language": "en",
+          "title": "Classification of plantations from RPA images using deep learning",
+          "abstract": "In  this  study,  we  explored  the  application  of  Deep  Learning  techniques  for  the classification  of  coconut  plantations  from  images  collected  by  a  Remotely  Piloted Aircraft  (RPA).  A  Convolutional  Neural  Network  was  used  to  create  a  model  that classifies images into two categories: coconut and non-coconut. The model achieved an accuracy  of  88%,  concluding  that  Deep  Learning  techniques  are  viable  tools  for  the identification of plants in large areas, with the potential to improve the management of agricultural crops.",
+          "cover_alt_text": "",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "title": "Classificação de plantações a partir de imagens de RPA utilizando deep learning",
+          "abstract": "Neste  estudo,  foi  explorado  a  aplicação  de  técnicas  de  Aprendizado  Profundo(Deep Learning)  para  a  classificação  de  plantações  de  coqueiro  a  partir  de  imagens  coletadas por uma aeronave remotamente pilotada (RPA). Foi utilizado Rede Neural Convolucional para criação de um modelo que classifica imagens em duas categorias: coqueiroe não-coqueiro. O modelo obteve a acurácia de 88%, concluindo que técnicas de Deep Learning são ferramentas viáveis para a identificação de plantas em áreas de grande extensão, com potencial para melhorar a gestão de culturas agrícolas",
+          "cover_alt_text": "",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "authors": [
+        {
+          "researcher": null,
+          "external_name": "Luiz Henrique Dias Ramos",
+          "display_order": 0
+        },
+        {
+          "researcher": null,
+          "external_name": "Maria Eliana da Silva Holanda",
+          "display_order": 1
+        },
+        {
+          "researcher": null,
+          "external_name": "João Pedro dos Santos Verçosa",
+          "display_order": 2
+        },
+        {
+          "researcher": null,
+          "external_name": "Gustavo Antonio Ruffeil Alves",
+          "display_order": 3
+        },
+        {
+          "researcher": null,
+          "external_name": "Arthur Costa Falcão Tavares",
+          "display_order": 4
+        },
+        {
+          "researcher": "Fabricio Almeida Araujo",
+          "external_name": "",
+          "display_order": 5
+        },
+        {
+          "researcher": "Gilberto Nerino de Souza Junior",
+          "external_name": "",
+          "display_order": 6
+        },
+        {
+          "researcher": "Marcus de Barros Braga",
+          "external_name": "",
+          "display_order": 7
+        }
+      ],
+      "project": null,
+      "cover": "classificacao-de-plantacoes-a-partir-de-imagens-de-rpa-utilizando-deep-learning-2.webp"
+    },
+    {
+      "status": "published",
+      "year": 2023,
+      "venue": "2023: ANAIS DO XIV WORKSHOP DE COMPUTAÇÃO APLICADA À GESTÃO DO MEIO AMBIENTE E RECURSOS NATURAIS",
+      "doi": "10.5753/wcama.2023.229564",
+      "external_url": "https://sol.sbc.org.br/index.php/wcama/article/view/25098",
+      "display_order": 0,
+      "published_at": "2026-10-16T13:42:19.930720+00:00",
+      "cover_credit": "",
+      "translations": [
+        {
+          "language": "en",
+          "title": "Projections of livestock production and pasture coverage area using ARIMA modeling with a hierarchical approach for the state of Pará and its regions.",
+          "abstract": "Livestock in the territory of Pará offers planning challenges for both the\r\nstate and the private sector, with consequences of herd expansion impacting\r\neconomic and socio-environmental variables. This article presents a study on\r\nlivestock projections in terms of production and pasture coverage area using ARIMA\r\n(AutoRegressive Integrated Moving Average) modeling through the hierarchical\r\napproach. A short-term time series data analysis framework was developed, covering\r\ndata referring to the state of Pará between the years 1985 to 2021, with projections\r\nuntil 2026. The results indicate an increase of 19% in the number of cattle and 1.5%\r\nin pasture areas in the state of Pará, revealing an increase in productivity in the\r\nMarabá region, as well as stabilization in the Redenção region.",
+          "cover_alt_text": "",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "title": "Projeções da produção de rebanhos e área de cobertura de pastagem usando modelagem ARIMA com abordagem hierárquica para o estado do Pará e suas regiões",
+          "abstract": "A pecuária no território paraense oferece desafios de planejamento tanto\r\npara o estado, quanto para iniciativa privada, com consequências da expansão do\r\nrebanho impactando em variáveis econômicas e socioambientais. Este artigo\r\napresenta um estudo sobre projeções de produção de rebanhos e área de cobertura\r\nde pastagem utilizando a modelagem ARIMA (AutoRegressive Integrated Moving\r\nAverage) por meio da abordagem hierárquica. Foi desenvolvido um framework de\r\nanálise de dados de séries temporais de curto prazo, abrangendo dados referentes\r\nao estado do Pará e suas regiões entre os anos de 1985 e 2021, com projeções até\r\n2026. Os resultados indicam um aumento de 19% de efetivo bovino e 1,5% nas áreas\r\nde pastagem do estado do Pará, revelando um aumento de produtividade na região\r\nde Marabá, bem como uma estabilização na região de Redenção",
+          "cover_alt_text": "",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "authors": [
+        {
+          "researcher": null,
+          "external_name": "Mikeias S. Oliveira",
+          "display_order": 1
+        },
+        {
+          "researcher": null,
+          "external_name": "Rafael S. Fernandes",
+          "display_order": 2
+        },
+        {
+          "researcher": null,
+          "external_name": "Marcio R. S. Melo",
+          "display_order": 3
+        },
+        {
+          "researcher": null,
+          "external_name": "Daniel L. Souza",
+          "display_order": 4
+        },
+        {
+          "researcher": null,
+          "external_name": "David C. C. Silva",
+          "display_order": 5
+        },
+        {
+          "researcher": "Gilberto Nerino de Souza Junior",
+          "external_name": "",
+          "display_order": 6
+        },
+        {
+          "researcher": "Marcus de Barros Braga",
+          "external_name": "",
+          "display_order": 7
+        }
+      ],
+      "project": null,
+      "cover": "projecoes-da-producao-de-rebanhos-e-area-de-cobertura-de-pastagem-usando-modelagem-arima-com-abordag-3.webp"
+    },
+    {
+      "status": "published",
+      "year": 2022,
+      "venue": "International Journal for Innovation Education and Research. Vol. 10. N. 11 (2022). pg. 210.",
+      "doi": "10.31686/ijier.vol10.iss11.4004",
+      "external_url": "https://scholarsjournal.net/ijier/article/view/4004",
+      "display_order": 0,
+      "published_at": "2026-10-16T13:48:29.052775+00:00",
+      "cover_credit": "",
+      "translations": [
+        {
+          "language": "en",
+          "title": "Early detection of weed in sugarcane using convolutional neural network",
+          "abstract": "Weed infestation is an essential factor in sugarcane productivity loss. The use of remote sensing data in\r\nconjunction with Artificial Intelligence (AI) techniques, can lead the cultivation of sugarcane to a new level in\r\nterms of weed control. For this purpose, an algorithm based on Convolutional Neural Networks (CNN) was\r\ndeveloped to detect, quantify, and map weeds in sugarcane areas located in the state of Alagoas, Brazil.\r\nImages of the PlanetScope satellite were subdivided, separated, trained in different scenarios, classified and\r\ngeoreferenced, producing a map with weed information included. Scenario one of the CNN training and test\r\npresented overall accuracy (0,983), and it was used to produce the final mapping of forest areas, sugarcane,\r\nand weed infestation. The quantitative analysis of the area (ha) infested by weed indicated a high probability\r\nof a negative impact on sugarcane productivity. It is recommended that the adequacy of CNN’s algorithm for\r\nRemotely Piloted Aircraft (RPA) images be carried out, aiming at the differentiation between weed species,\r\nas well as its application in the detection in areas with different culture crops.",
+          "cover_alt_text": "",
+          "seo_title": "",
+          "seo_description": ""
+        },
+        {
+          "language": "pt-br",
+          "title": "Early detection of weed in sugarcane using convolutional neural network",
+          "abstract": "Weed infestation is an essential factor in sugarcane productivity loss. The use of remote sensing data in\r\nconjunction with Artificial Intelligence (AI) techniques, can lead the cultivation of sugarcane to a new level in\r\nterms of weed control. For this purpose, an algorithm based on Convolutional Neural Networks (CNN) was\r\ndeveloped to detect, quantify, and map weeds in sugarcane areas located in the state of Alagoas, Brazil.\r\nImages of the PlanetScope satellite were subdivided, separated, trained in different scenarios, classified and\r\ngeoreferenced, producing a map with weed information included. Scenario one of the CNN training and test\r\npresented overall accuracy (0,983), and it was used to produce the final mapping of forest areas, sugarcane,\r\nand weed infestation. The quantitative analysis of the area (ha) infested by weed indicated a high probability\r\nof a negative impact on sugarcane productivity. It is recommended that the adequacy of CNN’s algorithm for\r\nRemotely Piloted Aircraft (RPA) images be carried out, aiming at the differentiation between weed species,\r\nas well as its application in the detection in areas with different culture crops.",
+          "cover_alt_text": "",
+          "seo_title": "",
+          "seo_description": ""
+        }
+      ],
+      "authors": [
+        {
+          "researcher": null,
+          "external_name": "João Pedro do Santos Verçosa",
+          "display_order": 1
+        },
+        {
+          "researcher": null,
+          "external_name": "Flávio Henrique dos Santos Silva",
+          "display_order": 2
+        },
+        {
+          "researcher": "Fabricio Almeida Araujo",
+          "external_name": "",
+          "display_order": 3
+        },
+        {
+          "researcher": null,
+          "external_name": "Regla Toujaguez la Rosa Massahud",
+          "display_order": 4
+        },
+        {
+          "researcher": null,
+          "external_name": "Francisco Rafael da Silva Pereira",
+          "display_order": 5
+        },
+        {
+          "researcher": null,
+          "external_name": "Henrique Ravi Rocha de Carvalho Almeida",
+          "display_order": 6
+        },
+        {
+          "researcher": "Marcus de Barros Braga",
+          "external_name": "",
+          "display_order": 7
+        },
+        {
+          "researcher": null,
+          "external_name": "Arthur Costa Falcão Tavares",
+          "display_order": 8
+        }
+      ],
+      "project": null,
+      "cover": "early-detection-of-weed-in-sugarcane-using-convolutional-neural-network-4.webp"
+    }
+  ]
+}

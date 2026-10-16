@@ -534,6 +534,16 @@ com nome UUID. O crédito será global e o texto alternativo localizado poderá 
 quando a imagem for apenas decorativa. Cards e detalhes usarão um fallback visual próprio
 quando não houver imagem.
 
+O acervo inicial de publicações será versionado em `scripts/seed/publications/data.json`,
+com quatro artigos reais, traduções PT-BR/EN e capas WebP em `covers/`.
+`export_publications_seed` exportará o cadastro atual, incluindo status, datas, SEO,
+links, projeto relacionado e ordem dos autores, sem IDs de relacionamentos do banco.
+`seed_publications` validará o pacote antes de gravar e copiará as capas pelo storage
+do Django, com rollback dos registros e limpeza das novas mídias em caso de falha.
+Autores cadastrados serão resolvidos por nome completo, após `seed_researchers`;
+nomes externos permanecerão externos. Publicações existentes serão preservadas por
+DOI ou, quando ausente, por título, ano e periódico/evento.
+
 Eventos serão a quinta implementação do padrão bilíngue. Rascunhos poderão permanecer
 incompletos; a publicação exigirá tipo, modalidade, período válido e traduções PT-BR e EN
 com título, slug, resumo e descrição. Eventos presenciais exigirão local e endereço;

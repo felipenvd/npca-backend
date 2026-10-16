@@ -244,8 +244,18 @@ docker compose -f compose.yaml -f compose.production.yaml exec backend \
 
 docker compose -f compose.yaml -f compose.production.yaml exec backend \
   uv run --no-sync python manage.py seed_researchers
+
+docker compose -f compose.yaml -f compose.production.yaml exec backend \
+  uv run --no-sync python manage.py seed_publications
 ```
 
 Ela não é executada automaticamente no startup nem pelo serviço `setup`.
+
+Execute `seed_researchers` antes de `seed_publications` para vincular os autores cadastrados.
+O seed de publicações inclui quatro artigos reais, traduções PT-BR/EN, 36 autorias,
+links DOI/externos e quatro capas WebP em `scripts/seed/publications/`. Reexecuções
+criam somente publicações ausentes e preservam as existentes. Para atualizar o pacote
+com os dados do admin, use `python manage.py export_publications_seed` ou, no ambiente
+Docker de desenvolvimento, `uv run poe docker-export-publications-seed`.
 
 Consulte a [arquitetura do projeto](docs/architecture.md) para decisões de dados, mídia, segurança e deploy.
